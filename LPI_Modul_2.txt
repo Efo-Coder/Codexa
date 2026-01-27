@@ -1,0 +1,2115 @@
+032.1 Modul 2
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+032 HTML-Dokument-Markup
+
+Lernziel:	
+032.1 Aufbau eines HTML-Dokuments
+
+Einführung
+HTML (HyperText Markup Language) ist eine Auszeichnungssprache, die Webbrowsern mitteilt, wie Webseiten zu strukturieren und anzuzeigen sind. Die aktuelle Version ist 5.0 aus dem Jahr 2012. Die HTML-Syntax wird vom World Wide Web Consortium (W3C) definiert.
+
+HTML ist Grundwissen in der Webentwicklung, da es die Struktur und einen großen Teil des Aussehens einer Website bestimmt. Für eine professionelle Beschäftigung mit Webentwicklung ist HTML definitiv ein guter Ausgangspunkt.
+
+Aufbau eines HTML-Dokuments
+Eine einfache HTML-Seite hat die folgende Struktur:
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My HTML Page</title>
+    <!-- This is the Document Header -->
+  </head>
+
+  <body>
+    <!-- This is the Document Body -->
+  </body>
+</html>
+Schauen wir uns dies im Detail an!
+
+HTML-Tags
+HTML verwendet Elemente und Tags zur Beschreibung und Formatierung von Inhalten. Tags bestehen aus spitzen Klammern um einen Tag-Namen, zum Beispiel <title>. Beim Tag-Namen wird nicht zwischen Groß- und Kleinschreibung unterschieden, obwohl das World Wide Web Consortium (W3C) empfiehlt, in den aktuellen Versionen von HTML Kleinbuchstaben zu verwenden. Diese HTML-Tags dienen dem Aufbau von HTML-Elementen. Das Tag <title> ist ein Beispiel für ein öffnendes Tag (opening tag) eines HTML-Elements, das den Titel eines HTML-Dokuments definiert. Ein Element hat jedoch zwei weitere Komponenten. Ein vollständiges <title>-Element sieht wie folgt aus:
+
+<title>My HTML Page</title>
+Hier ist My HTML Page der Inhalt oder Content des Elements, während </title> als schließendes (closing) Tag dient, des markiert, dass dieses Element vollständig ist.
+
+Note
+Nicht alle HTML-Elemente müssen geschlossen sein; in solchen Fällen spricht man von leeren (empty), selbstschließenden (self-closing) oder void Elementen.
+
+Hier sind die anderen HTML-Elemente aus dem vorherigen Beispiel:
+
+<html>
+Schließt das gesamte HTML-Dokument ein. Es enthält alle Tags, aus denen die Seite besteht. Es zeigt auch an, dass der Inhalt dieser Datei in HTML geschrieben ist. Das entsprechende schließende Tag ist </html>.
+
+<head>
+Ein Container für alle Meta-Informationen über die Seite. Das entsprechende schließende Tag dieses Elements ist </head>.
+
+<body>
+Ein Container für den Seiteninhalt und seine strukturelle Darstellung. Das entsprechende schließende Tag ist </body>.
+
+Die Tags <html>, <head>, <body> und <title> sind sogenannte Skelett-Tags, die die Grundstruktur eines HTML-Dokuments bilden. Sie teilen dem Webbrowser insbesondere mit, dass er eine HTML-Seite liest.
+
+Note
+Das einzige dieser HTML-Elemente, das für die Validierung eines HTML-Dokuments erforderlich ist, ist das Tag <title>.
+
+Jede HTML-Seite ist also ein wohlstrukturiertes Dokument, das man auch als Baum mit dem Element <html> als Wurzel des Dokuments darstellen kann — die Elemente <head> und <body> sind demnach die ersten Äste. Das Beispiel zeigt, dass man Elemente verschachteln kann: Das Element <title> ist etwa in das Element <head> eingebettet, das wiederum im Element <html> liegt.
+
+Um sicherzustellen, dass HTML-Code lesbar und wartbar ist, sollten Sie alle HTML-Elemente richtig und in der richtigen Reihenfolge schließen. Webbrowser können Ihre Website zwar möglicherweise immer noch wie erwartet darstellen, aber die falsche Verschachtelung von Elementen und deren Tags ist eine häufige Ursache für Fehler.
+
+Eine besondere Erwähnung verdient schließlich die Doctype-Deklaration ganz oben in der Struktur des Beispieldokuments. <!DOCTYPE> ist kein HTML-Tag, sondern eine Anweisung für den Webbrowser, die die im Dokument verwendete HTML-Version angibt. In der zuvor gezeigten grundlegenden HTML-Dokumentstruktur steht <!DOCTYPE html> — damit ist angezeigt, dass dieses Dokument HTML5 nutzt.
+
+HTML-Kommentare
+Bei der Erstellung einer HTML-Seite ist es gute Praxis, Kommentare in den Code einzufügen, um die Lesbarkeit zu verbessern und den Zweck größerer Codeblöcke zu beschreiben. Ein Kommentar steht zwischen den Tags <!-- und -->:
+
+<!-- This is a comment. -->
+
+<!--
+    This is a
+    multiline
+    comment.
+-->
+Das Beispiel zeigt, dass HTML-Kommentare in einer einzigen Zeile stehen, sich aber auch über mehrere Zeilen erstrecken können. In jedem Fall hat dies zur Folge, dass der Text zwischen <!-- und --> vom Webbrowser ignoriert und daher in der HTML-Seite nicht angezeigt wird. Daraus folgt, dass die im vorangegangenen Abschnitt gezeigte HTML-Basisseite keinen Text anzeigt, da die Zeilen <!-- This is the Document Header --> und <!-- This is the Document Body --> nur zwei Kommentare sind.
+
+Warning
+Kommentare können nicht verschachtelt werden.
+
+HTML-Attribute
+HTML-Tags können ein oder mehrere Attribute enthalten, um Einzelheiten des HTML-Elements anzugeben. Ein einfaches Tag mit zwei Attributen hat die folgende Form:
+
+<tag attribute-a="value-a" attribute-b="value-b">
+Die Attribute müssen immer im öffnenden Tag stehen.
+
+Ein Attribut besteht aus einem Namen, der die zu setzende Eigenschaft angibt, einem Gleichheitszeichen und dem gewünschten Wert in Anführungszeichen. Sowohl einfache als auch doppelte Anführungszeichen sind zulässig, es wird jedoch empfohlen, im gesamten Projekt durchgängig einfache oder doppelte Anführungszeichen zu verwenden. Es ist wichtig, einfache und doppelte Anführungszeichen bei einem einzelnen Attributwert nicht zu mischen, da der Webbrowser diesen sonst nicht als Einheit erkennt.
+
+Note
+Sie können eine Art von Anführungszeichen ohne Probleme in die andere Art einschließen. Wenn Sie zum Beispiel ' in einem Attributwert verwenden müssen, können Sie diesen Wert in " einschließen. Um jedoch dieselbe Art von Anführungszeichen innerhalb des Wertes zu verwenden, die Sie auch für die Umschließung des Wertes nutzen, setzen Sie &quot; für " und &apos; für '.
+
+Bei Attributen unterscheidet man Kernattribute und spezifische Attribute, die wir uns im Folgenden ansehen.
+
+Kernattribute
+Kernattribute sind solche, die in jedem HTML-Element zur Verfügung stehen. Das sind:
+
+title
+Beschreibt den Inhalt des Elements. Sein Wert wird oft als Tooltip angezeigt, der erscheint, wenn der Benutzer den Mauszeiger über das Element bewegt.
+
+id
+Verknüpft einen eindeutigen Bezeichner mit einem Element. Dieser Bezeichner muss innerhalb des Dokuments eindeutig sein. Das Dokument ist nicht valide, wenn mehrere Elemente dieselbe id haben.
+
+style
+Weist dem Element grafische Eigenschaften (CSS-Stile) zu.
+
+class
+Gibt eine oder mehrere Klassen für das Element in einer durch Leerzeichen getrennten Liste von Klassennamen an. Diese Klassen können in CSS-Stylesheets referenziert werden.
+
+lang
+Gibt die Sprache des Elementinhalts unter Verwendung der zweistelligen ISO-639-Standard-Sprachcodes an.
+
+Note
+Als Entwickler können Sie Informationen über ein Element in einem data-Attribut ablegen, das durch Voranstellen des Präfixes data- vor dem Attributnamen definiert ist, z.B. data-additionalinfo. Sie weisen diesem Attribut einen Wert zu, wie jedem anderen Attribut auch.
+
+Spezifische Attribute
+Andere Attribute sind spezifisch für jedes HTML-Element. Das Attribut src eines HTML-Elements <img> gibt beispielsweise die URL eines Bildes an. Es gibt noch viele weitere spezifische Attribute, die in den folgenden Lektionen behandelt werden.
+
+Dokumentkopf
+Der Dokumentkopf oder Head definiert Metainformationen über die Seite und wird durch das Element <head> definiert. Standardmäßig zeigt der Webbrowser die Informationen im Head nicht an. Es ist zwar möglich, das <head>-Element auch für auf der Seite sichtbare Elemente zu nutzen, aber das ist keine gute Praxis.
+
+Titel
+Den Titel des Dokuments geben Sie mit dem Element <title> an. Der zwischen den Tags definierte Titel erscheint in der Titelleiste des Webbrowsers und ist der vorgeschlagene Name für das Lesezeichen, wenn Sie ein Lesezeichen für die Seite setzen. Er erscheint auch in den Suchergebnissen der Suchmaschinen als Titel der Seite.
+
+Hier ein Beispiel für dieses Element:
+
+<title>My test page</title>
+Das <title>-Tag ist in allen HTML-Dokumenten obligatorisch und sollte in jedem Dokument nur einmal vorkommen.
+
+Note
+Verwechseln Sie den Titel des Dokuments nicht mit der Überschrift der Seite, die im Hauptteil steht.
+
+Metadaten
+Das <meta>-Element dient der Angabe von Metainformationen, die den Inhalt eines HTML-Dokuments näher beschreiben. Es ist ein selbstschließendes Element ohne schließendes Tag. Neben den Kernattributen, die für jedes HTML-Element gültig sind, erlaubt das Element <meta> auch die folgenden Attribute:
+
+name
+Bestimmt, welche Metadaten in diesem Element beschrieben werden. Beliebige benutzerdefinierte Werte sind möglich, aber häufig verwendete Werte sind author, description und keywords.
+
+http-equiv
+Liefert einen HTTP-Header für den Wert des Attributs content. Ein üblicher Wert ist refresh, den wir später erläutern. Ist dieses Attribut gesetzt, sollte das Attribut name nicht gesetzt werden.
+
+content
+Setzt den mit dem Attribut name oder http-equiv verbundenen Wert.
+
+charset
+Gibt die Zeichenkodierung für das HTML-Dokument an, z.B. utf-8, um es auf Unicode Transformation Format — 8 Bits zu setzen.
+
+Autor, Beschreibung und Schlüsselwörter hinzufügen
+Mit dem <meta>-Tag geben Sie zusätzliche Informationen über den Autor der HTML-Seite an und beschreiben den Inhalt der Seite wie folgt:
+
+<meta name="author" content="Name Surname">
+<meta name="description" content="A short summary of the page content.">
+Versuchen Sie, eine Reihe von Schlüsselwörtern, die sich auf den Inhalt der Seite beziehen, in die Beschreibung aufzunehmen. Diese Beschreibung ist oft das erste, was ein Nutzer sieht, wenn er mit einer Suchmaschine navigiert.
+
+Um den Suchmaschinen weitere Schlüsselwörter zur Verfügung zu stellen, fügen Sie das folgende Element hinzu:
+
+<meta name="keywords" content="keyword1, keyword2, keyword3, keyword4, keyword5">
+Note
+In der Vergangenheit gaben Spammer Hunderte von Schlüsselwörtern und Beschreibungen ein, die nichts mit dem eigentlichen Inhalt der Seite zu tun hatten, so dass diese auch bei Suchanfragen erschien, die nichts mit den gesuchten Begriffen zu tun hatten. Heutzutage sind die <meta>-Tags von untergeordneter Bedeutung und werden nur noch zur Konsolidierung der auf der Webseite behandelten Themen verwendet, so dass es nicht mehr möglich ist, die neuen und ausgefeilteren Algorithmen der Suchmaschinen in die Irre zu führen.
+
+Eine HTML-Seite umleiten und ein Zeitintervall zur Aktualisierung festlegen
+Mit dem <meta>-Tag sorgen Sie auch dafür, dass eine HTML-Seite nach einer bestimmten Zeit (hier nach 30 Sekunden) automatisch neu lädt:
+
+<meta http-equiv="refresh" content="30">
+Oder Sie leiten die Webseite nach einer angegebenen Zeitspanne mit folgendem Code auf eine andere Webseite um:
+
+<meta http-equiv="refresh" content="30; url=http://www.lpi.org">
+In diesem Beispiel erfolgt die Umleitung nach 30 Sekunden von der aktuellen Seite zu http://www.lpi.org. Die Werte sind beliebig. Wenn Sie zum Beispiel content="0; url=http://www.lpi.org" angeben, erfolgt die Weiterleitung sofort.
+
+Zeichenkodierung festlegen
+Das Attribut charset gibt die Zeichenkodierung für das HTML-Dokument an. Ein gängiges Beispiel ist:
+
+<meta charset="utf-8">
+Dieses Element gibt an, dass die Zeichenkodierung des Dokuments utf-8 ist, ein universeller Zeichensatz, der praktisch alle Zeichen aller Alphabete enthält. Mit diesem Element vermeiden Sie Probleme bei der Darstellung einiger Zeichen, die bei der Verwendung anderer Zeichensätze wie ISO-8859-1 (das lateinische Alphabet) auftreten können.
+
+Weitere nützliche Beispiele
+Zwei weitere nützliche Anwendungen des <meta>-Tags sind:
+
+Cookies setzen, um einen Website-Besucher zu verfolgen.
+
+Kontrolle über den Viewport (den sichtbaren Bereich einer Webseite innerhalb eines Webbrowser-Fensters), der von der Bildschirmgröße des Benutzergeräts (z.B. eines Mobiltelefons oder eines Computers) abhängt.
+
+Diese beiden Beispiele gehen jedoch über den Rahmen dieser Prüfung hinaus und seien daher Ihrer Neugier überlassen.
+
+Geführte Übungen
+Geben Sie für jedes der folgenden Tags das entsprechende schließende Tag an:
+
+<body>
+
+<head>
+
+<html>
+
+<meta>
+
+<title>
+
+Was ist der Unterschied zwischen einem Tag und einem Element? Verwenden Sie diesen Eintrag als Referenz:
+
+<title>HTML Page Title</title>
+
+Zwischen welchen Tags sollten Sie einen Kommentar platzieren?
+
+Was ist ein Attribut? Geben Sie einige Beispiele für das <meta>-Tag.
+
+Offene Übungen
+Erstellen Sie ein einfaches HTML Version 5 Dokument mit dem Titel “My first HTML document” und nur einem Absatz im Body, der den Text “Hello World” enthält. Verwenden Sie das Absatz-Tag <p> im Textkörper.
+
+Fügen Sie den Autor (“Kevin Author”) und die Beschreibung (“This is my first HTML page.”) des HTML-Dokuments hinzu.
+
+Fügen Sie die folgenden Schlüsselwörter für das HTML-Dokument hinzu: “HTML”, “Example”, “Test” und “Metadata”.
+
+Fügen Sie das Element <meta charset="ISO-8859-1"> in die Kopfzeile des Dokuments ein und ändern Sie den Text “Hello World” in Japanisch (“こんにちは世界”). Was geschieht? Wie lösen Sie das Problem?
+
+Nachdem Sie den Text des Absatzes wieder in “Hello World” geändert haben, leiten Sie die HTML-Seite nach 30 Sekunden nach https://www.google.com um und fügen einen Kommentar in die Kopfzeile des Dokuments ein, der darauf hinweist.
+
+Zusammenfassung
+In dieser Lektion haben Sie gelernt:
+
+Rolle von HTML
+
+HTML-Skelett
+
+HTML-Syntax (Tags, Attribute, Kommentare)
+
+HTML-Head
+
+Meta-Tags
+
+Wie man ein einfaches HTML-Dokument erstellt
+
+Die folgenden Begriffe wurden in dieser Lektion behandelt:
+
+<!DOCTYPE html>
+Das Deklarations-Tag.
+
+<html>
+Der Container für alle Tags, aus denen die HTML-Seite besteht.
+
+<head>
+Der Container für alle Head-Elemente.
+
+<body>
+Der Container für alle Body-Elemente.
+
+<meta>
+Das Tag für Metadaten, mit dem Sie zusätzliche Informationen für die HTML-Seite angeben (z.B. Autor, Beschreibung und Zeichenkodierung).
+
+Lösungen zu den geführten Übungen
+Geben Sie für jedes der folgenden Tags das entsprechende schließende Tag an:
+
+<body>
+
+</body>
+
+<head>
+
+</head>
+
+<html>
+
+</html>
+
+<meta>
+
+Keins
+
+<title>
+
+</title>
+
+Was ist der Unterschied zwischen einem Tag und einem Element? Verwenden Sie diesen Eintrag als Referenz:
+
+<title>HTML Page Title</title>
+
+Ein HTML-Element besteht aus einem Anfangstag, einem Schlusstag und allem, was dazwischen liegt. Ein HTML-Tag dient dazu, den Anfang oder das Ende eines Elements zu markieren. Daher ist <title>HTML Page Title</title> ein HTML-Element, während <title> und </title> das Start- bzw. End-Tag sind.
+
+Zwischen welchen Tags sollten Sie einen Kommentar platzieren?
+
+Ein Kommentar steht zwischen den Tags <!-- und --> und kann in einer einzigen Zeile stehen oder sich über mehrere Zeilen erstrecken.
+
+Was ist ein Attribut? Geben Sie einige Beispiele für das <meta>-Tag.
+
+Ein Attribut dient dazu, ein HTML-Element genauer zu spezifizieren. Das <meta>-Tag zum Beispiel verwendet das Attributpaar name und content, um den Autor und die Beschreibung einer HTML-Seite hinzuzufügen. Mit dem Attribut charset geben Sie die Zeichenkodierung für das HTML-Dokument an.
+
+Lösungen zu den offenen Übungen
+Erstellen Sie ein einfaches HTML Version 5 Dokument mit dem Titel “My first HTML document” und nur einem Absatz im Body, der den Text “Hello World” enthält. Verwenden Sie das Absatz-Tag <p> im Textkörper.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My first HTML document</title>
+  </head>
+
+  <body>
+    <p>Hello World</p>
+  </body>
+</html>
+Fügen Sie den Autor (“Kevin Author”) und die Beschreibung (“This is my first HTML page.”) des HTML-Dokuments hinzu.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My first HTML document</title>
+    <meta name="author" content="Kevin Author">
+    <meta name="description" content="This is my first HTML page.">
+  </head>
+
+  <body>
+    <p>Hello World</p>
+  </body>
+</html>
+Fügen Sie die folgenden Schlüsselwörter für das HTML-Dokument hinzu: “HTML”, “Example”, “Test” und “Metadata”.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My first HTML document</title>
+    <meta name="author" content="Kevin Author">
+    <meta name="description" content="This is my first HTML page.">
+    <meta name="keywords" content="HTML, Example, Test, Metadata">
+  </head>
+
+  <body>
+    <p>Hello World</p>
+  </body>
+</html>
+Fügen Sie das Element <meta charset="ISO-8859-1"> in die Kopfzeile des Dokuments ein und ändern Sie den Text “Hello World” in Japanisch (“こんにちは世界”). Was geschieht? Wie lösen Sie das Problem?
+
+Der japanische Text wird nicht korrekt angezeigt, da ISO-8859-1 eine Zeichenkodierung für das lateinische Alphabet definiert. Um den Text anzuzeigen, ändern Sie die Zeichenkodierung zum Beispiel zu UTF-8 (<meta charset="utf-8">).
+
+Nachdem Sie den Text des Absatzes wieder in “Hello World” geändert haben, leiten Sie die HTML-Seite nach 30 Sekunden nach https://www.google.com um und fügen einen Kommentar in die Kopfzeile des Dokuments ein, der darauf hinweist..
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My first HTML document</title>
+    <meta name="author" content="Kevin Author">
+    <meta name="description" content="This is my first HTML page.">
+    <meta name="keywords" content="HTML, Example, Test, Metadata">
+    <meta charset="utf-8">
+    <!-- The page is redirected to Google after 30 seconds -->
+    <meta http-equiv="refresh" content="30; url=https://www.google.com">
+  </head>
+
+  <body>
+    <p>Hello World</p>
+  </body>
+</html>
+
+032.2
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+032 HTML-Dokument-Markup
+
+Lernziel:	
+032.2 HTML-Semantik und Dokumenthierarchie
+
+Einführung
+In der vorangegangenen Lektion haben wir gelernt, dass HTML eine Auszeichnungssprache ist, die den Inhalt einer Website semantisch beschreibt. Ein HTML-Dokument enthält ein so genanntes Skelett, das aus den HTML-Elementen <html>, <head> und <body> besteht. Während das <head>-Element einen Block von Metainformationen für das HTML-Dokument beschreibt, der für den Besucher der Website unsichtbar ist, kann das <body>-Element viele andere Elemente enthalten, die die Struktur und den Inhalt des HTML-Dokuments definieren.
+
+In dieser Lektion werden wir uns mit der Textformatierung, den grundlegenden semantischen HTML-Elementen und ihrem Zweck sowie mit der Strukturierung eines HTML-Dokuments beschäftigen. Als Beispiel dient eine Einkaufsliste.
+
+Note
+Alle nachfolgenden Code-Beispiele befinden sich innerhalb des <body>-Elements eines HTML-Dokuments, das das komplette Skelett enthält. Aus Gründen der Lesbarkeit wird nicht in jedem Beispiel das HTML-Skelett gezeigt.
+
+Text
+In HTML sollte kein Textblock außerhalb eines Elements stehen. Selbst ein kurzer Absatz sollte in die HTML-Tags <p> eingeschlossen sein — die Kurzform für “paragraph”, also Absatz.
+
+<p>Short text element spanning only one line.</p>
+<p>A text element containing much longer text that may span across multiple lines, depending on the size of the web browser window.</p>
+In einem Webbrowser erzeugt dieser HTML-Code das in Figure 1 gezeigte Ergebnis.
+
+Paragraphs
+Figure 1. Webbrowser-Darstellung von HTML-Code mit zwei Textabsätzen. Der erste Absatz ist sehr kurz. Der zweite Absatz ist etwas länger und geht in eine zweite Zeile über.
+Standardmäßig fügen Webbrowser zur besseren Lesbarkeit einen Abstand vor und nach dem Element <p> ein. Aus diesem Grund wird <p> als Block-Element bezeichnet.
+
+Überschriften
+HTML definiert sechs Überschriftenebenen, um den Inhalt eines HTML-Dokuments zu beschreiben und zu strukturieren. Diese Überschriften werden mit den HTML-Tags <h1>, <h2>, <h3>, <h4>, <h5> und <h6> markiert.
+
+<h1>Heading level 1 to uniquely identify the page</h1>
+<h2>Heading level 2</h2>
+<h3>Heading level 3</h3>
+<h4>Heading level 4</h4>
+<h5>Heading level 5</h5>
+<h6>Heading level 6</h6>
+Ein Webbrowser rendert diesen HTML-Code wie in Figure 2.
+
+Headings
+Figure 2. Webbrowser-Darstellung von HTML-Code, die verschiedene Überschriftenebenen in einem HTML-Dokument zeigt. Die Schriftgröße markiert die Hierarchie der Überschriften.
+Wenn Sie mit Textverarbeitungsprogrammen wie LibreOffice oder Microsoft Word vertraut sind, werden Ihnen vielleicht einige Ähnlichkeiten in der Art und Weise auffallen, wie ein HTML-Dokument verschiedene Ebenen von Überschriften verwendet und wie diese im Webbrowser dargestellt werden. Standardmäßig verwendet HTML die Größe, um Hierarchie und Bedeutung von Überschriften zu kennzeichnen, und fügt vor und nach jeder Überschrift Leerraum ein, um sie optisch vom Inhalt zu trennen.
+
+Eine Überschrift mit dem Element <h1> steht an der Spitze der Hierarchie und gilt daher als wichtigste Überschrift, die den Inhalt der Seite beschreibt. Sie ist vergleichbar mit dem in der vorangegangenen Lektion besprochenen Element <title>, allerdings bezogen auf den Inhalt des HTML-Dokuments. Nachfolgende Überschriftenelemente dienen der weiteren Strukturierung des Inhalts. Achten Sie darauf, dass Sie keine Überschriftenebenen überspringen. Die Dokumenthierarchie sollte mit <h1> beginnen, mit <h2> fortfahren, dann <h3> und so weiter. Sie müssen nicht jedes Überschriftenelement bis hinunter zu <h6> verwenden, wenn Ihr Inhalt dies nicht erfordert.
+
+Note
+Überschriften sind wichtige Hilfsmittel zur Strukturierung eines HTML-Dokuments, sowohl in semantischer als auch in visueller Hinsicht. Allerdings sollten Überschriften niemals dazu verwendet werden, einen strukturell unwichtigen Text hervorzuheben. Ebenso sollte man einen kurzen Absatz nicht fett oder kursiv machen, um ihn wie eine Überschrift aussehen zu lassen — verwenden Sie Überschriften-Tags ausschließlich, um Überschriften zu markieren.
+
+Beginnen wir mit der Erstellung des HTML-Dokuments der Einkaufsliste, indem wir dessen Gliederung festlegen. Wir erstellen ein <h1>-Element, das den Seitentitel enthält (hier Garden Party), gefolgt von kurzen Informationen in einem <p>-Element. Außerdem führen wir mit zwei <h2>-Elementen die beiden Inhaltsabschnitte Agenda und Please bring ein.
+
+<h1>Garden Party</h1>
+<p>Invitation to John's garden party on Saturday next week.</p>
+<h2>Agenda</h2>
+<h2>Please bring</h2>
+Dieser HTML-Code sieht im Webbrowser wie in Figure 3 aus.
+
+HTML PAGE 1
+Figure 3. Webbrowser-Darstellung des HTML-Codes für ein einfaches Beispieldokument: Einladung zu einer Gartenparty mit zwei Überschriften für den Ablauf und die Liste der mitzubringenden Dinge.
+Zeilenumbrüche
+Manchmal kann es notwendig sein, einen Zeilenumbruch ohne ein weiteres <p>-Element oder ein ähnliches Block-Element einzufügen. Für solche Fälle steht das selbstschließende <br>-Element bereit. Beachten Sie, dass es nur für durch den Text selbst vorgegebene Zeilenumbrüche gedacht ist, wie etwa bei Gedichten, Liedtexten oder Adressen. Für Inhaltsblöcke empfiehlt sich stattdessen das <p>-Element.
+
+Den Text aus dem Beispiel können wir zum Beispiel wie folgt aufteilen:
+
+<p>
+  Invitation to John's garden party.<br>
+  Saturday, next week.
+</p>
+In einem Webbrowser führt dieser HTML-Code zu dem Ergebnis in Figure 4.
+
+br
+Figure 4. Webbrowser-Darstellung von HTML-Code von einem einfachen Beispieldokument mit einem erzwungenen Zeilenumbruch
+Horizontale Linien
+Das Element <hr> definiert eine horizontale Linie (horizontal rule). Standardmäßig erstreckt sie sich über die gesamte Breite des übergeordneten Elements. Das <hr>-Element dient meist dazu, einen thematischen Wechsel im Inhalt anzuzeigen oder Abschnitte des Dokuments zu trennen. Das Element ist selbstschließend und hat daher kein schließendes Tag.
+
+Für unser Beispiel könnten wir die beiden Überschriften trennen:
+
+<h1>Garden Party</h1>
+<p>Invitation to John's garden party on Saturday next week.</p>
+<h2>Agenda</h2>
+<hr>
+<h2>Please bring</h2>
+Figure 5 zeigt das Ergebnis dieses Codes.
+
+HTML PAGE 2
+Figure 5. Webbrowser-Darstellung der Einkaufsliste mit zwei durch eine horizontale Linie getrennten Abschnitten
+HTML-Listen
+In HTML können Sie drei Arten von Listen definieren:
+
+Sortierte Liste (ordered list)
+Die Reihenfolge der Listenelemente ist relevant.
+
+Unsortierte Liste (unordered list)
+Die Reihenfolge der Listenelemente ist nicht relevant.
+
+Beschreibungsliste (description list)
+Dient der genaueren Beschreibung von Begriffen.
+
+Jede enthält eine beliebige Anzahl von Listenelementen (list items). Im Folgenden beschreiben wir jeden dieser Listentypen.
+
+Sortierte Listen
+Eine sortiere oder geordnete Liste (ordered list) in HTML, die mit dem HTML-Element <ol> bezeichnet wird, ist eine Sammlung von beliebig vielen Listenelementen. Das Besondere an diesem Element ist, dass die Reihenfolge der Listenelemente von Bedeutung ist. Um dies zu kenntlich zu machen, nummerieren Webbrowser standardmäßig die Listenelemente durch.
+
+Note
+<li>-Elemente sind die einzigen gültigen untergeordneten Elemente innerhalb eines <ol>-Elements.
+
+Für unser Beispiel füllen wir den Ablauf für die Gartenparty mit einem <ol>-Element mit folgendem Code aus:
+
+<h2>Agenda</h2>
+<ol>
+  <li>Welcome</li>
+  <li>Barbecue</li>
+  <li>Dessert</li>
+  <li>Fireworks</li>
+</ol>
+In einem Webbrowser führt dieser HTML-Code zu dem Ergebnis in Figure 6.
+
+ol
+Figure 6. Webbrowser-Darstellung einer Überschrift zweiter Ebene, gefolgt von einer geordneten Liste mit vier Punkten für den Ablauf der Gartenparty
+Optionen
+Wie im Beispiel zu sehen, werden die Listenelemente standardmäßig mit Dezimalzahlen nummeriert, die bei 1 beginnen. Sie ändern dieses Verhalten über das Attribut type des <ol>-Tags. Gültige Werte für dieses Attribut sind 1 für Dezimalzahlen, A für Großbuchstaben, a für Kleinbuchstaben, I für römische Zahlen in Großbuchstaben und i für römische Zahlen Kleinbuchstaben.
+
+Bei Bedarf legen Sie den Startwert mit dem Attribut start des Tags <ol> fest. Das Attribut start nimmt immer einen dezimalen Zahlenwert an, auch wenn das Attribut type eine andere Art der Nummerierung definiert.
+
+Um zum Beispiel unsere geordnete Liste so anzupassen, dass den Listenelementen Großbuchstaben vorangestellt werden, beginnend mit dem Buchstaben C, schreiben wir:
+
+<h2>Agenda</h2>
+<ol type="A" start="3">
+  <li>Welcome</li>
+  <li>Barbecue</li>
+  <li>Dessert</li>
+  <li>Fireworks</li>
+</ol>
+Im Webbrowser erscheint dieser HTML-Code wie in Figure 7.
+
+ol reordered
+Figure 7. Webbrowser-Darstellung mit einer Überschrift zweiter Ebene, gefolgt von einer geordneten Liste mit Listenelementen, denen Großbuchstaben vorangestellt sind, die mit dem Buchstaben C beginnen
+Die Reihenfolge der Listenelemente kehren Sie mit dem Attribut reversed ohne Wert um.
+
+Note
+In einer sortierten Liste bestimmen Sie den Anfangswert eines bestimmten Listenelements mit dem Attribut value des Tags <li>. Nachfolgende Listenelemente werden von dieser Zahl aus hochgezählt. Das Attribut value nimmt immer einen numerischen Dezimalwert an.
+
+Unsortierte Listen
+Eine unsortierte Liste enthält eine Reihe von Listenelementen, die im Gegensatz zu denen einer geordneten Liste keine besondere Reihenfolge haben. Das HTML-Element für diese Liste ist <ul>. Auch hier ist <li> das HTML-Element zur Kennzeichnung der Listenelemente.
+
+Note
+<li> Elemente sind die einzigen gültigen untergeordneten Elemente innerhalb eines <ul>-Elements.
+
+Für unsere Beispiel-Website nutzen wir die ungeordnete Liste, um die Gegenstände aufzulisten, die die Gäste zu der Party mitbringen sollen, und zwar mit dem folgenden HTML-Code:
+
+<h2>Please bring</h2>
+<ul>
+  <li>Salad</li>
+  <li>Drinks</li>
+  <li>Bread</li>
+  <li>Snacks</li>
+  <li>Desserts</li>
+</ul>
+In einem Webbrowser erzeugt dieser HTML-Code die Anzeige in Figure 8.
+
+ul
+Figure 8. Webbrowser-Darstellung mit einer Überschrift zweiter Ebene, gefolgt von einer ungeordneten Liste mit Listenelementen zu Speisen, die die Gäste mitbringen sollen
+Standardmäßig ist jedem Listenelement eine Aufzählungsmarke vorangestellt. Sie können deren Aussehen mit CSS ändern, was Thema späterer Lektionen ist.
+
+Verschachtelte Listen
+Sie können Listen in anderen Listen verschachteln, z.B. geordnete Listen in ungeordneten Listen und umgekehrt. Dafür muss die verschachtelte Liste Teil eines Listenelements <li> sein, denn <li> ist das einzige gültige Kindelement ungeordneter und geordneter Listen. Achten Sie bei der Verschachtelung darauf, dass sich die HTML-Tags nicht überschneiden.
+
+Für unser Beispiel ergänzen wir einige Informationen zur Agenda :
+
+<h2>Agenda</h2>
+<ol type="A" start="3">
+  <li>Welcome</li>
+  <li>
+    Barbecue
+    <ul>
+      <li>Vegetables</li>
+      <li>Meat</li>
+      <li>Burgers, including vegetarian options</li>
+    </ul>
+  </li>
+  <li>Dessert</li>
+  <li>Fireworks</li>
+</ol>
+Ein Webbrowser rendert den Code wie in Figure 9.
+
+ul nested
+Figure 9. Webbrowser-Darstellung von HTML-Code mit einer ungeordneten Liste innerhalb einer geordneten Liste für den Ablauf der Gartenparty
+Theoretisch können Sie beliebig viele Listen ineinander verschachteln. Berücksichtigen Sie jedoch stets die Lesbarkeit für Ihre Besucher.
+
+Beschreibungslisten
+Eine Beschreibungsliste (description list) wird mit dem Element <dl> definiert und stellt eine Art Wörterbuch mit Schlüsseln und Werten dar. Der Schlüssel ist ein zu beschreibender Begriff oder Name, und der Wert ist dessen Beschreibung. Beschreibungslisten können einfache Schlüssel-Werte-Paare, aber auch umfangreiche Definitionen sein.
+
+Das Element <dt> definiert den Schlüssel (oder term), während das Element <dd> dessen Beschreibung markiert.
+
+Hier ein Beispiel für eine solche Beschreibungsliste mit exotischen Früchten:
+
+<h3>Exotic Fruits</h3>
+<dl>
+  <dt>Banana</dt>
+  <dd>
+    A long, curved fruit that is yellow-skinned when ripe. The fruit's skin
+    may also have a soft green color when underripe and get brown spots when
+    overripe.
+  </dd>
+
+  <dt>Kiwi</dt>
+  <dd>
+    A small, oval fruit with green flesh, black seeds, and a brown, hairy
+    skin.
+  </dd>
+
+  <dt>Mango</dt>
+  <dd>
+    A fruit larger than a fist, with a green skin, orange flesh, and one big
+    seed. The skin may have spots ranging from green to yellow or red.
+  </dd>
+</dl>
+In einem Webbrowser führt dies zu dem Ergebnis in Figure 10.
+
+description list
+Figure 10. Ein Beispiel für eine HTML-Beschreibungsliste mit exotischen Früchten
+Note
+Im Gegensatz zu geordneten und ungeordneten Listen ist in einer Beschreibungsliste jedes HTML-Element als direktes untergeordnetes Element zulässig. So können Sie Elemente gruppieren und sie an anderer Stelle mit CSS gestalten.
+
+Inline-Textformatierung
+HTML kennt Formatierungselemente, um das Aussehen des Textes zu beeinflussen. Man unterscheidet dabei zwischen Darstellungselementen (presentation elements) und Ausdruckselemente (phrase elements).
+
+Darstellungselemente
+Grundlegende Darstellungselemente ändern die Schriftart oder das Aussehen von Text: <b>, <i>, <u> und <tt>. Diese Elemente wurden definiert, bevor CSS die Möglichkeit bot, Text fett, kursiv usw. darzustellen. Heute gibt es in der Regel bessere Möglichkeiten, das Aussehen von Text zu verändern, aber manchmal sieht man diese Elemente noch.
+
+Fettgedruckter Text
+Um Text fett zu machen, schließen Sie ihn in das Element <b> ein, wie im folgenden Beispiel gezeigt. Das Ergebnis erscheint in Figure 11.
+
+This <b>word</b> is bold.
+b tag
+Figure 11. Das Tag b sorgt für Fettdruck.
+Nach der HTML5-Spezifikation sollte das Element b nur verwendet werden, wenn es keine geeigneteren Tags gibt. Das Element, das die gleiche visuelle Ausgabe erzeugt, aber den markierten Text zusätzlich semantisch spezifiziert, ist das Element strong.
+
+Kursiver Text
+Um Text kursiv zu setzen, schließen Sie ihn in das Element <i> ein, wie im folgenden Beispiel gezeigt. Das Ergebnis erscheint in Figure 12.
+
+This <i>word</i> is in italics.
+i tag
+Figure 12. Das <i>-Tag sorgt für kursiven Text.
+Nach der HTML5-Spezifikation sollten Sie das Element i allerdings nur verwenden, wenn es keine anderen geeigneten Tags gibt.
+
+Unterstrichener Text
+Um Text zu unterstreichen, schließen Sie ihn in das Element <u> ein, wie im folgenden Beispiel gezeigt. Das Ergebnis erscheint in Figure 13.
+
+This <u>word</u> is underlined.
+u tag
+Figure 13. Das <u>-Tag sorgt für unterstrichenen Text.
+Nach der HTML5-Spezifikation sollten Sie das Element u allerdings nur verwenden, wenn es keine besseren Möglichkeiten gibt, Text zu unterstreichen. CSS bietet eine moderne Alternative.
+
+Schrift mit fester Breite (Monospaced)
+Um Text in einer Schriftart mit fester Breite (Monospaced) darzustellen – häufig für die Darstellung von Computercode genutzt –, schließen Sie ihn in das Element <tt> ein, wie im folgenden Beispiel zu sehen. Das Ergebnis erscheint in Figure 14.
+
+This <tt>word</tt> is in fixed-width font.
+tt tag
+Figure 14. Das <tt>-Tag zeigt Text in einer Schrift mit fester Breite an.
+Das <tt>-Tag wird in HTML5 nicht unterstützt. Webbrowser geben ihn trotzdem wie erwartet wieder. Sie sollten jedoch geeignetere Tags verwenden, z.B. <code>, <kbd>, <var> oder <samp>.
+
+Ausdruckselemente
+Ausdruckselemente zielen nicht nur auf das Aussehen des Textes, sondern markieren auch semantische Bedeutung. Sie heben so ein Wort hervor und kennzeichnen es als wichtig. Im Gegensatz zu Darstellungselementen werden diese Elemente auch von Bildschirmlesegeräten erkannt, was den Text für sehbehinderte Besucher leichter zugänglich macht. Auch Suchmaschinen können den Seiteninhalt besser bewerten. Die in dieser Lektion verwendeten Ausdruckselemente sind <em>, <strong> und <code>.
+
+Hervorgehobener Text
+Um Text hervorzuheben, schließen Sie ihn in das Element <em> ein:
+
+This <em>word</em> is emphasized.
+em tag
+Figure 15. Das <em>-Tag hebt Text hervor.
+Der Webbrowser zeigt <em> auf die gleiche Weise an wie <i>, aber <em> fügt als Ausdruckselement semantische Bedeutung hinzu, was Besuchern mit eingeschränkter Sehfähigkeit den Zugang erleichtert.
+
+Wichtiger Text
+Um Text als wichtig zu kennzeichnen, schließen Sie ihn in das Element <strong> ein, wie im folgenden Beispiel dargestellt. Das Ergebnis erscheint in Figure 16.
+
+This <strong>word</strong> is important.
+strong tag
+Figure 16. Das <strong>-Tag kennzeichnet Text als wichtig.
+Der Webbrowser zeigt <strong> auf die gleiche Weise an wie <b>, aber <strong> fügt als Ausdruckselement semantische Bedeutung hinzu, was Besuchern mit eingeschränkter Sehfähigkeit den Zugang erleichtert.
+
+Computercode
+Um Computercode einzufügen, schließen Sie ihn in das Element <code> ein, wie im folgenden Beispiel gezeigt. Das Ergebnis erscheint in Figure 17.
+
+The Markdown code <code># Heading</code> creates a heading at the highest level in the hierarchy.
+code tag
+Figure 17. Das <code>-Tag zeichnet Computercode aus.
+Markierter Text
+Um Text mit einem gelben Hintergrund hervorzuheben, ähnlich einem Textmarker, schließen Sie ihn in das Element <mark> ein, wie im folgenden Beispiel dargestellt. Das Ergebnis erscheint in Figure 18.
+
+This <mark>word</mark> is highlighted.
+mark tag
+Figure 18. Das Tag <mark> hebt Text mit einem gelben Hintergrund hervor.
+Textformatierung in unserer HTML-Einkaufsliste
+In unserem Beispiel fügen wir nun einige Ausdruckselemente ein, um das Erscheinungsbild des Textes zu verändern und gleichzeitig semantische Bedeutung zu markieren. Das Ergebnis erscheint in Figure 19.
+
+<h1>Garden Party</h1>
+<p>
+  Invitation to <strong>John's garden party</strong>.<br>
+  <strong>Saturday, next week.</strong>
+</p>
+
+<h2>Agenda</h2>
+<ol>
+  <li>Welcome</li>
+  <li>
+    Barbecue
+    <ul>
+      <li><em>Vegetables</em></li>
+      <li><em>Meat</em></li>
+      <li><em>Burgers</em>, including vegetarian options</li>
+    </ul>
+  </li>
+  <li>Dessert</li>
+  <li><mark>Fireworks</mark></li>
+</ol>
+
+<hr>
+
+<h2>Please bring</h2>
+<ul>
+  <li>Salad</li>
+  <li>Drinks</li>
+  <li>Bread</li>
+  <li>Snacks</li>
+  <li>Desserts</li>
+</ul>
+HTML PAGE 3
+Figure 19. Die HTML-Seite mit einigen Formatierungselementen.
+In diesem HTML-Beispiel kennzeichnen wir die wichtigsten Informationen zum Gartenfest selbst mit dem Element <strong>. Die angebotenen Speisen heben wir mit dem Element <em>, das Feuerwerk mit dem Element <mark> hervor.
+
+Als Übung können Sie auch andere Textstücke mit den anderen Formatierungselementen auszeichnen.
+
+Vorformatierter Text
+In den meisten HTML-Elementen werden mehrere Leerzeichen in der Regel auf ein einziges reduziert oder sogar ganz ignoriert. Mit dem HTML-Element <pre> zeichnen Sie jedoch sogenannten vorformatierten Text aus. Leerraum im Inhalt dieses Elements, einschließlich Leerzeichen und Zeilenumbrüche, bleibt dann erhalten und erscheint im Webbrowser. Außerdem erscheint der Text in einer Schriftart mit fester Breite, ähnlich wie beim Element <code>.
+
+<pre>
+field() {
+  shift $1 ; echo $1
+}
+</pre>
+pre tag
+Figure 20. Webbrowser-Darstellung von HTML-Code mit Umbrüchen und Leerzeichen im Element <pre>
+Elemente gruppieren
+Üblicherweise unterscheidet man bei HTML-Elementen zwei Kategorien:
+
+Block-Elemente
+Diese erscheinen in einer neuen Zeile und nehmen die gesamte verfügbare Breite ein. Beispiele für Elemente auf Block-Ebene, die wir bereits besprochen haben, sind <p>, <ol> und <h2>.
+
+Inline-Elemente
+Sie erscheinen in derselben Zeile wie andere Elemente und Text und nehmen nur so viel Platz ein, wie ihr Inhalt benötigt. Beispiele für Elemente auf Inline-Ebene sind <strong>, <em> und <i>.
+
+Note
+HTML5 führt genauere und präzisere Elementkategorien ein und versucht, Verwechslungen mit CSS-Block- und Inline-Boxen zu vermeiden. Der Einfachheit halber bleiben wir hier bei der herkömmlichen Unterteilung in Block- und Inline-Elemente.
+
+Die grundlegenden Elemente für die Gruppierung mehrerer Elemente sind <div> und <span>.
+
+Das <div>-Element ist ein Block-Container für andere HTML-Elemente und bringt selbst keinen semantischen Wert mit. Sie setzen dieses Element ein, um ein HTML-Dokument in Abschnitte zu unterteilen und den Inhalt zu strukturieren — sowohl für bessere Lesbarkeit des Codes als auch um CSS-Stile auf eine Gruppe von Elementen anzuwenden. Wir kommen darauf noch zurück.
+
+Standardmäßig fügen Webbrowser einen Zeilenumbruch vor und nach jedem <div>-Element ein, so dass jedes Element in einer eigenen Zeile erscheint.
+
+Im Gegensatz dazu dient das Element <span> als Container für HTML-Text im Allgemeinen dazu, andere Inline-Elemente zu gruppieren, um über CSS Formatierungen auf kleinere Texteinheiten anzuwenden.
+
+Das Element <span> verhält sich wie normaler Text und beginnt nicht in einer neuen Zeile. Es ist daher ein Inline-Element.
+
+Das folgende Beispiel vergleicht die visuelle Darstellung des semantischen Elements <p> mit der der Gruppierungselemente <div> und <span>:
+
+<p>Text within a paragraph</p>
+<p>Another paragraph of text</p>
+<hr>
+<div>Text wrapped within a <code>div</code> element</div>
+<div>Another <code>div</code> element with more text</div>
+<hr>
+<span>Span content</span>
+<span>and more span content</span>
+Ein Webbrowser rendert diesen Code wie in Figure 21.
+
+grouping elements
+Figure 21. Webbrowser-Darstellung zu den Unterschieden zwischen p-, div- und span-Elementen
+Wir haben bereits gesehen, dass Webbrowser standardmäßig einen Abstand vor und nach <p>-Elementen einfügen. Dieser Abstand wird bei den Gruppierungselementen <div> und <span> nicht eingehalten. Allerdings werden <div>-Elemente als eigene Blöcke formatiert, während der Text in <span>-Elementen in derselben Zeile erscheint.
+
+HTML-Seitenstruktur
+Wir haben gesehen, wie man mit HTML-Elementen den Inhalt einer Webseite semantisch beschreibt — dem Text also Bedeutung und Kontext zuschreibt. Eine andere Gruppe von Elementen dient dazu, die semantische Struktur einer Webseite zu beschreiben. Diese Elemente sind Block-Elemente, d.h. in der Darstellung verhalten sie sich ähnlich wie ein <div>-Element. Sie bestimmen die semantische Struktur einer Webseite, indem sie Bereiche wie Kopf- und Fußzeilen und den Hauptinhalt der Seite definieren. Diese semantische Gruppierung von Inhalten wird auch von Suchmaschinen und Bildschirmlesegeräten verstanden.
+
+Das Element <header>
+Das Element <header> enthält Grundinformationen zu dem entsprechenden semantischen Element innerhalb eines HTML-Dokuments. Ein Header (Kopf) unterscheidet sich von einer Heading (Überschrift), aber ein Header enthält oft ein Überschriftenelement (<h1>, …​ , <h6>).
+
+In der Praxis definiert dieses Element meist den Seitenkopf, z.B. für ein Banner mit einem Logo. Es kann aber auch in den Inhalt eines der folgenden Elemente einführen: <body>, <section>, <article>, <nav> oder <aside>.
+
+Ein Dokument kann mehrere <header>-Elemente enthalten, aber ein <header>-Element darf nicht in einem anderen <header>-Element verschachtelt werden. Ebenso wenig darf ein <footer>-Element innerhalb eines <header>-Elements stehen.
+
+Um beispielsweise zu unserem Beispieldokument einen Seitenkopf hinzuzufügen, gehen wir wie folgt vor:
+
+<header>
+  <h1>Garden Party</h1>
+</header>
+Es wird keine sichtbaren Änderungen am HTML-Dokument geben, da <h1> (wie alle anderen Überschriftenelemente) ein Element auf Blockebene ist, das keine weiteren visuellen Eigenschaften hat.
+
+Das Inhaltselement <main>
+Das <main>-Element ist ein Container für den zentralen Inhalt einer Webseite. In einem HTML-Dokument darf es nicht mehr als ein <main>-Element geben.
+
+In unserem Beispieldokument platzieren wir den gesamten bisherigen HTML-Code in einem <main>-Element:
+
+<main>
+  <header>
+    <h1>Garden Party</h1>
+  </header>
+  <p>
+    Invitation to <strong>John's garden party</strong>.<br>
+    <strong>Saturday, next week.</strong>
+  </p>
+
+  <h2>Agenda</h2>
+  <ol>
+    <li>Welcome</li>
+    <li>
+      Barbecue
+      <ul>
+        <li><em>Vegetables</em></li>
+        <li><em>Meat</em></li>
+        <li><em>Burgers</em>, including vegetarian options</li>
+      </ul>
+    </li>
+    <li>Dessert</li>
+    <li><mark>Fireworks</mark></li>
+  </ol>
+
+  <hr>
+
+  <h2>Please bring</h2>
+  <ul>
+    <li>Salad</li>
+    <li>Drinks</li>
+    <li>Bread</li>
+    <li>Snacks</li>
+    <li>Desserts</li>
+  </ul>
+</main>
+Wie das Element <header> verursacht auch das Element <main> in unserem Beispiel keine Veränderungen in der Darstellung.
+
+Das Element <footer>
+Das <footer>-Element enthält Fußnoten, z.B. Informationen über Autoren, Kontaktinformationen oder verwandte Dokumente, für das umgebende semantische Element, z.B. <section>, <nav> oder <aside>. Ein Dokument kann mehrere <footer>-Elemente enthalten, um semantische Elemente besser zu beschreiben. Allerdings darf ein <footer>-Element nicht in einem anderen <footer>-Element verschachtelt werden, noch darf ein <header>-Element innerhalb eines <footer>-Elements stehen.
+
+Für unser Beispiel ergänzen wir Kontaktinformationen des Gastgebers:
+
+<footer>
+  <p>John Doe</p>
+  <p>john.doe@example.com</p>
+</footer>
+Das Element <nav>
+Das Element <nav> beschreibt eine größere Navigationseinheit, z.B. ein Menü, das eine Reihe von Hyperlinks enthält.
+
+Note
+Nicht alle Hyperlinks müssen von einem <nav>-Element umschlossen sein. Es dient eher dazu, eine Gruppe von Links zu kapseln.
+
+Da Hyperlinks noch nicht Thema waren, gehen wir hier nicht weiter auf dieses Navigationselement ein.
+
+Das Element <aside>
+Das <aside>-Element ist ein Container für Inhalte, die nicht unmittelbar zum Hauptinhalt der Seite gehören, aber damit verbunden sind und ihn in der Regel ergänzen. Dieses Element kapselt meist Seitenleisten mit sekundären Informationen, z.B. ein Glossar.
+
+In unserem Beispiel fügen wir mit dem Element <aside> Adress- und Anreiseinformationen hinzu, die nur indirekt mit dem übrigen Inhalt verbunden sind.
+
+<aside>
+  <p>
+    10, Main Street<br>
+    Newville
+  </p>
+  <p>Parking spaces available.</p>
+</aside>
+Das Element <section>
+Das Element <section> definiert einen Inhaltsabschnitt in einem Dokument, der Teil des umgebenden semantischen Elements ist, also nicht den Stellenwert eines eigenständigen Teils hat, z.B. eines Kapitels.
+
+In unserem Beispieldokument kapseln wir die Inhaltsabschnitte für den Ablauf und die mitzubringenden Speisen:
+
+<section>
+  <header>
+    <h2>Agenda</h2>
+  </header>
+  <ol>
+    <li>Welcome</li>
+    <li>
+      Barbecue
+      <ul>
+        <li><em>Vegetables</em></li>
+        <li><em>Meat</em></li>
+        <li><em>Burgers</em>, including vegetarian options</li>
+      </ul>
+    </li>
+    <li>Dessert</li>
+    <li><mark>Fireworks</mark></li>
+  </ol>
+</section>
+
+<hr>
+
+<section>
+  <header>
+    <h2>Please bring</h2>
+  </header>
+  <ul>
+    <li>Salad</li>
+    <li>Drinks</li>
+    <li>Bread</li>
+    <li>Snacks</li>
+    <li>Desserts</li>
+  </ul>
+</section>
+Das Beispiel fügt auch weitere <header>-Elemente in den Abschnitten hinzu, so dass jeder Abschnitt ein eigenes <header>-Element hat.
+
+Das Element <article>
+Das Element <article> definiert eigenständige Inhalte, die ohne den Rest der Seite eine sinnvolle Einheit bilden. Der Inhalt kann in einem anderen Kontext verteilt oder wiederverwendet werden. Typische Beispiele für <article>-Elemente sind Blog-Beiträge, Produktlisten für einen Shop und Werbeseiten von Produkten. Diese könnten dann sowohl für sich allein stehen als auch in einer größeren Seite eingebettet sein.
+
+In unserem Beispiel ersetzen wir das erste <section>-Element, das die Agenda umschließt, durch ein <article>-Element:
+
+<article>
+  <header>
+    <h2>Agenda</h2>
+  </header>
+  <ol>
+    <li>Welcome</li>
+    <li>
+      Barbecue
+      <ul>
+        <li><em>Vegetables</em></li>
+        <li><em>Meat</em></li>
+        <li><em>Burgers</em>, including vegetarian options</li>
+      </ul>
+    </li>
+    <li>Dessert</li>
+    <li><mark>Fireworks</mark></li>
+  </ol>
+</article>
+Das <header>-Element aus dem vorangegangenen Beispiel bleibt erhalten, weil auch <article>-Elemente eigene <header>-Elemente haben können.
+
+Das fertige Beispiel
+Kombinieren wir alle genannten Beispiele, sieht das HTML-Dokument für unsere Einladung wie folgt aus:
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Garden Party</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>Garden Party</h1>
+      <p>
+        Invitation to <strong>John's garden party</strong>.<br>
+        <strong>Saturday, next week.</strong>
+      </p>
+
+      <article>
+        <h2>Agenda</h2>
+        <ol>
+          <li>Welcome</li>
+          <li>
+            Barbecue
+            <ul>
+              <li><em>Vegetables</em></li>
+              <li><em>Meat</em></li>
+              <li><em>Burgers</em>, including vegetarian options</li>
+            </ul>
+          </li>
+          <li>Dessert</li>
+          <li><mark>Fireworks</mark></li>
+        </ol>
+      </article>
+
+      <hr>
+
+      <section>
+        <h2>Please bring</h2>
+        <ul>
+          <li>Salad</li>
+          <li>Drinks</li>
+          <li>Bread</li>
+          <li>Snacks</li>
+          <li>Desserts</li>
+        </ul>
+      </section>
+    </main>
+
+    <aside>
+      <p>
+        10, Main Street<br>
+        Newville
+      </p>
+      <p>Parking spaces available.</p>
+    </aside>
+
+    <footer>
+      <p>John Doe</p>
+      <p>john.doe@example.com</p>
+    </footer>
+  </body>
+</html>
+In einem Webbrowser erscheint die gesamte Seite wie in Figure 22.
+
+HTML PAGE 4
+Figure 22. Webbrowser-Darstellung des resultierenden HTML-Dokuments, das die vorherigen Beispiele kombiniert. Die Einladung zu einer Party mit Ablauf und einer Liste der Speisen.
+Geführte Übungen
+Geben Sie für jedes der folgenden Tags das entsprechende schließende Tag an:
+
+<h5>
+
+<br>
+
+<ol>
+
+<dd>
+
+<hr>
+
+<strong>
+
+<tt>
+
+<main>
+
+Geben Sie für jedes der folgenden Tags an, ob es den Beginn eines Block- oder Inline-Elements markiert:
+
+<h3>
+
+<span>
+
+<b>
+
+<div>
+
+<em>
+
+<dl>
+
+<li>
+
+<nav>
+
+<code>
+
+<pre>
+
+Welche Arten von Listen können Sie in HTML erstellen? Welche Tags sollten Sie für jede dieser Listen verwenden?
+
+Welche Tags umschließen die Block-Elemente, die Sie zur Strukturierung einer HTML-Seite verwenden können?
+
+Offene Übungen
+Erstellen Sie eine einfache HTML-Seite mit dem Titel “Form Rules”. Die folgenden Übungen bauen auf dieser Seite auf. Fügen Sie eine Überschrift der Ebene 1 mit dem Text “How to fill in the request form”, einen Absatz mit dem Text “To receive the PDF document with the complete HTML course, it is necessary to fill in the following fields:” und eine ungeordnete Liste mit den folgenden Listenelementen hinzu: “Name”, “Surname”, “Email Address”, “Nation”, “Country” und “Zip/Postal Code”.
+
+Setzen Sie die ersten drei Felder (“Name”, “Surname” und “Email Address”) in Fettdruck und fügen Sie gleichzeitig semantische Bedeutung hinzu. Fügen Sie dann eine Überschrift der Ebene 2 mit dem Text “Required fields” und einen Absatz mit dem Text “Bold fields are mandatory.” hinzu.
+
+Fügen Sie eine weitere Überschrift der Ebene 2 mit dem Text “Steps to follow”, einen Absatz mit dem Text “There are four steps to follow:” und eine geordnete Liste mit den folgenden Listenelementen hinzu: “Click the Submit button”, “Check your e-mail and confirm your request by clicking on the link you receive”, and “Check your e-mail - You will receive the full HTML course in minutes”.
+
+Erstellen Sie unter Verwendung von <div> einen Block für jeden Abschnitt, der mit einer Überschrift der Ebene 2 beginnt.
+
+Erstellen Sie mit <div> einen weiteren Block für den Abschnitt, der mit der Überschrift der Ebene 1 beginnt. Trennen Sie diesen Abschnitt von den beiden anderen mit einer horizontalen Linie.
+
+Fügen Sie das Header-Element mit dem Text “Form Rules - 2021” und das Footer-Element mit dem Text “Copyright Note - 2021” hinzu. Fügen Sie schließlich das Hauptelement hinzu, das die drei <div>-Blöcke enthalten muss.
+
+Zusammenfassung
+In dieser Lektion haben Sie gelernt:
+
+Wie man Markup für Inhalte in einem HTML-Dokument erstellt.
+
+Die hierarchische HTML-Textstruktur.
+
+Der Unterschied zwischen Block- und Inline-Elementen.
+
+Wie man HTML-Dokumente mit einer semantischen Struktur erstellt.
+
+Die folgenden Begriffe wurden in dieser Lektion behandelt:
+
+<h1>, <h2>, <h3>, <h4>, <h5>, <h6>
+Überschriften-Tags
+
+<p>
+Absatz-Tag
+
+<ol>
+Tag für geordnete Listen
+
+<ul>
+Tag für ungeordnete Listen
+
+<li>
+Tag für Listenelement
+
+<dl>
+Tag für Beschreibungslisten
+
+<dt>, <dd>
+Tags der Begriffe und Beschreibungen in Beschreibungslisten
+
+<pre>
+Tag zur Bewahrung von vorformatiertem Text
+
+<b>, <i>, <u>, <tt>, <em>, <strong>, <code>, <mark>
+Tags zur Formatierung
+
+<div>, <span>
+Tags zur Gruppierung
+
+<header>, <main>, <nav>, <aside>, <footer>
+Tags zur Strukturierung einer HTML-Seite
+
+Lösungen zu den geführten Übungen
+Geben Sie für jedes der folgenden Tags das entsprechende schließende Tag an:
+
+<h5>
+
+</h5>
+
+<br>
+
+existiert nicht
+
+<ol>
+
+</ol>
+
+<dd>
+
+</dd>
+
+<hr>
+
+existiert nicht
+
+<strong>
+
+</strong>
+
+<tt>
+
+</tt>
+
+<main>
+
+</main>
+
+Geben Sie für jedes der folgenden Tags an, ob es den Beginn eines Block- oder Inline-Elements markiert:
+
+<h3>
+
+Block
+
+<span>
+
+Inline
+
+<b>
+
+Inline
+
+<div>
+
+Block
+
+<em>
+
+Inline
+
+<dl>
+
+Block
+
+<li>
+
+Block
+
+<nav>
+
+Block
+
+<code>
+
+Inline
+
+<pre>
+
+Block
+
+Welche Arten von Listen können Sie in HTML erstellen? Welche Tags sollten Sie für jede dieser Listen verwenden?
+
+In HTML stehen drei Arten von Listen zur Verfügung: geordnete Listen, die aus einer Reihe von nummerierten Listenelementen bestehen, ungeordnete Listen, die aus einer Reihe von Listenelementen bestehen, die keine besondere Ordnung oder Reihenfolge haben, und Beschreibungslisten, die Einträge wie in einem Wörterbuch oder einer Enzyklopädie darstellen. Eine geordnete Liste wird zwischen den Tags <ol> und </ol> eingeschlossen, eine ungeordnete Liste zwischen den Tags <ul> und </ul> und eine Beschreibungsliste zwischen den Tags <dl> und </dl>. Jeder Eintrag in einer geordneten oder ungeordneten Liste wird zwischen den Tags <li> und </li> eingeschlossen, während jeder Begriff in einer Beschreibungsliste von den Tags <dt> und </dt> und seine Beschreibung von den Tags <dd> und </dd> eingeschlossen wird.
+
+Welche Tags umschließen die Block-Elemente, die Sie zur Strukturierung einer HTML-Seite verwenden können?
+
+Die Tags <header> und </header> umschließen den Seitenkopf, die Tags <main> und </main> den eigentlichen Inhalt der HTML-Seite, die Tags <nav> und </nav> die sogenannte Navigationsleiste, die Tags <aside> und </aside> die Seitenleiste und die Tags <footer> und </footer> den Seiten-Footer.
+
+Lösungen zu den offenen Übungen
+Erstellen Sie eine einfache HTML-Seite mit dem Titel “Form Rules”. Die folgenden Übungen bauen auf dieser Seite auf. Fügen Sie eine Überschrift der Ebene 1 mit dem Text “How to fill in the request form”, einen Absatz mit dem Text “To receive the PDF document with the complete HTML course, it is necessary to fill in the following fields:” und eine ungeordnete Liste mit den folgenden Listenelementen hinzu: “Name”, “Surname”, “Email Address”, “Nation”, “Country” und “Zip/Postal Code”.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Rules</title>
+  </head>
+
+  <body>
+    <h1>How to fill in the request form</h1>
+    <p>
+      To receive the PDF document with the complete HTML course, it is necessary
+      to fill in the following fields:
+    </p>
+    <ul>
+      <li>Name</li>
+      <li>Surname</li>
+      <li>Email Address</li>
+      <li>Nation</li>
+      <li>Country</li>
+      <li>Zip/Postal Code</li>
+    </ul>
+  </body>
+</html>
+Setzen Sie die ersten drei Felder (“Name”, “Surname” und “Email Address”) in Fettdruck und fügen Sie gleichzeitig semantische Bedeutung hinzu. Fügen Sie dann eine Überschrift der Ebene 2 mit dem Text “Required fields” und einen Absatz mit dem Text “Bold fields are mandatory.” hinzu.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Rules</title>
+  </head>
+
+  <body>
+    <h1>How to fill in the request form</h1>
+    <p>
+      To receive the PDF document with the complete HTML course, it is necessary
+      to fill in the following fields:
+    </p>
+    <ul>
+      <li><strong> Name </strong></li>
+      <li><strong> Surname </strong></li>
+      <li><strong> Email Address </strong></li>
+      <li>Nation</li>
+      <li>Country</li>
+      <li>Zip/Postal Code</li>
+    </ul>
+
+    <h2>Required fields</h2>
+    <p>Bold fields are mandatory.</p>
+  </body>
+</html>
+Fügen Sie eine weitere Überschrift der Ebene 2 mit dem Text “Steps to follow”, einen Absatz mit dem Text “There are four steps to follow:” und eine geordnete Liste mit den folgenden Listenelementen hinzu: “Click the Submit button”, “Check your e-mail and confirm your request by clicking on the link you receive”, and “Check your e-mail - You will receive the full HTML course in minutes”.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Rules</title>
+  </head>
+
+  <body>
+    <h1>How to fill in the request form</h1>
+    <p>
+      To receive the PDF document with the complete HTML course, it is necessary
+      to fill in the following fields:
+    </p>
+    <ul>
+      <li><strong> Name </strong></li>
+      <li><strong> Surname </strong></li>
+      <li><strong> Email Address </strong></li>
+      <li>Nation</li>
+      <li>Country</li>
+      <li>Zip/Postal Code</li>
+    </ul>
+
+    <h2>Required fields</h2>
+    <p>Bold fields are mandatory.</p>
+
+    <h2>Steps to follow</h2>
+    <p>There are four steps to follow:</p>
+    <ol>
+      <li>Fill in the fields</li>
+      <li>Click the Submit button</li>
+      <li>
+        Check your e-mail and confirm your request by clicking on the link you
+        receive
+      </li>
+      <li>
+        Check your e-mail - You will receive the full HTML course in minutes
+      </li>
+    </ol>
+  </body>
+</html>
+Erstellen Sie unter Verwendung von <div> einen Block für jeden Abschnitt, der mit einer Überschrift der Ebene 2 beginnt.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Rules</title>
+  </head>
+
+  <body>
+    <h1>How to fill in the request form</h1>
+    <p>
+      To receive the PDF document with the complete HTML course, it is necessary
+      to fill in the following fields:
+    </p>
+    <ul>
+      <li><strong> Name </strong></li>
+      <li><strong> Surname </strong></li>
+      <li><strong> Email Address </strong></li>
+      <li>Nation</li>
+      <li>Country</li>
+      <li>Zip/Postal Code</li>
+    </ul>
+
+    <div>
+      <h2>Required fields</h2>
+      <p>Bold fields are mandatory.</p>
+    </div>
+
+    <div>
+      <h2>Steps to follow</h2>
+      <p>There are four steps to follow:</p>
+      <ol>
+        <li>Fill in the fields</li>
+        <li>Click the Submit button</li>
+        <li>
+          Check your e-mail and confirm your request by clicking on the link you
+          receive
+        </li>
+        <li>
+          Check your e-mail - You will receive the full HTML course in minutes
+        </li>
+      </ol>
+    </div>
+  </body>
+</html>
+Erstellen Sie mit <div> einen weiteren Block für den Abschnitt, der mit der Überschrift der Ebene 1 beginnt. Trennen Sie diesen Abschnitt von den beiden anderen mit einer horizontalen Linie.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Rules</title>
+  </head>
+
+  <body>
+    <div>
+      <h1>How to fill in the request form</h1>
+      <p>
+        To receive the PDF document with the complete HTML course, it is
+        necessary to fill in the following fields:
+      </p>
+      <ul>
+        <li><strong> Name </strong></li>
+        <li><strong> Surname </strong></li>
+        <li><strong> Email Address </strong></li>
+        <li>Nation</li>
+        <li>Country</li>
+        <li>Zip/Postal Code</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <div>
+      <h2>Required fields</h2>
+      <p>Bold fields are mandatory.</p>
+    </div>
+
+    <div>
+      <h2>Steps to follow</h2>
+      <p>There are four steps to follow:</p>
+      <ol>
+        <li>Fill in the fields</li>
+        <li>Click the Submit button</li>
+        <li>
+          Check your e-mail and confirm your request by clicking on the link you
+          receive
+        </li>
+        <li>
+          Check your e-mail - You will receive the full HTML course in minutes
+        </li>
+      </ol>
+    </div>
+  </body>
+</html>
+Fügen Sie das Header-Element mit dem Text “Form Rules - 2021” und das Footer-Element mit dem Text “Copyright Note - 2021” hinzu. Fügen Sie schließlich das Hauptelement hinzu, das die drei <div>-Blöcke enthalten muss.
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Rules</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Form Rules - 2021</h1>
+    </header>
+
+    <main>
+      <div>
+        <h1>How to fill in the request form</h1>
+        <p>
+          To receive the PDF document with the complete HTML course, it is
+          necessary to fill in the following fields:
+        </p>
+        <ul>
+          <li><strong> Name </strong></li>
+          <li><strong> Surname </strong></li>
+          <li><strong> Email Address </strong></li>
+          <li>Nation</li>
+          <li>Country</li>
+          <li>Zip/Postal Code</li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <div>
+        <h2>Required fields</h2>
+        <p>Bold fields are mandatory.</p>
+      </div>
+
+      <div>
+        <h2>Steps to follow</h2>
+        <p>There are four steps to follow:</p>
+        <ol>
+          <li>Fill in the fields</li>
+          <li>Click the Submit button</li>
+          <li>
+            Check your e-mail and confirm your request by clicking on the link
+            you receive
+          </li>
+          <li>
+            Check your e-mail - You will receive the full HTML course in minutes
+          </li>
+        </ol>
+      </div>
+    </main>
+
+    <footer>
+      <p>Copyright Note - 2021</p>
+    </footer>
+  </body>
+</html>
+
+032.3
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+032 HTML-Dokument-Markup
+
+Lernziel:	
+032.3 HTML-Referenzen und eingebettete Ressourcen
+
+Einführung
+Eine moderne Webseite besteht selten nur aus Text. Sie umfasst viele andere Arten von Inhalten, wie Bilder, Audio, Video und sogar andere HTML-Dokumente. Neben externen Inhalten können HTML-Dokumente auch Links zu anderen Dokumenten enthalten, was das Surfen im Internet sehr viel einfacher macht.
+
+Eingebetteter Inhalt
+Der Dateiaustausch über das Internet ist auch ohne in HTML geschriebene Webseiten möglich. Warum also wird HTML als Format für Webdokumente gewählt und nicht PDF oder ein anderes Textverarbeitungsformat? Ein wichtiger Grund ist, dass HTML seine Multimedia-Ressourcen in separaten Dateien speichert. In einer Umgebung wie dem Internet, wo Informationen oft redundant und an verschiedenen Orten verteilt sind, ist es wichtig, unnötige Datenübertragungen zu vermeiden. In den meisten Fällen übernehmen neue Versionen einer Webseite dieselben Bilder und andere Dateien von früheren Versionen, so dass der Webbrowser die zuvor abgerufenen Dateien verwenden kann, anstatt alles noch einmal zu kopieren. Darüber hinaus erleichtert die Trennung der Dateien die Anpassung der Multimedia-Inhalte an die Umgebung des Kunden, z.B. an Standort, Bildschirmgröße und Verbindungsgeschwindigkeit.
+
+Bilder
+Die meistverwendete Art von eingebetteten Inhalten sind Bilder, die den Text begleiten. Bilder werden separat abgelegt und in der HTML-Datei mit dem Tag <img> referenziert:
+
+<img src="logo.png">
+Das <img>-Tag benötigt kein schließendes Tag. Die Eigenschaft src gibt den Quellort für die Bilddatei an. In diesem Beispiel muss sich die Bilddatei logo.png im selben Verzeichnis wie die HTML-Datei befinden, sonst kann der Browser sie nicht anzeigen. Die Eigenschaft source location (src) akzeptiert relative Pfade, so dass mit der Dot- oder Punktnotation den Pfad zum Bild angeben:
+
+<img src="../logo.png">
+Die beiden Punkte zeigen an, dass sich das Bild im übergeordneten Verzeichnis relativ zu dem Verzeichnis befindet, in dem die HTML-Datei liegt. Wird der Dateiname ../logo.png in einer HTML-Datei verwendet, deren URL http://example.com/library/periodicals/index.html lautet, fordert der Browser die Bilddatei unter der Adresse http://example.com/library/logo.png an.
+
+Die Punktnotation gilt auch, wenn die HTML-Datei keine tatsächliche Datei im Dateisystem ist; der HTML-Browser interpretiert die URL als Pfad zu einer Datei, aber es ist die Aufgabe des HTTP-Servers zu entscheiden, ob sich dieser Pfad auf eine Datei oder auf dynamisch generierte Inhalte bezieht. Die Domäne und der richtige Pfad werden automatisch zu allen Anfragen an den Server hinzugefügt, falls die HTML-Datei von einer HTTP-Anfrage stammt. Ebenso wird der Browser das richtige Bild öffnen, wenn die HTML-Datei direkt aus dem lokalen Dateisystem geöffnet wurde.
+
+Quellorte, die mit einem Schrägstrich / beginnen, werden als absolute Pfade behandelt. Absolute Pfade enthalten vollständige Informationen über den Speicherort des Bildes, so dass sie unabhängig vom Speicherort des HTML-Dokuments funktionieren. Wenn sich die Bilddatei auf einem anderen Server befindet, etwa bei Einsatz eines Content Delivery Network (CDN) , muss auch der Domainname angegeben werden.
+
+Note
+Content Delivery Networks bestehen aus geografisch verteilten Servern, die statische Inhalte für andere Websites speichern. Sie tragen dazu bei, die Leistung und Verfügbarkeit stark frequentierter Websites zu verbessern.
+
+Wenn er das Bild nicht laden kann, zeigt der HTML-Browser anstelle des Bildes den mit dem Attribut alt angegebenen Text an. Zum Beispiel:
+
+<img src="logo.png" alt="The Company logo">
+Das Attribut alt ist auch für die Barrierefreiheit wichtig: Nur-Text-Browser und Bildschirmlesegeräte verwenden es als Beschreibung für das entsprechende Bild.
+
+Bildtypen
+Webbrowser zeigen alle gängigen Bildtypen wie JPEG, PNG, GIF und SVG an. Die Abmessungen der Bilder werden erkannt, sobald die Bilder geladen werden, sie können jedoch mit den Attributen width und height vorgegeben werden:
+
+<img src="logo.png" alt="The Company logo" width="300" height="100">
+Der einzige Grund für die Einfügung von Abmessungsattributen in das <img>-Tag ist, dass das Layout nicht zerstört wird, wenn das Laden des Bildes zu lange dauert oder wenn es überhaupt nicht geladen werden kann. Die Attribute width und height zur Änderung der ursprünglichen Abmessungen des Bildes können jedoch zu unerwünschten Ergebnissen führen:
+
+Bilder werden verzerrt, wenn die Originalgröße kleiner ist als die neuen Abmessungen oder wenn das neue Größenverhältnis vom Original abweicht.
+
+Die Verkleinerung großer Bilder verbraucht zusätzliche Bandbreite, was zu längeren Ladezeiten führt.
+
+SVG ist das einzige Format, das nicht unter diesen Effekten leidet, da alle grafischen Informationen in numerischen Koordinaten gespeichert werden, die sich gut zur Skalierung eignen, und die Abmessungen keinen Einfluss auf die Dateigröße haben (daher der Name Scalable Vector Graphics). Zum Beispiel sind nur die Position, die Seitenabmessungen und die Farbinformationen erforderlich, um ein Rechteck in SVG zu zeichnen. Der jeweilige Wert für jedes einzelne Pixel wird anschließend dynamisch gerendert. SVG-Bilder sind HTML-Dateien insofern ähnlich, als ihre grafischen Elemente ebenfalls durch Tags in einer Textdatei definiert sind. SVG-Dateien sind für die Darstellung von scharfkantigen Zeichnungen, wie z.B. Tabellen oder Diagrammen, gedacht.
+
+Bilder, die diese Kriterien nicht erfüllen, sollten als Bitmaps vorliegen. Im Gegensatz zu vektorbasierten Bildformaten werden bei Bitmaps die Farbinformationen für jedes Pixel des Bildes im Voraus gespeichert. Die Speicherung des Farbwerts für jedes Pixel im Bild erzeugt eine sehr große Datenmenge, weshalb Bitmaps normalerweise in komprimierten Formaten wie JPEG, PNG oder GIF gespeichert werden.
+
+Das JPEG-Format empfiehlt sich für Fotos, da sein Komprimierungsalgorithmus gute Ergebnisse bei Schattierungen und unscharfen Hintergründen liefert. Für Bilder, bei denen Volltonfarben vorherrschen, ist das PNG-Format besser geeignet. Daher sollten Sie das PNG-Format wählen, wenn Sie ein Vektorbild in eine Bitmap umwandeln.
+
+Das GIF-Format bietet von allen gängigen Bitmap-Formaten die niedrigste Bildqualität. Dennoch ist es wegen seiner Unterstützung für Animationen noch immer weit verbreitet. In der Tat verwenden viele Websites GIF-Dateien, um kurze Videos anzuzeigen, aber es gibt bessere Möglichkeiten, Videoinhalte darzustellen.
+
+Audio und Video
+Audio- und Videoinhalte fügen Sie einem HTML-Dokument mehr oder weniger auf die gleiche Weise hinzu wie Bilder. Es überrascht nicht, dass das Tag zum Hinzufügen von Audio <audio> und das Tag zum Hinzufügen von Video <video> ist. Offensichtlich sind reine Textbrowser nicht in der Lage, Multimediainhalte abzuspielen, so dass die Tags <audio> und <video> ein schließendes Tag nutzen, um den Text aufzunehmen, der als Ersatz für das Element dient, das nicht angezeigt werden konnte. Zum Beispiel:
+
+<audio controls src="/media/recording.mp3">
+<p>Unable to play <em>recording.mp3</em></p>
+</audio>
+Wenn der Browser das <audio>-Tag nicht unterstützt, zeigt er stattdessen die Zeile “Unable to play recording.mp3” an. Die abschließenden </audio>- oder </video>-Tags machen es der Webseite möglich, aufwändigere alternative Inhalte als die einfache Textzeile aufzunehmen, die das Attribut alt des <img>-Tags erlaubt.
+
+Das Attribut src für die Tags <audio> und <video> funktioniert genauso wie für das Tag <img>, akzeptiert aber auch URLs, die auf einen Live-Stream verweisen. Der Browser kümmert sich um die Pufferung, Dekodierung und Anzeige des Inhalts, wenn er empfangen wird. Das Attribut controls zeigt die Wiedergabesteuerung an. Ohne dieses Attribut ist der Besucher nicht in der Lage, die Wiedergabe anzuhalten, zurückzuspulen oder anderweitig zu steuern.
+
+Generischer Inhalt
+Ein HTML-Dokument kann in ein anderes HTML-Dokument verschachtelt werden, ähnlich wie das Einfügen eines Bildes in ein HTML-Dokument, jedoch unter Verwendung des Tags <iframe>:
+
+<iframe name="viewer" src="gallery.html">
+<p>Unsupported browser</p>
+</iframe>
+Einfachere reine Textbrowser unterstützen das <iframe>-Tag nicht und zeigen stattdessen den eingeschlossenen Text an. Wie bei den Multimedia-Tags beschreibt das Attribut src den Quellort des verschachtelten Dokuments. Die Attribute width und height können hinzugefügt werden, um die Standardabmessungen des iframe-Elements zu ändern.
+
+Das Attribut name ermöglicht es, auf den iframe zu verweisen und das eingebettete Dokument zu ändern. Ohne dieses Attribut kann das eingebettete Dokument nicht geändert werden. Ein anchor-Element dient dazu, ein Dokument von einer anderen Stelle innerhalb eines iframe anstelle des aktuellen Browserfensters zu laden.
+
+Links
+Das Seitenelement, das gemeinhin als Web-Link bezeichnet wird, ist auch unter dem technischen Begriff Anker oder Anchor bekannt, daher das Tag <a>. Der Anker führt zu einem anderen Ort — eine beliebige, vom Browser unterstützte Adresse. Das Attribut href (Hyperlink Reference) gibt den Ort an:
+
+<a href="contact.html">Contact Information</a>
+Den Speicherort geben Sie als relativen oder absoluten Pfad an, wie bei den bereits erwähnten eingebetteten Inhalten. Nur der eingeschlossene Textinhalt (z.B. Contact Information) ist für den Besucher sichtbar, in der Regel als anklickbarer, unterstrichener blauer Text, aber das über dem Link angezeigte Element kann auch ein beliebiger anderer sichtbarer Inhalt sein, z.B. Bilder:
+
+<a href="contact.html"><img src="contact.png" alt="Contact Information"></a>
+Über spezielle Präfixe bei der Ortsangabe teilen Sie dem Browser mit, wie er diese öffnen soll. Wenn der Anker beispielsweise auf eine E-Mail-Adresse verweist, sollte das Attribut href das Präfix mailto: enthalten:
+
+<a href="mailto:info@lpi.org">Contact by email</a>
+Das tel:-Präfix gibt eine Telefonnummer an. Es ist besonders nützlich für Besucher, die die Seite auf mobilen Geräten ansehen:
+
+<a href="tel:+123456789">Contact by phone</a>
+Bei Klick auf den Link öffnet der Browser den Inhalt des Ortes mit der passenden Anwendung.
+
+Meist werden über Anker andere Webdokumente geladen. Standardmäßig ersetzt der Browser das aktuelle HTML-Dokument durch den Inhalt von der neuen Location. Dieses Verhalten beeinflussen Sie mit dem Attribut target. Das Attribut _blank weist den Browser beispielsweise an, die angegebene Ressource in einem neuen Fenster oder einem neuen Browser-Tab zu öffnen, je nach Präferenz des Besuchers:
+
+<a href="contact.html" target="_blank">Contact Information</a>
+Das Ziel _self ist der Standard, wenn das Attribut target nicht angegeben ist. Es bewirkt, dass das referenzierte Dokument das aktuelle Dokument ersetzt.
+
+Andere Arten von Zielen sind mit dem <iframe>-Element verbunden. Um ein referenziertes Dokument innerhalb eines <iframe>-Elements zu laden, sollte das Attribut target auf den Namen des iframe-Elements zeigen:
+
+<p><a href="gallery.html" target="viewer">Photo Gallery</a></p>
+
+<iframe name="viewer" width="800" height="600">
+<p>Unsupported browser</p>
+</iframe>
+Das iframe-Element funktioniert wie ein eigenes Browserfenster, so dass alle Links, die aus dem Dokument innerhalb des iframe geladen werden, nur den Inhalt des iframe ersetzen. Um dieses Verhalten zu ändern, können die Ankerelemente innerhalb des “framed” Dokuments auch das Attribut target verwenden. Das Ziel _parent innerhalb eines Rahmens bewirkt, dass die referenzierte Stelle das übergeordnete Dokument, das das <iframe>-Tag enthält, ersetzt. Zum Beispiel könnte das eingebettete Dokument gallery.html einen Anker enthalten, der sich selbst lädt und das übergeordnete Dokument ersetzt:
+
+<p><a href="gallery.html" target="_parent">Open as parent document</a></p>
+HTML-Dokumente unterstützen mehrere Ebenen der Verschachtelung mit dem <iframe>-Tag. Das Ziel _top führt in einem Anker innerhalb eines Rahmens dazu, dass die referenzierte Stelle das Hauptdokument im Browserfenster ersetzt, unabhängig davon, ob es das unmittelbare Elternteil des entsprechenden <iframe> oder ein Vorgänger weiter hinten in der Kette ist.
+
+Orte innerhalb von Dokumenten
+Die Adresse eines HTML-Dokuments kann optional ein Fragment enthalten, das der Identifizierung einer Ressource innerhalb des Dokuments dient. Dieses Fragment, das auch als URL-Anker bezeichnet wird, ist eine Zeichenkette, die auf ein Rautenzeichen # am Ende der URL folgt. Zum Beispiel ist das Wort History der Anker in der URL "https://en.wikipedia.org/wiki/Internet#History".
+
+Wenn die URL einen Anker enthält, blättert der Browser zu dem entsprechenden Element im Dokument, d.h. zu dem Element, dessen Attribut id dem Anker in der URL entspricht. Im Falle der angegebenen URL, https://en.wikipedia.org/wiki/Internet#History, springt der Browser direkt zum Abschnitt “History”. Bei der Untersuchung des HTML-Codes der Seite stellt sich heraus, dass der Titel des Abschnitts das entsprechende id-Attribut hat:
+
+<span class="mw-headline" id="History">History</span>
+URL-Anker können im href-Attribut des <a>-Tags verwendet werden, entweder wenn sie auf externe Seiten zeigen oder wenn sie auf Stellen innerhalb der aktuellen Seite verweisen. Im letzteren Fall reicht es aus, mit dem Rautezeichen und dem URL-Fragment zu beginnen, wie in <a href="#History">History</a>.
+
+Warning
+Das Attribut id darf keine Leerzeichen (Leerzeichen, Tabulatoren usw.) enthalten und muss innerhalb des Dokuments eindeutig sein.
+
+Es gibt Möglichkeiten, die Reaktion des Browsers auf URL-Anker anzupassen. Sie könnten z.B. eine JavaScript-Funktion schreiben, die auf das hashchange-Fensterereignis wartet und eine benutzerdefinierte Aktion auslöst, wie z.B. eine Animation oder eine HTTP-Anfrage. Es ist jedoch zu beachten, dass das URL-Fragment niemals zusammen mit der URL an den Server gesendet wird, so dass es der HTTP-Server nicht als Bezeichner nutzen kann.
+
+Geführte Übungen
+Das HTML-Dokument unter der Adresse http://www.lpi.org/articles/linux/index.html hat ein <img>-Tag, dessen Attribut src auf ../logo.png verweist. Wie lautet der vollständige absolute Pfad zu diesem Bild?
+
+Nennen Sie zwei Gründe, warum das Attribut alt in <img>-Tags wichtig ist.
+
+Welches Bildformat bietet eine gute Bildqualität und hält die Dateigröße klein, wenn es für Fotos mit unscharfen Punkten und mit vielen Farben und Schattierungen verwendet wird?
+
+Mit welchem HTML-Tag betten Sie eine Videodatei in ein HTML-Dokument ein — statt einen Drittanbieter wie z.B. Youtube zu verwenden — und nutzen dabei nur Standard-HTML-Funktionen?
+
+Offene Übungen
+Ein HTML-Dokument enthält den Hyperlink <a href="pic1.jpeg">First picture</a> und das iframe-Element <iframe name="gallery"></iframe>. Wie ändern Sie das Hyperlink-Tag so, dass das Bild, auf das es zeigt, innerhalb des gegebenen iframe-Elements geladen wird, nachdem der Benutzer auf den Link geklickt hat?
+
+Was passiert, wenn der Besucher auf einen Hyperlink in einem Dokument innerhalb eines iframe klickt und das Zielattribut des Hyperlinks auf _self gesetzt ist?
+
+Sie stellen fest, dass der URL-Anker für den zweiten Abschnitt Ihrer HTML-Seite nicht funktioniert. Was ist die wahrscheinliche Ursache für diesen Fehler?
+
+Zusammenfassung
+Diese Lektion behandelt das Hinzufügen von Bildern und anderen Multimedia-Inhalten mit Hilfe der richtigen HTML-Tags. Außerdem lernen Sie die verschiedenen Einsatzmöglichkeiten von Hyperlinks kennen, um andere Dokumente zu laden und auf bestimmte Stellen innerhalb einer Seite zu verweisen. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Das <img>-Tag und seine wichtigsten Attribute: src und alt.
+
+Relative und absolute URL-Pfade.
+
+Beliebte Bildformate für das Web und ihre Eigenschaften.
+
+Die Multimedia-Tags <audio> und <video>.
+
+Wie man verschachtelte Dokumente mit dem <iframe>-Tag einfügt.
+
+Das Hyperlink-Tag <a>, sein Attribut href und spezielle Ziele.
+
+Wie man URL-Fragmente, auch bekannt als Hash-Anker, verwendet.
+
+Lösungen zu den geführten Übungen
+Das HTML-Dokument unter der Adresse http://www.lpi.org/articles/linux/index.html hat ein <img>-Tag, dessen Attribut src auf ../logo.png verweist. Wie lautet der vollständige absolute Pfad zu diesem Bild?
+
+http://www.lpi.org/articles/logo.png
+
+Nennen Sie zwei Gründe, warum das Attribut alt in <img>-Tags wichtig ist.
+
+Browser, die nur Text anzeigen, können eine Beschreibung des fehlenden Bildes anzeigen. Bildschirmlesegeräte verwenden das Attribut alt zur Beschreibung des Bildes.
+
+Welches Bildformat bietet eine gute Bildqualität und hält die Dateigröße klein, wenn es für Fotos mit unscharfen Punkten und mit vielen Farben und Schattierungen verwendet wird?
+
+Das JPEG-Format.
+
+Mit welchem HTML-Tag betten Sie eine Videodatei in ein HTML-Dokument ein — statt einen Drittanbieter wie z.B. Youtube zu verwenden — und nutzen dabei nur Standard-HTML-Funktionen?
+
+Mit dem <video>-Tag.
+
+Lösungen zu den offenen Übungen
+Ein HTML-Dokument enthält den Hyperlink <a href="pic1.jpeg">First picture</a> und das iframe-Element <iframe name="gallery"></iframe>. Wie ändern Sie das Hyperlink-Tag so, dass das Bild, auf das es zeigt, innerhalb des gegebenen iframe-Elements geladen wird, nachdem der Benutzer auf den Link geklickt hat?
+
+Verwenden Sie das Attribut target des Tags a, also <a href="pic1.jpeg" target="gallery">First picture</a>.
+
+Was passiert, wenn der Besucher auf einen Hyperlink in einem Dokument innerhalb eines iframe klickt und das Zielattribut des Hyperlinks auf _self gesetzt ist?
+
+Das Dokument wird innerhalb desselben iframe geladen, was dem Standardverhalten entspricht.
+
+Sie stellen fest, dass der URL-Anker für den zweiten Abschnitt Ihrer HTML-Seite nicht funktioniert. Was ist die wahrscheinliche Ursache für diesen Fehler?
+
+Das URL-Fragment nach dem Rautezeichen stimmt nicht mit dem Attribut id des Elements überein, das dem zweiten Abschnitt entspricht, oder das Attribut id des Elements ist nicht vorhanden.
+
+032.4
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+032 HTML-Dokument-Markup
+
+Lernziel:	
+032.4 HTML-Formulare
+
+Einführung
+Webformulare bieten eine einfache und effiziente Möglichkeit, Besucherinformationen über eine HTML-Seite abzufragen. Der Frontend-Entwickler nutzt dazu verschiedene Komponenten wie Textfelder, Kontrollkästchen, Schaltflächen und viele andere, um Schnittstellen zu erstellen, die Daten auf strukturierte Weise an den Server senden.
+
+Einfache HTML-Formulare
+Bevor wir uns in den formularspezifischen Auszeichnungscode stürzen, beginnen wir mit einem einfachen, leeren HTML-Dokument ohne Textinhalt:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Working with HTML Forms</title>
+</head>
+<body>
+
+<!-- The body content goes here -->
+
+</body>
+</html>
+Speichern Sie das Codebeispiel als einfache Textdatei mit der Erweiterung .html (wie in form.html) und öffnen Sie es mit Ihrem bevorzugten Browser. Laden Sie nach einer Änderung die Datei im Browser neu, um die Änderungen anzuzeigen.
+
+Die Grundstruktur des Formulars bestimmen das Tag <form> und seine internen Elemente:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Working with HTML Forms</title>
+</head>
+<body>
+
+<!-- Form to collect personal information -->
+
+<form>
+
+<h2>Personal Information</h2>
+
+<p>Full name:</p>
+<p><input type="text" name="fullname" id="fullname"></p>
+
+<p><input type="reset" value="Clear form"></p>
+<p><input type="submit" value="Submit form"></p>
+
+</form>
+
+</body>
+</html>
+Die doppelten Anführungszeichen sind für Einzelwortattribute wie type nicht erforderlich, so dass type=text genauso gut funktioniert wie type="text". Der Entwickler entscheidet, welcher Konvention er folgt.
+
+Speichern Sie den neuen Inhalt und laden Sie die Seite erneut in den Browser. Sie sollten das Ergebnis sehen wie in Figure 1.
+
+fig01
+Figure 1. Ein sehr einfaches Formular
+Das <form>-Tag selbst hat keine sichtbaren Auswirkungen auf die Seite. Die Elemente innerhalb der <form>…​</form>-Tags definieren die Felder und andere visuelle Hilfen, die der Besucher sieht.
+
+Der Beispielcode enthält sowohl allgemeine HTML-Tags (<h2> und <p>) als auch das formularspezifische <input>-Tag. Während allgemeine Tags überall im Dokument stehen können, sollten formularspezifische Tags nur innerhalb des Elements <form> verwendet werden, d.h. zwischen dem öffnenden <form>- und dem schließenden </form>-Tag.
+
+Note
+HTML bietet nur grundlegende Tags und Eigenschaften zur Änderung des Standardaussehens von Formularen. CSS bietet ausgefeilte Mechanismen. Daher empfiehlt es sich, HTML-Code zu schreiben, der sich nur mit den funktionalen Aspekten des Formulars befasst, und sein Aussehen mit CSS zu ändern.
+
+Wie im Beispiel gezeigt, kann das Absatz-Tag <p> dazu dienen, das Feld für den Besucher zu beschreiben. Es gibt jedoch keine offensichtliche Möglichkeit, wie der Browser die Beschreibung im <p>-Tag mit dem entsprechenden Eingabeelement verbindet. In diesen Fällen ist das Tag <label> besser geeignet (im Folgenden gehen wir davon aus, dass sich alle Codebeispiele innerhalb des HTML-Body befinden):
+
+<form>
+
+<h2>Personal Information</h2>
+
+<label for="fullname">Full name:</label>
+<p><input type="text" name="fullname" id="fullname"></p>
+
+<p><input type="reset" value="Clear form"></p>
+<p><input type="submit" value="Submit form"></p>
+
+</form>
+Das Attribut for im Tag <label> enthält die id des jeweiligen Eingabeelements. Es macht die Seite zugänglicher, da Screenreader den Inhalt des Label-Elements sprechen können, wenn das Eingabeelement im Fokus ist. Außerdem können Besucher auf das Label klicken, um den Fokus auf das entsprechende Eingabefeld zu legen.
+
+Das Attribut id funktioniert für Formularelemente wie für jedes andere Element im Dokument. Es liefert einen Bezeichner für das Element, der im gesamten Dokument eindeutig ist. Das Attribut name hat einen ähnlichen Zweck, aber es identifiziert das Eingabeelement im Kontext des Formulars. Der Browser verwendet das Attribut name, um das Eingabefeld zu identifizieren, wenn er die Formulardaten an den Server sendet — daher sind aussagekräftige und eindeutige name-Attribute innerhalb des Formulars wichtig.
+
+Das Attribut type ist das wichtigste Attribut des Eingabeelements, da es den Datentyp, den das Element akzeptiert, und seine visuelle Darstellung für den Besucher kontrolliert. Ohne das Attribut type zeigt die Eingabe standardmäßig ein Textfeld an. Moderne Browser unterstützen die folgenden Eingabetypen:
+
+Table 1. Eingabetypen für Formulare
+type Werte	Datentyp	Darstellung
+hidden
+
+Beliebige Zeichenkette
+
+N/A
+
+text
+
+Text ohne Zeilenumbruch
+
+Textfeld
+
+search
+
+Text ohne Zeilenumbruch
+
+Suchfeld
+
+tel
+
+Text ohne Zeilenumbruch
+
+Textfeld
+
+url
+
+Absolute URL
+
+Textfeld
+
+email
+
+E-Mail-Adresse oder Liste von E-Mail-Adressen
+
+Textfeld
+
+password
+
+Text ohne Zeilenumbruch (sensible Informationen)
+
+Textfeld mit verdeckten Daten
+
+date
+
+Datum (Jahr, Monat, Tag) ohne Zeitzone
+
+Datumsfeld
+
+month
+
+Jahres- und Monatsangabe ohne Zeitzone
+
+Monatsfeld
+
+week
+
+Jahres- und Wochenangabe ohne Zeitzone
+
+Wochenfeld
+
+time
+
+Uhrzeit (Stunde, Minute, Sekunden, Sekundenbruchteile) ohne Zeitzone
+
+Zeitfeld
+
+datetime-local
+
+Datum und Uhrzeit (Jahr, Monat, Tag, Stunde, Minute, Sekunde, Sekundenbruchteil) ohne Zeitzone
+
+Datums- und Zeitfeld
+
+number
+
+numerischer Wert
+
+Text oder Kontrollregler
+
+range
+
+numerischer Wert ohne exakte Werteeingabe
+
+Schieberegler oder Ähnliches
+
+color
+
+sRGB-Farbe mit 8-Bit-Rot-, Grün- und Blaukomponenten
+
+Farbwähler
+
+checkbox
+
+Satz von null oder mehr Werten aus einer vordefinierten Liste
+
+Kontrollkästchen (Auswahl mehrerer Optionen)
+
+radio
+
+Aufzählungswert
+
+Optionsschaltfläche (lässt nur eine Auswahl zu)
+
+file
+
+null oder mehr Dateien, jede mit einem MIME-Typ und einem optionalen Dateinamen
+
+Label und Schaltfläche
+
+submit
+
+Aufzählungswert, der den Eingabevorgang beendet und das Formular abschickt
+
+Schaltfläche (Button)
+
+image
+
+Koordinate eines Bildes, die den Eingabevorgang beendet und das Formular abschickt
+
+anklickbares Bild oder Schaltfläche
+
+button
+
+N/A
+
+generische Schaltfläche
+
+reset
+
+N/A
+
+Schaltfläche, die alle anderen Felder auf ihre ursprünglichen Werte zurückzusetzt
+
+Das Aussehen der Eingabetypen password, search, tel, url und email unterscheidet sich nicht vom Standardtyp text. Ihr Zweck ist es, dem Browser Hinweise auf den erwarteten Inhalt des Eingabefeldes zu geben, so dass der Browser oder das auf der Client-Seite laufende Skript benutzerdefinierte Aktionen für einen bestimmten Eingabetyp ausführen kann. Der einzige Unterschied zwischen dem Typ Text und dem Typ Passwort besteht beispielsweise darin, dass der Inhalt des Passwortfelds nicht angezeigt wird, wenn der Besucher ihn tippt. Bei Touchscreen-Geräten, auf denen der Text über eine Bildschirmtastatur eingegeben wird, kann der Browser nur die numerische Tastatur einblenden, wenn eine Eingabe vom Typ tel den Fokus erhält. Eine andere Möglichkeit ist, eine Liste bekannter E-Mail-Adressen vorzuschlagen, wenn eine Eingabe des Typs email den Fokus erhält.
+
+Der Typ number erscheint ebenfalls als einfache Texteingabe, jedoch mit Erhöhungs-/Erniedrigungspfeilen an der Seite. Er bewirkt, dass die numerische Tastatur auf Touchscreen-Geräten angezeigt wird, wenn sie den Fokus hat.
+
+Die anderen Eingabeelemente haben ihr eigenes Aussehen und Verhalten. Der Typ date zum Beispiel erscheint entsprechend den lokalen Einstellungen für das Datumsformat und zeigt einen Kalender, wenn das Feld den Fokus erhält:
+
+<form>
+
+<p>
+  <label for="date">Date:</label>
+  <input type="date" name="date" id="date">
+</p>
+
+</form>
+Figure 2 zeigt, wie die Desktop-Version von Firefox dieses Feld derzeit darstellt.
+
+fig02
+Figure 2. Der Eingabetyp date
+Note
+Elemente können in verschiedenen Browsern oder Betriebssystemen leicht unterschiedlich aussehen, aber ihre Funktionsweise und Verwendung sind immer gleich.
+
+Dies ist eine Standardfunktion in allen modernen Browsern, die keine zusätzlichen Optionen oder Programmierung erfordert.
+
+Unabhängig vom Eingabetyp bezeichnet man den Inhalt eines Eingabefeldes als seinen Wert. Alle Feldwerte sind standardmäßig leer, aber das Attribut value dient dazu, einen Standardwert für das Feld vorzugeben. Der Wert für den Datumstyp muss dem Format YYYY-MM-DD entsprechen. Der Standardwert für das folgende Datumsfeld ist der 6. August 2020:
+
+<form>
+
+<p>
+  <label for="date">Date:</label>
+  <input type="date" name="date" id="date" value="2020-08-06">
+</p>
+
+</form>
+Die spezifischen Eingabetypen helfen dem Besucher beim Ausfüllen der Felder, verhindern aber nicht, dass der Besucher die Beschränkungen umgeht und beliebige Werte in ein beliebiges Feld eingibt. Darum ist es wichtig, die Feldwerte zu validieren, wenn sie beim Server ankommen.
+
+Formularelemente, deren Werte der Besucher eingibt, können spezielle Attribute als Ausfüllhilfe enthalten. Das Attribut placeholder fügt einen Beispielwert in das Eingabeelement ein:
+
+<p>Address: <input type="text" name="address" id="address" placeholder="e.g. 41 John St., Upper Suite 1"></p>
+Der Platzhalter erscheint innerhalb des Eingabeelements, wie in Figure 3.
+
+fig03
+Figure 3. Beispiel für ein Platzhalterattribut
+Sobald der Besucher mit der Eingabe in das Feld beginnt, verschwindet der Platzhaltertext. Der Platzhaltertext wird nicht als Feldwert gesendet, wenn der Besucher das Feld leer lässt.
+
+Das Attribut required verlangt vom Besucher eine Eingabe in das entsprechende Feld, bevor er das Formular abschickt:
+
+<p>Address: <input type="text" name="address" id="address" required placeholder="e.g. 41 John St., Upper Suite 1"></p>
+Das Attribut required ist ein boolesches Attribut und kann daher allein (ohne Gleichheitszeichen) verwendet werden. Es ist wichtig, die Felder zu markieren, die erforderlich sind, da der Besucher sonst nicht erkennt, welche Felder fehlen und die Übermittlung des Formulars verhindern.
+
+Das Attribut autocomplete gibt an, ob der Wert des Eingabeelements vom Browser automatisch vervollständigt werden kann. Ist es auf autocomplete="off" gesetzt, schlägt der Browser keine Werte aus der Vergangenheit vor, um den Eintrag zu vervollständigen. Bei Eingabeelementen für sensible Informationen, wie z.B. Kreditkartennummern, sollten Sie das Attribut autocomplete auf off setzen.
+
+Eingabe für längere Texte: textarea
+Im Gegensatz zum Textfeld, das nur eine Zeile Text aufnimmt, erlaubt das Element textarea dem Besucher umfangreichere Texteingaben. textarea ist ein separates Element, das jedoch nicht auf dem Eingabeelement basiert:
+
+<p> <label for="comment">Type your comment here:</label> <br>
+
+<textarea id="comment" name="comment" rows="10" cols="50">
+My multi-line, plain-text comment.
+</textarea>
+
+</p>
+Das typische Aussehen einer Textarea zeigt Figure 4.
+
+fig04
+Figure 4. Das Element textarea
+Ein weiterer Unterschied zum Eingabeelement ist, dass das textarea-Element ein schließendes Tag hat (</textarea>), das den Inhalt (d.h. seinen Wert) umschließt. Die Attribute rows und cols schränken die Textmenge nicht ein, sie bestimmen nur das Layout. Die Textarea hat auch einen Griff in der unteren rechten Ecke, über den der Besucher die Größe ändert.
+
+Listen von Optionen
+Mehrere Arten von Formularsteuerelementen dienen dazu, dem Besucher eine Liste von Optionen zu präsentieren: das <select>-Element und die Eingabetypen radio und checkbox. Das Element <select> ist ein Dropdown-Steuerelement mit einer Liste vordefinierter Einträge:
+
+<p><label for="browser">Favorite Browser:</label>
+<select name="browser" id="browser">
+<option value="firefox">Mozilla Firefox</option>
+<option value="chrome">Google Chrome</option>
+<option value="opera">Opera</option>
+<option value="edge">Microsoft Edge</option>
+</select>
+</p>
+Das <option>-Tag stellt einen einzelnen Eintrag im entsprechenden <select>-Steuerelement dar. Die gesamte Liste erscheint, wenn der Besucher auf das Steuerelement tippt oder klickt, wie in Figure 5.
+
+fig05
+Figure 5. Das Formularelement select
+Der erste Eintrag in der Liste ist standardmäßig ausgewählt. Um dieses Verhalten zu ändern, fügen Sie das Attribut selected zu einem anderen Eintrag hinzu, so dass dieser beim Laden der Seite vorausgewählt ist.
+
+Der Eingabetyp radio ähnelt dem Steuerelement <select>, doch statt einer Auswahlliste werden alle Einträge angezeigt, so dass der Besucher einen von ihnen markieren kann. Die Ergebnisse des folgenden Codes zeigt Figure 6.
+
+<p>Favorite Browser:</p>
+
+<p>
+	<input type="radio" id="browser-firefox" name="browser" value="firefox" checked>
+  <label for="browser-firefox">Mozilla Firefox</label>
+</p>
+
+<p>
+	<input type="radio" id="browser-chrome" name="browser" value="chrome">
+  <label for="browser-chrome">Google Chrome</label>
+</p>
+
+<p>
+	<input type="radio" id="browser-opera" name="browser" value="opera">
+  <label for="browser-opera">Opera</label>
+</p>
+
+<p>
+	<input type="radio" id="browser-edge" name="browser" value="edge">
+  <label for="browser-edge">Microsoft Edge</label>
+</p>
+fig06
+Figure 6. Eingabeelemente des Typs radio
+Beachten Sie, dass alle radio-Eingabetypen in derselben Gruppe dasselbe name-Attribut haben. Jeder von ihnen ist exklusiv, so dass das entsprechende value-Attribut für den gewählten Eintrag dasjenige sein wird, das mit dem gemeinsamen name-Attribut verbunden ist. Das checked Attribut funktioniert wie das selected Attribut des Steuerungselements <select>. Es markiert den entsprechenden Eintrag, wenn die Seite zum ersten Mal geladen wird. Das <label>-Tag ist besonders nützlich für radio-Einträge, da es es dem Besucher ermöglicht, einen Eintrag zu überprüfen, indem er auf den entsprechenden Text zusätzlich zu dem Steuerelement selbst klickt oder tippt. Während radio-Steuerelemente nur für die Auswahl eines einzelnen Eintrags in einer Liste gedacht sind, kann der Besucher mit dem Eingabetyp checkbox mehrere Einträge ankreuzen:
+
+<p>Favorite Browser:</p>
+
+<p>
+	<input type="checkbox" id="browser-firefox" name="browser" value="firefox" checked>
+	<label for="browser-firefox">Mozilla Firefox</label>
+</p>
+
+<p>
+	<input type="checkbox" id="browser-chrome" name="browser" value="chrome" checked>
+	<label for="browser-chrome">Google Chrome</label>
+</p>
+
+<p>
+	<input type="checkbox" id="browser-opera" name="browser" value="opera">
+	<label for="browser-opera">Opera</label>
+</p>
+
+<p>
+	<input type="checkbox" id="browser-edge" name="browser" value="edge">
+	<label for="browser-edge">Microsoft Edge</label>
+</p>
+Checkboxen nutzen das Attribut checked, um Einträge standardmäßig auszuwählen. Anstelle der runden Steuerelemente der radio-Eingabe, werden Checkboxen als quadratische Steuerelemente dargestellt, wie in Figure 7.
+
+fig07
+Figure 7. Der Eingabetyp checkbox
+Wird mehr als ein Eintrag ausgewählt, sendet der Browser sie mit demselben Namen, so dass der Backend-Entwickler speziellen Code schreiben muss, um Formulardaten mit Kontrollkästchen korrekt zu lesen.
+
+Um die Benutzerfreundlichkeit zu verbessern, lassen sich Eingabefelder in einem <fieldset>-Tag zusammenfassen:
+
+<fieldset>
+<legend>Favorite Browser</legend>
+
+<p>
+	<input type="checkbox" id="browser-firefox" name="browser" value="firefox" checked>
+	<label for="browser-firefox">Mozilla Firefox</label>
+</p>
+
+<p>
+	<input type="checkbox" id="browser-chrome" name="browser" value="chrome" checked>
+	<label for="browser-chrome">Google Chrome</label>
+</p>
+
+<p>
+	<input type="checkbox" id="browser-opera" name="browser" value="opera">
+	<label for="browser-opera">Opera</label>
+</p>
+
+<p>
+	<input type="checkbox" id="browser-edge" name="browser" value="edge">
+	<label for="browser-edge">Microsoft Edge</label>
+</p>
+</fieldset>
+Das <legend>-Tag enthält den Text, der am oberen Rand des Rahmens erscheint. Das <fieldset>-Tag umgibt die Steuerelemente (Figure 8).
+
+fig08
+Figure 8. Gruppierung von Elementen mit dem fieldset-Tag
+Das <fieldset>-Tag beeinflusst nicht, wie die Feldwerte an den Server übermittelt werden, aber es bietet dem Frontend-Entwickler eine einfachere Kontrolle der verschachtelten Steuerelemente. Wird beispielsweise das Attribut disabled in einem <fieldset>-Attribut gesetzt, sind alle inneren Elemente für den Besucher nicht mehr verfügbar.
+
+Der Elementtyp hidden
+Es gibt Situationen, in denen der Entwickler Informationen in das Formular aufnehmen möchte, die der Besucher nicht manipulieren kann, also einen vom Entwickler bestimmten Wert ohne ein Formularfeld, in dem der Besucher den Wert eingeben oder ändern kann. Das könnte beispielsweise ein Identifikationsmerkmal für dieses bestimmte Formular sein, das der Besucher nicht sehen muss. Ein verstecktes Formularelement wird wie im folgenden Beispiel kodiert:
+
+<input type="hidden" id="form-token" name="form-token" value="e730a375-b953-4393-847d-2dab065bbc92">
+Der Wert eines verborgenen Eingabefeldes wird dem Dokument in der Regel auf der Serverseite hinzugefügt, wenn das Dokument gerendert wird. Ausgeblendete Eingaben werden wie normale Felder behandelt, wenn der Browser sie an den Server sendet, der sie auch wie normale Eingabefelder liest.
+
+Der Datei-Eingabetyp
+Neben Textdaten, die der Besucher entweder eingibt oder aus einer Liste auswählt, übermitteln HTML-Formulare beliebige Dateien an den Server. Mit dem Eingabetyp file wählt der Besucher eine Datei aus dem lokalen Dateisystem aus und sendet sie direkt von der Webseite aus:
+
+<p>
+<label for="attachment">Attachment:</label><br>
+<input type="file" id="attachment" name="attachment">
+</p>
+Statt eines Formularfeldes für Eingabe oder Auswahl eines Werts, zeigt der Eingabetyp file eine Schaltfläche “Browse” oder “Durchsuchen”, die einen Dateidialog öffnet. Der Eingabetyp file akzeptiert jeden Dateityp, aber der Backend-Entwickler sollte die zulässigen Dateitypen und ihre maximale Größe einschränken. Die Überprüfung des Dateityps ist auch im Frontend möglich, und zwar über das Attribut accept. Um z.B. nur JPEG- und PNG-Bilder zu akzeptieren, lautet das Attribut accept="image/jpeg, image/png".
+
+Aktionsschaltflächen
+Standardmäßig wird das Formular abgeschickt, sobald der Besucher in einem beliebigen Eingabefeld die Eingabetaste drückt. Um den Vorgang intuitiver zu gestalten, sollte es eine Schaltfläche “Senden” oder “Submit” mit dem Eingabetyp submit geben:
+
+<input type="submit" value="Submit form">
+Der Text im Attribut value erscheint auf der Schaltfläche wie in Figure 9.
+
+fig09
+Figure 9. Eine Standard-Schaltfläche zum Absenden
+Eine weitere nützliche Schaltfläche in komplexen Formularen ist reset, die das Formular löscht und in seinen ursprünglichen Zustand zurücksetzt:
+
+<input type="reset" value="Clear form">
+Wie beim Submit-Button dient der Text im Attribut value der Beschriftung der Schaltfläche. Alternativ nutzen Sie das <button>-Tag, um Schaltflächen zu Formularen oder an anderen Stellen auf der Seite hinzuzufügen. Im Gegensatz zu Schaltflächen mit dem <input>-Tag hat das Button-Element ein schließendes Tag und die Beschriftung der Schaltfläche ist ihr innerer Inhalt:
+
+<button>Submit form</button>
+Innerhalb eines Formulars ist die Standardaktion für das Element button das Absenden des Formulars. Wie bei den Input-Schaltflächen können Sie das Typ-Attribut der Schaltfläche auf reset umstellen.
+
+Formularaktionen und -methoden
+Der letzte Schritt beim Schreiben eines HTML-Formulars besteht darin, festzulegen, wie und wohin die Daten gesendet werden, was von den Details sowohl des Clients als auch des Servers abhängt.
+
+Auf Serverseite ist der gängigste Ansatz eine Skriptdatei, die die Formulardaten dem Zweck der Anwendung entsprechend analysiert, validiert und verarbeitet. Der Backend-Entwickler schreibt zum Beispiel ein Skript receive_form.php, um die vom Formular gesendeten Daten zu empfangen. Auf Clientseite wird das Skript im Attribut action des Formular-Tags angegeben:
+
+<form action="receive_form.php">
+Das Attribut action folgt den gleichen Konventionen wie alle HTTP-Adressen. Befindet sich das Skript auf derselben Hierarchieebene wie die Seite, die das Formular enthält, steht es ohne Pfadangabe. Andernfalls muss der absolute oder der relative Pfad angegeben sein. Das Skript sollte auch die Antwort erzeugen, die als Landing Page dient und vom Browser geladen wird, nachdem der Besucher das Formular abgeschickt hat.
+
+HTTP bietet verschiedene Methoden zum Senden von Formulardaten über eine Verbindung mit dem Server. Die gebräuchlichsten Methoden sind `get` und `post`, die im Attribut `method` des Tags`form` angegeben werden sollten:
+<form action="receive_form.php" method="get">
+Oder:
+
+<form action="receive_form.php" method="post">
+Bei der get-Methode werden die Formulardaten direkt in der Anfrage-URL kodiert. Wenn der Besucher das Formular absendet, lädt der Browser die im Attribut action definierte URL mit den angehängten Formularfeldern.
+
+Die get-Methode bietet sich für geringe Datenmengen an, z.B. für einfache Kontaktformulare. Die URL darf jedoch einige tausend Zeichen nicht überschreiten, so dass die Methode post verwendet werden sollte, wenn Formulare große oder nichttextliche Felder wie Bilder enthalten.
+
+Die Methode post veranlasst den Browser, die Formulardaten im Body-Teil der HTTP-Anfrage zu senden. Während sie für binäre Daten, die die Größenbeschränkung einer URL überschreiten, notwendig ist, fügt die`post`-Methode der Verbindung unnötigen Overhead hinzu, wenn sie in einfacheren Textformularen verwendet wird, so dass die get-Methode in solchen Fällen vorzuziehen ist.
+
+Die gewählte Methode hat keinen Einfluss darauf, wie der Besucher mit dem Formular interagiert. Die Methoden`get` und post werden von dem serverseitigen Skript, das das Formular erhält, unterschiedlich verarbeitet.
+
+Bei der Methode post ist es auch möglich, den MIME-Typ des Formularinhalts mit dem Formularattribut enctype zu ändern. Dies wirkt sich darauf aus, wie die Formularfelder und -werte in der HTTP-Kommunikation mit dem Server zusammengefügt werden. Der Standardwert für enctype ist application/x-www-form-urlencoded, was dem Format entspricht, das in der get-Methode verwendet wird. Wenn das Formular Eingabefelder vom Typ file enthält, sollte stattdessen der enctype multipart/form-data verwendet werden.
+
+Geführte Übungen
+Wie verbinden Sie ein <label>-Tag mit einem <input>-Tag korrekt?
+
+Welche Art von Eingabeelement bietet einen Schieberegler zur Auswahl eines numerischen Wertes?
+
+Was ist der Zweck des Attributs placeholder?
+
+Wie legen Sie die zweite Option in einer Auswahlliste als Standardauswahl fest?
+
+Offene Übungen
+Wie ändern Sie eine Dateieingabe so, dass sie nur PDF-Dateien akzeptiert?
+
+Wie zeigen Sie dem Besucher an, welche Felder in einem Formular Pflichtfelder sind?
+
+Fügen Sie die drei Codeschnipsel aus dieser Lektion in einem einzigen Formular zusammen. Achten Sie darauf, dass Sie nicht dasselbe name- oder id-Attribut in mehreren Formularsteuerelementen verwenden.
+
+Zusammenfassung
+In dieser Lektion haben Sie gelernt, wie Sie einfache HTML-Formulare erstellen, um Daten an den Server zurückzusenden. Auf Clientseite bestehen HTML-Formulare aus Standard-HTML-Elementen, die zum Aufbau benutzerdefinierter Schnittstellen kombiniert werden. Außerdem müssen die Formulare so konfiguriert werden, dass sie ordnungsgemäß mit dem Server kommunizieren. Diese Lektion behandelt die folgenden Konzepte und Verfahren:
+
+Das <form>-Tag und die grundlegende Formularstruktur.
+
+Grundlegende und spezielle Eingabeelemente.
+
+Die Rolle spezieller Tags wie <label>, <fieldset> und <legend>.
+
+Formularschaltflächen und Aktionen.
+
+Lösungen zu den geführten Übungen
+Wie verbinden Sie ein <label>-Tag mit einem <input>-Tag korrekt?
+
+Das for-Attribut des <label>-Tags sollte die ID des entsprechenden <input>-Tags enthalten.
+
+Welche Art von Eingabeelement bietet einen Schieberegler zur Auswahl eines numerischen Wertes?
+
+Der Eingabetyp range.
+
+Was ist der Zweck des Attributs placeholder?
+
+Das Attribut placeholder enthält ein Beispiel für eine Besuchereingabe, die sichtbar ist, wenn das entsprechende Eingabefeld leer ist.
+
+Wie legen Sie die zweite Option in einer Auswahlliste als Standardauswahl fest?
+
+Das zweite option-Element hat das Attribut selected.
+
+Lösungen zu den offenen Übungen
+Wie ändern Sie eine Dateieingabe so, dass sie nur PDF-Dateien akzeptiert?
+
+Das Attribut accept des Eingabeelements ist auf application/pdf gesetzt.
+
+Wie zeigen Sie dem Besucher an, welche Felder in einem Formular Pflichtfelder sind?
+
+Üblicherweise werden die erforderlichen Felder mit einem Sternchen (*) gekennzeichnet, und ein kurzer Hinweis wie “Mit * gekennzeichnete Felder sind erforderlich” wird in der Nähe des Formulars platziert.
+
+Fügen Sie die drei Codeschnipsel aus dieser Lektion in einem einzigen Formular zusammen. Achten Sie darauf, dass Sie nicht dasselbe name- oder id-Attribut in mehreren Formularsteuerelementen verwenden.
+
+  <form action="receive_form.php" method="get">
+
+  <h2>Personal Information</h2>
+
+  <label for="fullname">Full name:</label>
+  <p><input type="text" name="fullname" id="fullname"></p>
+
+  <p>
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date">
+  </p>
+
+  <p>Favorite Browser:</p>
+
+  <p>
+    <input type="checkbox" id="browser-firefox" name="browser" value="firefox" checked>
+    <label for="browser-firefox">Mozilla Firefox</label>
+  </p>
+
+  <p>
+    <input type="checkbox" id="browser-chrome" name="browser" value="chrome" checked>
+    <label for="browser-chrome">Google Chrome</label>
+  </p>
+
+  <p>
+    <input type="checkbox" id="browser-opera" name="browser" value="opera">
+    <label for="browser-opera">Opera</label>
+  </p>
+
+  <p>
+    <input type="checkbox" id="browser-edge" name="browser" value="edge">
+    <label for="browser-edge">Microsoft Edge</label>
+  </p>
+
+  <p><input type="reset" value="Clear form"></p>
+  <p><input type="submit" value="Submit form"></p>
+
+  </form>

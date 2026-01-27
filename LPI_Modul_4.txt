@@ -1,0 +1,1661 @@
+034.1 Modul 4
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+034 JavaScript-Programmierung
+
+Lernziel:	
+034.1 JavaScript-Ausführung und -Syntax
+
+
+Einführung
+Webseiten werden mit drei Standardtechnologien entwickelt: HTML, CSS und JavaScript. JavaScript ist eine Programmiersprache, mit der der Browser den Inhalt der Website dynamisch aktualisiert. JavaScript wird in der Regel von demselben Browser ausgeführt, der auch die Webseite anzeigt. Das bedeutet, dass sich, ähnlich wie bei CSS und HTML, das genaue Verhalten des von Ihnen geschriebenen Codes von Browser zu Browser unterscheiden kann. Die meisten gängigen Browser halten sich jedoch an die ECMAScript-Spezifikation. Dies ist ein Standard, der die Verwendung von JavaScript im Web vereinheitlicht. Er wird zusammen mit der HTML5-Spezifikation Grundlage für diese Lektion sein, die wiederum angibt, wie JavaScript in eine Webseite einzufügen ist, damit es ein Browser ausführen kann.
+
+JavaScript im Browser ausführen
+Um JavaScript auszuführen, muss der Browser den Code entweder direkt erhalten — als Teil des HTML, aus dem die Webseite besteht — oder als URL, die einen Ort mit einem ausführbaren Skript angibt.
+
+Das folgende Beispiel zeigt, wie Sie Code direkt in die HTML-Datei einfügen:
+
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Website Headline</h1>
+    <p>Content</p>
+
+    <script>
+      console.log('test');
+    </script>
+
+  </body>
+</html>
+Der Code ist zwischen den Tags <script> und </script> eingeschlossen. Alles, was in diesen Tags enthalten ist, wird vom Browser direkt beim Laden der Seite ausgeführt.
+
+Die Position des <script>-Elements innerhalb der Seite bestimmt den Zeitpunkt der Ausführung. Ein HTML-Dokument wird von oben nach unten geparst, wobei der Browser entscheidet, wann die Elemente auf dem Bildschirm angezeigt werden. In dem soeben gezeigten Beispiel werden die Tags <h1> und <p> der Website geparst und wahrscheinlich angezeigt, bevor das Skript ausgeführt wird. Würde der JavaScript-Code innerhalb des <script>-Tags sehr lange zur Ausführung brauchen, würde die Seite trotzdem problemlos angezeigt. Wäre das Skript jedoch über den anderen Tags platziert, müssten Besucher der Webseite warten, bis das Skript vollständig ausgeführt wurde, bevor sie die Seite sehen. Aus diesem Grund werden <script>-Tags normalerweise an einer von zwei Stellen platziert:
+
+Ganz am Ende des HTML-Body, so dass das Skript als letztes ausgeführt wird. Das empfiehlt sich, wenn der Code der Seite etwas hinzufügt, was ohne den Inhalt nicht sinnvoll wäre. Ein Beispiel wäre das Hinzufügen von Funktionen zu einer Schaltfläche, da die Schaltfläche vorhanden sein muss, damit die Funktionen sinnvoll sind.
+
+Innerhalb des <head>-Elements des HTML. Das stellt sicher, dass das Skript ausgeführt wird, bevor der HTML-Body geparst wird. Wenn Sie das Ladeverhalten der Seite ändern wollen oder etwas haben, das ausgeführt werden muss, während die Seite noch nicht vollständig geladen ist, können Sie das Skript hier einfügen. Auch bei mehreren Skripten, die von einem bestimmten Skript abhängen, können Sie dieses gemeinsame Skript in den Kopfbereich setzen, um sicherzustellen, dass es vor den anderen ausgeführt wird.
+
+Aus verschiedenen Gründen, einschließlich der Verwaltbarkeit, ist es sinnvoll, den JavaScript-Code in separaten Dateien außerhalb des HTML-Codes zu haben. Externe JavaScript-Dateien werden wie folgt mit einem <script>-Tag mit dem Attribut src eingebunden:
+
+<html>
+  <head>
+    <script src="/button-interaction.js"></script>
+  </head>
+  <body>
+  </body>
+</html>
+Das src-Tag teilt dem Browser den Ort der Quelle mit, d.h. die Datei, die den JavaScript-Code enthält. Dabei kann es sich um eine Datei auf demselben Server handeln, wie im obigen Beispiel, oder um eine beliebige im Web zugängliche URL wie https://www.lpi.org/example.js. Der Wert des Attributs src folgt der gleichen Konvention wie der Import von CSS- oder Bilddateien, d.h. er ist relativ oder absolut. Wenn der Browser auf ein Skript-Tag mit dem Attribut src stößt, versucht er, die Quelldatei über eine HTTP GET-Anfrage zu erhalten, weshalb externe Dateien zugänglich sein müssen.
+
+Wenn Sie das src-Attribut verwenden, wird jeglicher Code oder Text, der zwischen den <script>…​</script>-Tags steht, gemäß der HTML-Spezifikation ignoriert.
+
+<html>
+  <head>
+    <script src="/button-interaction.js">
+      console.log("test"); // <-- This is ignored
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
+Es gibt noch weitere Attribute, die Sie dem script-Tag hinzufügen können, um näher zu spezifizieren, wie der Browser die Dateien erhalten und wie er sie anschließend behandeln soll. Die folgende Liste geht auf die wichtigsten Attribute ein:
+
+async
+Kann auf script-Tags angewendet werden und weist den Browser an, das Skript im Hintergrund zu holen, um den Ladevorgang der Seite nicht zu blockieren. Das Laden der Seite wird dennoch unterbrochen, nachdem der Browser das Skript abgerufen hat, weil der Browser es parsen muss, was sofort geschieht, sobald das Skript vollständig abgerufen wurde. Da es sich um ein Boolesches Attribut handelt, reicht es aus, das Tag wie <script async src="/script.js"></script> zu schreiben, also ohnen einen Wert anzugeben.
+
+defer
+Ähnlich wie async weist es den Browser an, den Ladevorgang der Seite nicht zu blockieren, während das Skript abgerufen wird. Darüber hinaus schiebt der Browser das Parsen des Skripts auf und wartet, bis das gesamte HTML-Dokument geparst wurde, parst dann aber das Skript, bevor er bekannt gibt, dass das Dokument vollständig geladen wurde. Wie async ist defer ein Boolesches Attribut und wird auf die gleiche Weise verwendet. Da defer async impliziert, ist es nicht sinnvoll, beide Tags zusammen anzugeben.
+
+Note
+Ist eine Seite vollständig geparst, zeigt der Browser an, dass sie zur Anzeige bereit ist, indem er ein Ereignis DOMContentLoaded auslöst. So hat das in einem <head>-Ereignis enthaltene JavaScript immer die Möglichkeit, auf die Seite einzuwirken, bevor sie angezeigt wird, selbst wenn Sie das Attribut defer einschließen.
+
+type
+Gibt an, welche Art von Skript der Browser innerhalb des Tags zu erwarten hat. Die Vorgabe ist JavaScript (type="application/javascript"), daher ist dieses Attribut nicht notwendig, wenn JavaScript-Code enthalten ist oder mit dem src-Tag auf eine JavaScript-Ressource verwiesen wird. Generell können alle MIME-Typen angegeben werden, aber nur Skripte, die als JavaScript gekennzeichnet sind, werden vom Browser ausgeführt. Es gibt zwei realistische Anwendungsfälle für dieses Attribut: dem Browser mitzuteilen, dass er das Skript nicht ausführen soll, indem er type auf einen beliebigen Wert wie template oder other setzt, oder dem Browser mitzuteilen, dass das Skript ein ES6-Modul ist. ES6-Module werden in dieser Lektion nicht behandelt.
+
+Warning
+Wenn mehrere Skripte das async-Attribut haben, werden sie in der Reihenfolge ausgeführt, in der sie heruntergeladen wurden, nicht in der Reihenfolge der script-Tags im Dokument. Das defer-Attribut hingegen behält die Reihenfolge der script-Tags bei.
+
+Die Browserkonsole
+Obwohl JavaScript normalerweise als Teil einer Website ausgeführt wird, gibt es noch eine andere Möglichkeit, es auszuführen: über die Browserkonsole. Alle modernen Desktop-Browser bieten ein Menü, über das Sie JavaScript-Code in der JavaScript-Engine des Browsers ausführen können. Dies dient in der Regel dem Testen von neuem Code oder der Fehlersuche in bestehenden Websites.
+
+Je nach Browser gibt es mehrere Möglichkeiten, auf die Browserkonsole zuzugreifen. Der einfachste Weg führt über Tastaturkürzel. Hier die Tastaturkürzel für einige aktuelle Browser:
+
+Chrome
+Ctrl+Shift+J (Cmd+Option+J auf dem Mac)
+
+Firefox
+Ctrl+Shift+K (Cmd+Option+K auf dem Mac)
+
+Safari
+Ctrl+Shift+? (Cmd+Option+? auf dem Mac)
+
+Sie können auch per Rechtsklick auf der Webseite und die Option “Untersuchen” oder “Element untersuchen” den Inspektor öffnen, ein weiteres Browser-Tool. Beim Öffnen des Inspektors erscheint ein neues Fenster, in dem Sie wiederum über die Registerkarte “Konsole” die Browserkonsole aufrufen.
+
+Sobald Sie die Konsole aufgerufen haben, können Sie JavaScript auf der Seite ausführen, indem Sie das JavaScript direkt in das Eingabefeld eingeben. Das Ergebnis des ausgeführten Codes erscheint in einer separaten Zeile.
+
+JavaScript-Statements
+Nachdem wir nun wissen, wie man ein Skript ausführt, wollen wir uns mit den Grundlagen der eigentlichen Ausführung eines Skripts befassen. Ein JavaScript-Skript ist eine Sammlung von Anweisungen und Blöcken. Eine Beispielanweisung ist console.log('test') — sie weist den Browser an, das Wort test auf der Browserkonsole auszugeben.
+
+Jede Anweisung in JavaScript schließt mit einem Semikolon (;). Es teilt dem Browser mit, dass die Anweisung beendet ist und eine neue begonnen werden kann. Betrachten Sie das folgende Skript:
+
+var message = "test"; console.log(message);
+Wir haben zwei Anweisungen geschrieben. Jede Anweisung wird entweder durch ein Semikolon oder durch das Ende des Skripts abgeschlossen. Aus Gründen der Lesbarkeit können wir die Anweisungen in getrennte Zeilen setzen:
+
+var message = "test";
+console.log(message);
+Dies ist möglich, weil alle Leerzeichen zwischen Anweisungen (Leerzeichen, Zeilenumbrüche oder Tabulatoren) ignoriert werden. Leerzeichen können auch zwischen einzelnen Schlüsselwörtern innerhalb von Anweisungen eingefügt werden, was eine der nächsten Lektionen behandelt. Anweisungen können auch leer sein oder nur aus Leerzeichen bestehen.
+
+Ist eine Anweisung ungültig, weil sie nicht mit Semikolon abschließt, versucht ECMAScript, automatisch die richtigen Semikola einzufügen, und zwar auf der Grundlage einer komplexen Reihe von Regeln. Die wichtigste Regel lautet: Wenn eine ungültige Anweisung aus zwei gültigen Anweisungen besteht, die durch einen Zeilenumbruch getrennt sind, wird ein Semikolon am Zeilenumbruch eingefügt. Der folgende Code ist zum Beispiel keine gültige Anweisung:
+
+console.log("hello")
+console.log("world")
+Ein moderner Browser führt sie jedoch automatisch so aus, als wäre sie mit den richtigen Semikola geschrieben:
+
+console.log("hello");
+console.log("world");
+So ist es möglich, in bestimmten Fällen Semikola wegzulassen. Da die Regeln für das automatische Einfügen von Semikola jedoch komplex sind, empfiehlt es sich dringend, Anweisungen stets ordnungsgemäß zu beenden, um unerwünschte Effekte zu vermeiden.
+
+Kommentare in JavaScript
+Umfangreiche Skripte können ziemlich kompliziert werden. Es ist ratsam, den Code zu kommentieren, um das Skript für andere oder für sich selbst in Zukunft leichter lesbar zu machen. Darüber hinaus können Sie auch Metainformationen in das Skript aufnehmen, z.B. Urheberrechtsinformationen oder Angaben, wann das Skript geschrieben wurde und warum.
+
+Für solche Metainformationen unterstützt JavaScript Kommentare. Dafür fügen Sie spezielle Zeichen in ein Skript ein, die bestimmte Teile des Skripts als Kommentar kennzeichnen, der bei der Ausführung übersprungen wird. Hier eine ausführlich kommentierte Version unseres Beispielskripts:
+
+/*
+ This script was written by the author of this lesson in May, 2020.
+ It has exactly the same effect as the previous script, but includes comments.
+*/
+
+// First, we define a message.
+var message = "test";
+
+console.log(message); // Then, we output the message to the console.
+Kommentare sind keine Anweisungen und müssen nicht mit einem Semikolon schließen. Sie folgen eigenen Regeln zur Beendigung, abhängig von der Art des Kommentars. Es gibt zwei Möglichkeiten, Kommentare in JavaScript zu schreiben:
+
+Mehrzeiliger Kommentar
+Verwenden Sie /* und */, um den Beginn und das Ende eines mehrzeiligen Kommentars zu kennzeichnen. Alles nach /* bis zum ersten Auftreten von */ wird ignoriert. Diese Art von Kommentar wird im Allgemeinen verwendet, um mehrere Zeilen zu umspannen, kann aber auch für einzelne Zeilen oder sogar innerhalb einer Zeile verwendet werden, etwa so:
+
+console.log(/* what we want to log: */ "hello world")
+Da das Ziel von Kommentaren im Allgemeinen darin besteht, die Lesbarkeit eines Skripts zu erhöhen, sollten Sie diesen Kommentarstil innerhalb einer Zeile vermeiden.
+
+Einzeiliger Kommentar
+Verwenden Sie // (zwei Schrägstriche), um eine Zeile auszukommentieren. Alles nach dem doppelten Schrägstrich in derselben Zeile wird ignoriert. In dem oben gezeigten Beispiel wird dieses Muster zunächst verwendet, um eine ganze Zeile zu kommentieren. Nach der Anweisung console.log(message); wird es verwendet, um den Rest der Zeile zu kommentieren.
+
+Nutzen Sie einzeilige Kommentare für einzelne Zeilen und mehrzeilige Kommentare für mehrere Zeilen, auch wenn andere Varianten möglich sind. Kommentare innerhalb einer Anweisung sind zu vermeiden.
+
+Kommentare können auch dazu dienen, Zeilen des eigentlichen Codes vorübergehend zu entfernen:
+
+// We temporarily want to use a different message
+// var message = "test";
+var message = "something else";
+Geführte Übungen
+Erstellen Sie eine Variable ColorName und weisen Sie ihr den Wert RED zu.
+
+Welche der folgenden Skripte sind gültig?
+
+console.log("hello") console.log("world");
+
+console.log("hello"); console.log("world");
+
+// console.log("hello") console.log("world");
+
+console.log("hello"); console.log("world") //;
+
+console.log("hello"); /* console.log("world") */
+
+Offene Übungen
+Wie viele JavaScript-Anweisungen können ohne Semikolon in einer einzigen Zeile stehen?
+
+Erstellen Sie zwei Variablen x und y und geben Sie deren Summe auf der Konsole aus.
+
+Zusammenfassung
+In dieser Lektion haben wir verschiedene Arten der Ausführung von JavaScript kennengelernt und erfahren, wie man das Ladeverhalten von Skripten ändert. Darüber hinaus ging es um grundlegenden Konzepte zum Aufbau und zur Kommentierung sowie den Befehl console.log().
+
+In dieser Lektion genutztes HTML:
+
+<script>
+Mit dem script-Tag binden Sie JavaScript direkt oder durch Angabe einer Datei mit dem Attribut src ein. Ändern Sie mit den Attributen async und defer, wie das Skript geladen wird.
+
+In dieser Lektion genutztes JavaScript:
+
+;
+Ein Semikolon dient der Trennung von Anweisungen. Semikola können an manchen Positionen, sollten allerdings nicht weggelassen werden.
+
+//, /*…​*/
+Mit Kommentaren fügen Sie Erläuterungen oder Metainformationen in eine Skriptdatei ein oder verhindern die Ausführung von Anweisungen.
+
+console.log("text")
+Der Befehl console.log() gibt Text auf der Browserkonsole aus.
+
+Lösungen zu den geführten Übungen
+Erstellen Sie eine Variable ColorName und weisen Sie ihr den Wert RED zu.
+
+var ColorName = "RED";
+Welche der folgenden Skripte sind gültig?
+
+console.log("hello") console.log("world");
+
+Ungültig: Der erste console.log()-Befehl ist nicht korrekt beendet, und die Zeile bildet insgesamt keine gültige Anweisung.
+
+console.log("hello"); console.log("world");
+
+Gültig: Jede Anweisung ist ordnungsgemäß beendet.
+
+// console.log("hello") console.log("world");
+
+Gültig: Der gesamte Code wird ignoriert, da es sich um einen Kommentar handelt.
+
+console.log("hello"); console.log("world") //;
+
+Ungültig: In der letzten Anweisung fehlt ein Semikolon. Das Semikolon ganz am Ende wird ignoriert, da es auskommentiert ist.
+
+console.log("hello"); /* console.log("world") */
+
+Gültig: Auf eine gültige Anweisung folgt ein kommentierter Code, der ignoriert wird.
+
+Lösungen zu den offenen Übungen
+Wie viele JavaScript-Anweisungen können ohne Semikolon in einer einzigen Zeile stehen?
+
+Am Ende eines Skripts können wir eine Anweisung schreiben, die durch das Ende der Datei abgeschlossen wird. Mit der bisher besprochenen Syntax gibt es keine weitere Möglichkeit, eine Anweisung ohne Semikolon zu schreiben.
+
+Erstellen Sie zwei Variablen x und y und geben Sie deren Summe auf der Konsole aus.
+
+var x = 5;
+var y = 10;
+console.log(x+y);
+
+034.2
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+034 JavaScript-Programmierung
+
+Lernziel:	
+034.2 JavaScript Datenstrukturen
+
+
+Einführung
+Programmiersprachen bilden wie natürliche Sprachen die Realität in Symbolen ab, die zu sinnvollen Aussagen kombiniert werden. Die Realität, die eine Programmiersprache abbildet, sind die Ressourcen der Maschine, wie Prozessoroperationen, Geräte und Speicher.
+
+Jede der unzähligen Programmiersprachen verwendet ein bestimmtes Paradigma zur Darstellung von Informationen. JavaScript folgt den für Hochsprachen typischen Konventionen, bei denen die meisten Details wie beispielsweise die Speicherzuweisung implizit sind, so dass sich Programmierer auf den Zweck des Skripts im Kontext der Anwendung konzentrieren können.
+
+Hochsprachen
+Hochsprachen bieten abstrakte Regeln, so dass Programmierer weniger Code schreiben müssen, um eine Absicht auszudrücken. JavaScript bietet bequeme Programmierkonzepte zur Nutzung des Computerspeichers, die das Schreiben wiederkehrender Abläufe vereinfachen und im Allgemeinen für die Webentwicklung ausreichen.
+
+Note
+Obwohl es spezielle Mechanismen für einen gezielten Speicherzugriff gibt, sind die einfacheren Datentypen, die wir betrachten werden, deutlich weiter verbreitet.
+
+Typische Operationen in einer Webanwendung bestehen darin, Daten durch JavaScript-Anweisungen anzufordern und zu speichern, um sie zu verarbeiten und schließlich dem Anwender zu präsentieren. Diese Speicherung ist in JavaScript recht flexibel, mit geeigneten Speicherformaten für jeden Zweck.
+
+Deklaration von Konstanten und Variablen
+Die Deklaration von Konstanten und Variablen zur Speicherung von Daten ist der Eckpfeiler einer jeden Programmiersprache. JavaScript übernimmt die Konvention der meisten Programmiersprachen und weist Konstanten oder Variablen mit der Syntax Name = Wert Werte zu. Die Konstante oder Variable auf der linken Seite nimmt den Wert auf der rechten Seite an. Der Name der Konstanten oder Variablen muss mit einem Buchstaben oder einem Unterstrich beginnen.
+
+Der Typ der in der Variablen gespeicherten Daten muss nicht angegeben werden, da JavaScript eine Sprache mit dynamischer Typisierung ist. Der Typ der Variablen wird aus dem ihr zugewiesenen Wert abgeleitet. Es ist jedoch zweckmäßig, bestimmte Attribute in der Deklaration anzugeben, um das erwartete Ergebnis zu gewährleisten.
+
+Note
+TypeScript ist eine von JavaScript inspirierte Sprache, in der Sie, wie in niedrigeren Sprachen, Variablen für bestimmte Datentypen deklarieren können.
+
+Konstanten
+Eine Konstante ist ein Symbol, das beim Start des Programms einmal zugewiesen wird und sich nie ändert. Konstanten sind nützlich, um feste Werte festzulegen, wie z.B. die Konstante PI als 3.14159265 oder COMPANY_NAME, um den Namen Ihres Unternehmens festzuhalten.
+
+Nehmen wir zum Beispiel einen Client in einer Webanwendung, der Wetterinformationen von einem entfernten Server empfängt. Der Programmierer entscheiden beispielsweise, dass die Adresse des Servers konstant ist, da sie sich während der Ausführung der Anwendung nicht ändern wird. Die Temperaturinformationen variieren jedoch bei jedem neuen Dateneingang vom Server.
+
+Das Intervall zwischen den Abfragen an den Server könnten Sie ebenfalls als Konstante definieren, die jeder Teil des Programms abfragen kann:
+
+const update_interval = 10;
+
+function setup_app(){
+  console.log("Update every " + update_interval + "minutes");
+}
+Wird die Funktion setup_app() aufgerufen, erscheint auf der Konsole die Meldung Update every 10 minutes. Der Begriff const vor dem Namen update_interval stellt sicher, dass sein Wert während der gesamten Ausführung des Skripts gleich bleibt. Beim Versuch, den Wert einer Konstanten zurückzusetzen, wird ein Fehler TypeError: Assignment to constant variable ausgegeben.
+
+Variablen
+Ohne den Begriff const nimmt JavaScript automatisch an, dass update_interval eine Variable und ihr Wert veränderbar ist. Dies ist gleichbedeutend mit der expliziten Deklaration der Variable mit var:
+
+var update_interval;
+update_interval = 10;
+
+function setup_app(){
+  console.log("Update every " + update_interval + "minutes");
+}
+Beachten Sie, dass die Variable update_interval zwar außerhalb der Funktion definiert wurde, der Zugriff auf sie jedoch innerhalb der Funktion erfolgte. Jede Konstante oder Variable, die außerhalb von Funktionen oder Codeblöcken, die durch geschweifte Klammern ({}) definiert sind, deklariert wird, hat globalen Geltungsbereich, d.h. auf sie kann von jedem Teil des Codes aus zugegriffen werden. Demgegenüber hat eine Konstante oder Variable, die innerhalb einer Funktion deklariert ist, lokalen Geltungsbereich, d.h. sie ist nur innerhalb der Funktion selbst zugänglich. Durch Klammern begrenzte Codeblöcke, wie z.B. if-Entscheidungsstrukturen oder for-Schleifen, begrenzen den Geltungsbereich von Konstanten, aber nicht von Variablen, die als var deklariert sind. Der folgende Code ist zum Beispiel gültig:
+
+var success = true;
+if ( success == true )
+{
+  var message = "Transaction succeeded";
+  var retry = 0;
+}
+else
+{
+  var message = "Transaction failed";
+  var retry = 1;
+}
+
+console.log(message);
+Die Anweisung console.log(message) kann auf die Variable message zugreifen, obwohl sie innerhalb des Codeblocks der if-Struktur deklariert wurde. Das Gleiche würde nicht passieren, wenn message konstant wäre, wie im folgenden Beispiel zu sehen:
+
+var success = true;
+if ( success == true )
+{
+  const message = "Transaction succeeded";
+  var retry = 0;
+}
+else
+{
+  const message = "Transaction failed";
+  var retry = 1;
+}
+
+console.log(message);
+In diesem Fall würde eine Fehlermeldung des Typs ReferenceError: message is not defined ausgegeben und das Skript gestoppt. Die Beschränkung des Geltungsbereichs von Variablen und Konstanten mag einschränkend scheinen, hilft aber, Verwechslungen zwischen den im Skript-Body und in den verschiedenen Codeblöcken verarbeiteten Informationen zu vermeiden. Aus diesem Grund werden Variablen, die mit let statt var deklariert werden, auch durch die durch geschweifte Klammern abgegrenzten Blöcke in ihrem Geltungsbereich eingeschränkt. Es gibt noch weitere subtile Unterschiede zwischen der Deklaration einer Variablen mit var oder mit let, aber der wichtigste betrifft den Geltungsbereich der Variablen, wie hier beschrieben.
+
+Wertetypen
+In den meisten Fällen müssen Sie sich nicht um den Typ der in einer Variablen gespeicherten Daten kümmern, da JavaScript sie bei der ersten Zuweisung eines Wertes an die Variable automatisch mit einem ihrer primitiven Typen identifiziert. Einige Operationen können jedoch spezifisch für den einen oder anderen Datentyp sein und zu Fehlern führen, wenn sie unbedacht eingesetzt werden. Darüber hinaus bietet JavaScript strukturierte Typen, die es ermöglichen, mehr als einen primitiven Typ in einem einzigen Objekt zu kombinieren.
+
+Primitive Typen
+Primitive Typinstanzen entsprechen den traditionellen Variablen, die nur einen Wert speichern. Typen werden implizit definiert, so dass Sie mit dem Operator typeof den Typ des in einer Variablen gespeicherten Wertes bestimmen:
+
+console.log("Undefined variables are of type", typeof variable);
+
+{
+  let variable = true;
+  console.log("Value `true` is of type " + typeof variable);
+}
+
+{
+  let variable = 3.14159265;
+  console.log("Value `3.14159265` is of type " + typeof variable);
+}
+
+{
+  let variable = "Text content";
+  console.log("Value `Text content` is of type " + typeof variable);
+}
+
+{
+  let variable = Symbol();
+  console.log("A symbol is of type " + typeof variable);
+}
+Dieses Skript zeigt auf der Konsole an, welcher Variablentyp jeweils verwendet wurde:
+
+undefined variables are of type undefined
+Value `true` is of type boolean
+Value `3.114159265` is of type number
+Value `Text content` is of type string
+A symbol is of type symbol
+Beachten Sie, dass die erste Zeile versucht, den Typ einer nicht deklarierten Variablen zu ermitteln, die dadurch als undefined identifiziert wird. Der Typ symbol ist das am wenigsten intuitive primitive Datentyp. Sein Zweck ist es, einen eindeutigen Attributnamen innerhalb eines Objekts bereitzustellen, wenn es nicht notwendig ist, einen spezifischen Attributnamen zu definieren. Ein Objekt ist eine der Datenstrukturen, die wir uns als nächstes ansehen werden.
+
+Strukturierte Typen
+Während primitive Typen für das Schreiben einfacher Routinen ausreichen, hat die ausschließliche Verwendung dieser Typen in komplexeren Anwendungen Nachteile. Eine E-Commerce-Anwendung wäre zum Beispiel viel schwieriger zu schreiben, weil Sie Artikellisten und die entsprechenden Werte nur über Variablen mit primitiven Typen speichern müssten.
+
+Strukturierte Typen machen es einfacher, Informationen gleicher Art in einer einzigen Variablen zu gruppieren. Eine Liste von Artikeln in einem Einkaufswagen kann zum Beispiel in einer einzigen Variablen vom Typ Array gespeichert werden:
+
+let cart = ['Milk', 'Bread', 'Eggs'];
+Wie im Beispiel gezeigt, wird ein Array von Elementen mit eckigen Klammern bezeichnet. Im Beispiel enthält das Array drei String-Werte — daher die einfachen Anführungszeichen. Variablen können ebenfalls Elemente in einem Array sein, dann müssen sie ohne Anführungszeichen angegeben werden. Die Anzahl der Elemente in einem Array fragen Sie mit der Eigenschaft length ab:
+
+let cart = ['Milk', 'Bread', 'Eggs'];
+console.log(cart.length);
+Die Zahl 3 erscheint in der Konsolenausgabe. Neue Elemente fügen Sie dem Array mit der Methode push() hinzu:
+
+cart.push('Candy');
+console.log(cart.length);
+Hier wird der Betrag 4 angezeigt. Auf jedes Element in der Liste greifen Sie über seinen numerischen Index zu, beginnend mit 0:
+
+console.log(cart[0]);
+console.log(cart[3]);
+Die Ausgabe auf der Konsole sieht wie folgt aus:
+
+Milk
+Candy
+Wie Sie mit push() ein Element hinzuzufügen, nutzen Sie pop(), um das letzte Element aus einem Array zu entfernen.
+
+Die in einem Array gespeicherten Werte müssen nicht vom gleichen Typ sein. Es ist z.B. möglich, die Menge jedes Artikels daneben zu speichern. Eine Einkaufsliste wie im vorigen Beispiel könnte wie folgt aufgebaut sein:
+
+let cart = ['Milk', 1, 'Bread', 4, 'Eggs', 12, 'Candy', 2];
+
+// Item indexes are even
+let item = 2;
+
+// Quantities indexes are odd
+let quantity = 3;
+
+console.log("Item: " + cart[item]);
+console.log("Quantity: " + cart[quantity]);
+Die Ausgabe auf der Konsole nach der Ausführung dieses Codes ist:
+
+Item: Bread
+Quantity: 4
+Wie Sie vermutlich schon ahnen, ist es keine gute Idee, die Namen von Artikeln mit ihren jeweiligen Mengen in einem einzigen Array zu kombinieren, da die Beziehung zwischen ihnen in der Datenstruktur nicht explizit und sehr anfällig für (menschliche) Fehler ist. Selbst wenn Sie ein Array für die Namen und ein weiteres Array für die Mengen nutzen, würde die Bewahrung der Integrität der Liste die gleiche Sorgfalt erfordern, was nicht sehr produktiv wäre. Die beste Option in diesem Falle ist eine andere Datenstruktur: ein Objekt.
+
+In JavaScript binden Sie mit einer objektartigen Datenstruktur Eigenschaften an eine Variable. Im Gegensatz zu einem Array haben die Elemente, aus denen ein Objekt besteht, auch keine feste Reihenfolge. Ein Element einer Einkaufsliste kann beispielsweise ein Objekt mit den Eigenschaften name und quantity sein:
+
+let item = { name: 'Milk', quantity: 1 };
+console.log("Item: " + item.name);
+console.log("Quantity: " + item.quantity);
+Dieses Beispiel zeigt, dass ein Objekt mit geschweiften Klammern ({}) definiert wird, wobei jedes Eigenschaft/Wert-Paar durch einen Doppelpunkt und die Eigenschaften durch Kommata getrennt sind. Auf die Eigenschaft greifen Sie im Format Variable.Eigenschaft zu, wie bei item.name, und zwar sowohl zum Lesen als auch zum Zuweisen neuer Werte. Die Ausgabe auf der Konsole nach der Ausführung dieses Codes ist:
+
+Item: Milk
+Quantity: 1
+Schließlich kann jedes Objekt, das einen Artikel darstellt, in das Array der Einkaufsliste aufgenommen werden. Dies kann direkt bei der Erstellung der Liste geschehen:
+
+let cart = [{ name: 'Milk', quantity: 1 }, { name: 'Bread', quantity: 4 }];
+Wie zuvor fügen Sie ein neues Objekt, das einen Artikel repräsentiert, später zum Array hinzu:
+
+cart.push({ name: 'Eggs', quantity: 12 });
+Der Zugriff auf die Elemente in der Liste erfolgt jetzt über ihren Index und ihren Eigenschaftsnamen:
+
+console.log("Third item: " + cart[2].name);
+console.log(cart[2].name + " quantity: " + cart[2].quantity);
+Die Ausgabe auf der Konsole nach der Ausführung dieses Codes ist:
+
+third item: eggs
+Eggs quantity: 12
+Datenstrukturen helfen, den Code besser zu organisieren und leichter zu pflegen, sei es Ihnen selbst oder Mitgliedern Ihres Teams. Außerdem liegen viele Ausgaben von JavaScript-Funktionen in strukturierten Typen vor, die die Programmierer korrekt behandeln müssen.
+
+Operatoren
+Bisher haben wir nur gesehen, wie man neu erstellten Variablen Werte zuweist. So einfach dies auch ist, jedes Programm wird verschiedene andere Manipulationen an den Werten von Variablen vornehmen. JavaScript bietet mehrere Arten von Operatoren, die direkt auf den Wert einer Variablen wirken oder das Ergebnis der Operation in einer neuen Variablen speichern.
+
+Die meisten Operatoren dienen arithmetischen Operationen. Um zum Beispiel die Menge eines Artikels in der Einkaufsliste zu erhöhen, verwenden Sie einfach den Additionsoperator +:
+
+item.quantity = item.quantity + 1;
+Das folgende Snippet gibt den Wert von item.quantity vor und nach der Addition aus. Verwechseln Sie nicht die Rollen des Pluszeichens in diesem Ausschnitt. Die console.log-Anweisungen kombinieren damit zwei Zeichenfolgen:
+
+let item = { name: 'Milk', quantity: 1 };
+console.log("Item: " + item.name);
+console.log("Quantity: " + item.quantity);
+
+item.quantity = item.quantity + 1;
+console.log("New quantity: " + item.quantity);
+Die Ausgabe auf der Konsole nach der Ausführung dieses Codes ist:
+
+Item: Milk
+Quantity: 1
+New quantity: 2
+Beachten Sie, dass der zuvor in item.quantity gespeicherte Wert als Operand der Additionsoperation verwendet wird: item.quantity = item.quantity + 1. Erst nach Beendigung der Operation wird der Wert in item.quantity mit dem Ergebnis der Operation aktualisiert. Diese Art von arithmetischer Operation, bei der der aktuelle Wert der Zielvariablen verwendet wird, ist recht häufig, so dass es Kurzbefehle gibt, mit denen Sie dieselbe Operation in einem reduzierten Format schreiben:
+
+item.quantity += 1;
+Auch für die anderen Grundoperationen gibt es äquivalente Kurzbefehle:
+
+a = a - b entspricht a -= b.
+
+a = a * b entspricht a *= b.
+
+a = a / b entspricht a /= b.
+
+Für Addition und Subtraktion gibt es ein drittes Format, wenn der zweite Operand nur eine Einheit ist:
+
+a = a + 1 entspricht a++.
+
+a = a - 1 entspricht a--.
+
+Mehrere Operatoren können in derselben Operation kombiniert und das Ergebnis in einer neuen Variablen gespeichert werden. Die folgende Anweisung berechnet zum Beispiel den Gesamtpreis eines Artikels plus Versandkosten:
+
+let total = item.quantity * 9.99 + 3.15;
+Die Reihenfolge, in der die Operationen ausgeführt werden, entspricht der traditionellen Rangfolge: zuerst Multiplikations- und Divisionsoperationen, erst danach die Additions- und Subtraktionsoperationen. Operatoren mit der gleichen Rangfolge werden in der Reihenfolge ausgeführt, in der sie im Ausdruck erscheinen, von links nach rechts. Um die Standardreihenfolge außer Kraft zu setzen, nutzen Sie Klammern, wie in a * (b + c).
+
+In manchen Situationen muss das Ergebnis einer Operation nicht einmal in einer Variablen gespeichert werden, beispielsweise wenn Sie das Ergebnis eines Ausdrucks innerhalb einer if-Anweisung auswerten:
+
+if ( item.quantiy % 2 == 0 )
+{
+  console.log("Quantity for the item is even");
+}
+else
+{
+  console.log("Quantity for the item is odd");
+}
+Der Operator % (Modulo) gibt den Rest der Division des ersten Operanden durch den zweiten Operanden zurück. Im Beispiel prüft die if-Anweisung, ob der Rest der Division von item.quantity durch 2 gleich Null ist, d.h. ob item.quantity ein Vielfaches von 2 ist.
+
+Wenn einer der Operanden des Operators + eine Zeichenkette ist, wird für die anderen Operatoren der Typ Zeichenkette erzwungen, und das Ergebnis ist eine Verkettung von Zeichenketten. In den vorangegangenen Beispielen wurde diese Art von Operation verwendet, um Zeichenketten und Variablen in das Argument der Anweisung console.log zusammenzufügen.
+
+Diese automatische Konvertierung ist möglicherweise nicht das gewünschte Verhalten. Ein vom Benutzer in ein Formularfeld eingegebener Wert könnte beispielsweise als Zeichenkette identifiziert werden, obwohl eigentlich ein numerischer Wert gemeint ist. In solchen Fällen muss die Variable zunächst mit der Funktion Number() in eine Zahl umgewandelt werden:
+
+sum = Number(value1) + value2;
+Außerdem ist es wichtig zu überprüfen, ob der Benutzer einen gültigen Wert angegeben hat, bevor die Operation fortfährt. In JavaScript enthält eine Variable ohne zugewiesenen Wert den Wert null. Dadurch können Sie über eine Entscheidungsanweisung wie if ( value1 == null ) prüfen, ob einer Variablen ein Wert zugewiesen wurde, unabhängig vom Typ des der Variablen zugewiesenen Wertes.
+
+Geführte Übungen
+Ein Array ist eine Datenstruktur, die es in vielen Programmiersprachen gibt, von denen einige nur Arrays mit Elementen desselben Typs zulassen. Ist es in JavaScript möglich, ein Array mit Elementen unterschiedlichen Typs zu definieren?
+
+Ein Beispiel für ein Objekt in einer Einkaufsliste lautet: let item = { name: 'Milk', quantity: 1 }. Wie deklarieren Sie dieses Objekt so, dass es den Preis des Artikels enthält?
+
+Wie aktualisieren Sie in einer einzigen Codezeile den Wert einer Variablen auf die Hälfte ihres aktuellen Werts?
+
+Offene Übungen
+Welchen Wert zeigt der folgende Code in der Konsolenausgabe an?
+
+var value = "Global";
+
+{
+  value = "Location";
+}
+
+console.log(value);
+Was geschieht, wenn einer oder mehrere der an einer Multiplikationsoperation beteiligten Operanden eine Zeichenkette sind?
+
+Wie entfernen Sie das Element Eggs aus dem Array cart, das mit let cart = ['Milk', 'Bread', 'Eggs'] deklariert wurde?
+
+Zusammenfassung
+Diese Lektion behandelt die grundlegende Verwendung von Konstanten und Variablen in JavaScript. JavaScript ist eine Sprache mit dynamischer Typisierung, so dass Programmierer den Variablentyp nicht angeben müssen, bevor sie ihn setzen. Dennoch ist es wichtig, die primitiven Typen der Sprache zu kennen, um das korrekte Ergebnis grundlegender Operationen sicherzustellen. Darüber hinaus kombinieren Datenstrukturen wie Arrays und Objekte primitive Typen und ermöglichen es, komplexere, zusammengesetzte Variablen zu erstellen. In dieser Lektion werden die folgenden Konzepte und Verfahren besprochen:
+
+Verstehen von Konstanten und Variablen
+
+Geltungsbereich von Variablen
+
+Deklarieren von Variablen mit var und let
+
+Primitive Typen
+
+Arithmetische Operatoren
+
+Arrays und Objekte
+
+Typenzwang und Konvertierung
+
+Lösungen zu den geführten Übungen
+Ein Array ist eine Datenstruktur, die es in vielen Programmiersprachen gibt, von denen einige nur Arrays mit Elementen desselben Typs zulassen. Ist es in JavaScript möglich, ein Array mit Elementen unterschiedlichen Typs zu definieren?
+
+Ja, in JavaScript ist es möglich, Arrays mit Elementen verschiedener primitiver Typen zu definieren, z.B. Strings und Zahlen.
+
+Ein Beispiel für ein Objekt in einer Einkaufsliste lautet: let item = { name: 'Milk', quantity: 1 }. Wie deklarieren Sie dieses Objekt so, dass es den Preis des Artikels enthält?
+
+let item = { name: 'Milk', quantity: 1, price: 4.99 };
+
+Wie aktualisieren Sie in einer einzigen Codezeile den Wert einer Variablen auf die Hälfte ihres aktuellen Werts?
+
+Sie verwenden die Variable selbst als Operanden, value = value / 2, oder über die Kurzform des Operators: value /= 2.
+
+Lösungen zu den offenen Übungen
+Welchen Wert zeigt der folgende Code in der Konsolenausgabe an?
+
+var value = "Global";
+
+{
+  value = "Location";
+}
+
+console.log(value);
+Location
+
+Was geschieht, wenn einer oder mehrere der an einer Multiplikationsoperation beteiligten Operanden eine Zeichenkette sind?
+
+JavaScript weist dem Ergebnis den Wert NaN (Not a Number) zu und zeigt damit an, dass die Operation ungültig ist.
+
+Wie entfernen Sie das Element Eggs aus dem Array cart, das mit let cart = ['Milk', 'Bread', 'Eggs'] deklariert wurde?
+
+Arrays in Javascript haben die Methode pop(), die das letzte Element in der Liste entfernt: cart.pop().
+
+034.3
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+034 JavaScript-Programmierung
+
+Lernziel:	
+034.3 JavaScript-Kontrollstrukturen und -Funktionen
+
+
+Einführung
+Wie jede andere Programmiersprache ist auch JavaScript-Code eine Sammlung von Anweisungen, die einem Befehlsinterpreter mitteilen, was er nacheinander tun soll. Das bedeutet jedoch nicht, dass jede Anweisung nur einmal oder überhaupt ausgeführt wird. Die meisten Anweisungen sollen nur ausgeführt werden, wenn bestimmte Bedingungen erfüllt sind. Selbst wenn ein Skript asynchron durch unabhängige Ereignisse ausgelöst wird, muss es oft eine Reihe von Kontrollvariablen überprüfen, um den richtigen Teil des Codes zur Ausführung zu finden.
+
+If-Anweisungen
+Die einfachste Kontrollstruktur bietet die if-Anweisung, die die unmittelbar folgende Anweisung ausführt, wenn die angegebene Bedingung wahr ist. JavaScript betrachtet Bedingungen als wahr, wenn der ermittelte Wert ungleich Null ist. Alles, was innerhalb der Klammer nach dem Wort if steht (Leerzeichen werden ignoriert), wird als Bedingung interpretiert. Im folgenden Beispiel ist die Zahl 1 die Bedingung:
+
+if ( 1 ) console.log("1 is always true");
+Die Zahl 1 wird in dieser Beispielbedingung explizit angegeben, so dass sie als konstanter Wert behandelt wird (sie bleibt während der gesamten Ausführung des Skripts gleich) und bei Verwendung als bedingter Ausdruck immer true ergibt. Wir könnten auch das Wort true (ohne die Anführungszeichen) anstelle von 1 verwenden, da es von der Sprache ebenfalls als ein wahrer Wert behandelt wird. Die Anweisung console.log gibt ihre Argumente im Konsolenfenster des Browsers aus.
+
+Tip
+Die Browserkonsole zeigt Fehler, Warnungen und Informationsmeldungen an, die mit der JavaScript-Anweisung console.log gesendet werden. In Chrome öffnet die Tastenkombination kbd:[Ctrl+Shift+J] (kbd:[Cmd+Option+J] auf dem Mac) die Konsole. In Firefox öffnet die Tastenkombination kbd:[Ctrl+Shift+K] (kbd:[Cmd+Option+K] auf dem Mac) die Konsolen-Registerkarte in den Entwicklertools.
+
+Obwohl syntaktisch korrekt, sind konstante Ausdrücke in Bedingungen nicht sehr nützlich. In einer tatsächlichen Anwendung werden Sie wahrscheinlich den Wahrheitsgehalt einer Variablen testen wollen:
+
+let my_number = 3;
+if ( my_number ) console.log("The value of my_number is", my_number, "and it yields true");
+Der der Variablen my_number zugewiesene Wert (3) ist ungleich Null, ergibt also true. Dieses Beispiel ist jedoch nicht gebräuchlich, da man selten testen muss, ob eine Zahl gleich Null ist. Viel üblicher ist es, einen Wert mit einem anderen zu vergleichen und zu prüfen, ob das Ergebnis wahr ist:
+
+let my_number = 3;
+if ( my_number == 3 ) console.log("The value of my_number is", my_number, "indeed");
+Der doppelte Vergleichsoperator wird verwendet, weil der einfache Gleichheitsoperator bereits als Zuweisungsoperator definiert ist. Der Wert auf jeder Seite des Operators wird als Operand bezeichnet. Die Reihenfolge der Operanden spielt keine Rolle, und jeder Ausdruck, der einen Wert liefert, kann ein Operand sein. Hier eine Liste der anderen verfügbaren Vergleichsoperatoren:
+
+value1 == value2
+wahr falls value1 ist gleich value2.
+
+value1 != value2
+wahr falls value1 ist nicht gleich value2.
+
+value1 < value2
+wahr falls value1 ist kleiner als value2.
+
+value1 > value2
+wahr falls value1 ist größer als value2.
+
+value1 ⇐ value2
+wahr falls value1 ist kleiner als oder gleich value2.
+
+value1 >= value2
+wahr falls value1 ist größer als oder gleich value2.
+
+Normalerweise spielt es keine Rolle, ob der Operand links vom Operator eine Zeichenkette und der Operand rechts eine Zahl ist, solange JavaScript den Ausdruck in einen sinnvollen Vergleich umwandeln kann. So wird eine Zeichenkette, die das Zeichen 1 enthält, beim Vergleich mit einer Zahlenvariablen als die Zahl 1 behandelt. Um sicherzustellen, dass der Ausdruck nur dann wahr ist, wenn beide Operanden denselben Typ und Wert haben, nutzen Sie den strikten Identitätsoperator === anstelle von ==. Ebenso wird der strikte Nicht-Identitätsoperator !== als wahr ausgewertet, wenn der erste Operand nicht denselben Typ und Wert wie der zweite Operator hat.
+
+Optional führt die if-Kontrollstruktur eine alternative Anweisung aus, wenn der Ausdruck als falsch bewertet wird:
+
+let my_number = 4;
+if ( my_number == 3 ) console.log("The value of my_number is 3");
+else console.log("The value of my_number is not 3");
+Die else-Anweisung sollte unmittelbar auf die if-Anweisung folgen. Bis jetzt haben wir nur eine Anweisung ausgeführt, wenn die Bedingung erfüllt ist. Um mehr als eine Anweisung auszuführen, müssen Sie sie in geschweifte Klammern einschließen:
+
+let my_number = 4;
+if ( my_number == 3 )
+{
+  console.log("The value of my_number is 3");
+  console.log("and this is the second statement in the block");
+}
+else
+{
+  console.log("The value of my_number is not 3");
+  console.log("and this is the second statement in the block");
+}
+Eine Gruppe von einer oder mehreren Anweisungen, die durch ein Paar geschweifte Klammern begrenzt sind, wird als Blockanweisung (Block Statement) bezeichnet. Es ist üblich, Blockanweisungen auch dann zu verwenden, wenn nur eine einzige Anweisung auszuführen ist, um den Kodierungsstil im gesamten Skript einheitlich zu gestalten. Außerdem müssen in JavaScript weder die geschweiften Klammern noch die Anweisungen in getrennten Zeilen stehen, was jedoch die Lesbarkeit verbessert und die Wartung des Codes erleichtert.
+
+Sie können Kontrollstrukturen ineinander verschachteln, aber es ist wichtig, die öffnenden und schließenden Klammern der einzelnen Blockanweisungen nicht zu verwechseln:
+
+let my_number = 4;
+
+if ( my_number > 0 )
+{
+  console.log("The value of my_number is positive");
+
+  if ( my_number % 2 == 0 )
+  {
+    console.log("and it is an even number");
+  }
+  else
+  {
+    console.log("and it is an odd number");
+  }
+} // end of if ( my_number > 0 )
+else
+{
+  console.log("The value of my_number is less than or equal to 0");
+  console.log("and I decided to ignore it");
+}
+Die Ausdrücke, die die if-Anweisung auswertet, können komplizierter sein als einfache Vergleiche. Dies ist im vorigen Beispiel der Fall, in dem der arithmetische Ausdruck my_number % 2 innerhalb der Klammern im verschachtelten if verwendet wurde. Der %-Operator gibt den Rest zurück, nachdem er die Zahl auf der linken Seite durch die Zahl auf der rechten Seite geteilt hat. Arithmetische Operatoren wie % haben Vorrang vor Vergleichsoperatoren wie ==, so dass der Vergleich das Ergebnis des arithmetischen Ausdrucks als seinen linken Operanden verwendet.
+
+In vielen Situationen lassen sich verschachtelte bedingte Strukturen mit Hilfe von logischen Operatoren zu einer einzigen Struktur zusammenfassen. Wären wir beispielsweise nur an positiven geraden Zahlen interessiert, könnte wir eine einzige if-Struktur verwenden:
+
+let my_number = 4;
+
+if ( my_number > 0 && my_number % 2 == 0 )
+{
+  console.log("The value of my_number is positive");
+  console.log("and it is an even number");
+}
+else
+{
+  console.log("The value of my_number either 0, negative");
+  console.log("or it is a negative number");
+}
+Das doppelte kaufmännische Und als Operator && im ausgewerteten Ausdruck ist der logische AND-Operator. Er wird nur dann als wahr gewertet, wenn der Ausdruck links und der Ausdruck rechts wahr sind. Wenn Sie Zahlen ermitteln, die entweder positiv oder gerade sind, sollten Sie stattdessen den Operator || verwenden, der für den logischen Operator OR (Oder) steht:
+
+let my_number = -4;
+
+if ( my_number > 0 || my_number % 2 == 0 )
+{
+  console.log("The value of my_number is positive");
+  console.log("or it is a even negative number");
+}
+In diesem Beispiel erfüllen nur negative ungerade Zahlen die Kriterien des zusammengesetzten Ausdrucks nicht. Um das Gegenteil zu erzielen, d.h. nur negative ungerade Zahlen zu ermitteln, ergänzen Sie den logischen NOT-Operator ! am Anfang des Ausdrucks:
+
+let my_number = -5;
+
+if ( ! ( my_number > 0 || my_number % 2 == 0 ) )
+{
+  console.log("The value of my_number is an odd negative number");
+}
+Die Klammern im zusammengesetzten Ausdruck bewirken, dass der eingeschlossene Ausdruck zuerst ausgewertet wird. Ohne diese Klammern würde der NOT-Operator nur auf my_number > 0 angewandt und erst dann der OR-Ausdruck ausgewertet. Die Operatoren && und || werden auch als binäre logische Operatoren bezeichnet, da sie zwei Operanden benötigen. ! ist hingegen ein unärer logischer Operator, der nur einen Operanden benötigt.
+
+Switch-Strukturen
+Obwohl die if-Struktur recht vielseitig ist und ausreicht, um den Programmablauf zu steuern, ist die switch-Kontrollstruktur möglicherweise besser geeignet, wenn andere Ergebnisse als wahr oder falsch ausgewertet werden müssen. Um zum Beispiel für jedes aus einer Liste ausgewählte Element eine bestimmte Aktion durchzuführen, müssen wir für jede Bewertung eine if-Struktur schreiben:
+
+// Available languages: en (English), es (Spanish), pt (Portuguese)
+let language = "pt";
+
+// Variable to register whether the language was found in the list
+let found = 0;
+
+if ( language == "en" )
+{
+  found = 1;
+  console.log("English");
+}
+
+if ( found == 0 && language == "es" )
+{
+  found = 1;
+  console.log("Spanish");
+}
+
+if ( found == 0 && language == "pt" )
+{
+  found = 1;
+  console.log("Portuguese");
+}
+
+if ( found == 0 )
+{
+  console.log(language, " is unknown to me");
+}
+In diesem Beispiel wird eine Hilfsvariable found von allen if-Strukturen verwendet, um herauszufinden, ob eine Übereinstimmung vorliegt. In einem Fall wie diesem erfüllt die Struktur switch eben diese Aufgabe, allerdings deutlich prägnanter:
+
+switch ( language )
+{
+  case "en":
+    console.log("English");
+    break;
+  case "es":
+    console.log("Spanish");
+    break;
+  case "pt":
+    console.log("Portuguese");
+    break;
+  default:
+    console.log(language, " not found");
+}
+Jedes verschachtelte case wird als Klausel (Clause) bezeichnet. Wenn eine Klausel mit dem ausgewerteten Ausdruck übereinstimmt, führt sie die Anweisungen nach dem Doppelpunkt bis zur break-Anweisung aus. Die letzte Klausel benötigt keine break-Anweisung und wird oft verwendet, um die Standardaktion zu definieren, wenn es keine weiteren Übereinstimmungen gibt. Wie im Beispiel zu sehen, wird die Hilfsvariable in der Struktur switch nicht benötigt.
+
+Warning
+switch nutzt einen strikten Vergleich, um Ausdrücke mit seinen case-Klauseln abzugleichen.
+
+Wenn mehr als eine Klausel dieselbe Aktion auslöst, können Sie zwei oder mehr case-Bedingungen kombinieren:
+
+switch ( language )
+{
+  case "en":
+  case "en_US":
+  case "en_GB":
+    console.log("English");
+    break;
+  case "es":
+    console.log("Spanish");
+    break;
+  case "pt":
+  case "pt_BR":
+    console.log("Portuguese");
+    break;
+  default:
+    console.log(language, " not found");
+}
+Schleifen
+In den vorangegangenen Beispielen waren die if- und switch-Strukturen gut geeignet für Aufgaben, die nur einmal ausgeführt werden müssen, nachdem sie einen oder mehrere bedingte Tests bestanden haben. Es gibt jedoch Situationen, in denen eine Aufgabe wiederholt ausgeführt werden muss – in einer so genannten Schleife (Loop) –, solange ihr bedingter Ausdruck weiterhin als wahr getestet wird. Wenn Sie beispielsweise wissen wollen, ob eine Zahl eine Primzahl ist, müssen Sie prüfen, ob die Division dieser Zahl durch eine beliebige ganze Zahl, die größer als 1 und kleiner als sie selbst ist, einen Rest von 0 ergibt. Wenn dies der Fall ist, hat die Zahl einen ganzzahligen Faktor und ist nicht prim. (Dies ist keine strenge oder effiziente Methode, um Primzahlen zu finden, aber sie funktioniert als einfaches Beispiel.) Für solche Fälle sind Schleifenstrukturen besser geeignet, insbesondere die Anweisung while:
+
+// A naive prime number tester
+
+// The number we want to evaluate
+let candidate = 231;
+
+// Auxiliary variable
+let is_prime = true;
+
+// The first factor to try
+let factor = 2;
+
+// Execute the block statement if factor is
+// less than candidate and keep doing it
+// while factor is less than candidate
+while ( factor < candidate )
+{
+
+  if ( candidate % factor == 0 )
+  {
+    // The remainder is zero, so the candidate is not prime
+    is_prime = false;
+    break;
+  }
+
+  // The next factor to try. Simply
+  // increment the current factor by one
+  factor++;
+}
+
+// Display the result in the console window.
+// If candidate has no integer factor, then
+// the auxiliary variable is_prime still true
+if ( is_prime )
+{
+  console.log(candidate, "is prime");
+}
+else
+{
+  console.log(candidate, "is not prime");
+}
+Die Blockanweisung, die auf die Anweisung while folgt, wird wiederholt, solange die Bedingung factor < candidate wahr ist. Sie wird mindestens einmal ausgeführt, solange wir die Variable factor mit einem Wert kleiner als candidate initialisieren. Die if-Struktur, die in die while-Struktur eingebettet ist, prüft, ob der Rest von candidate geteilt durch factor Null ist. Wenn ja, ist die Kandidaten-Zahl nicht prim und die Schleife kann beendet werden. Die Anweisung break beendet die Schleife, und die Ausführung springt zur ersten Anweisung nach dem while-Block.
+
+Beachten Sie, dass sich das Ergebnis der Bedingung, die von der`while`-Anweisung verwendet wird, bei jeder Schleife ändern muss, andernfalls würde die Blockanweisung “ewig” laufen. Im Beispiel erhöhen wir die Variable factor — der nächste Divisor, den wir ausprobieren wollen — und das garantiert, dass die Schleife irgendwann endet.
+
+Diese einfache Implementierung eines Primzahlprüfers funktioniert wie erwartet. Wir wissen jedoch, dass eine Zahl, die nicht durch zwei teilbar ist, auch nicht durch eine andere gerade Zahl teilbar ist. Daher könnten wir die geraden Zahlen einfach auslassen, indem wir eine weitere if-Anweisung hinzufügen:
+
+while ( factor < candidate )
+{
+
+  // Skip even factors bigger than two
+  if ( factor > 2 && factor % 2 == 0 )
+  {
+    factor++;
+    continue;
+  }
+
+  if ( candidate % factor == 0 )
+  {
+    // The remainder is zero, so the candidate is not prime
+    is_prime = false;
+    break;
+  }
+
+  // The next number that will divide the candidate
+  factor++;
+}
+Die Anweisung continue ist ähnlich der Anweisung break, aber statt diese Iteration der Schleife zu beenden, wird der Rest des Schleifenblocks ignoriert und eine neue Iteration begonnen. Beachten Sie, dass die Variable factor vor der continue-Anweisung geändert wurde, sonst hätte die Schleife bei der nächsten Iteration wieder dasselbe Ergebnis. Dieses Beispiel ist zu einfach und das Überspringen eines Teils der Schleife wird die Performance nicht wirklich verbessern, aber das Überspringen überflüssiger Anweisungen ist sehr wichtig, wenn man effiziente Anwendungen schreibt.
+
+Schleifen werden so häufig genutzt, dass es sie in vielen Varianten gibt. Die for-Schleife ist besonders geeignet, um durch aufeinanderfolgende Werte zu iterieren, da sie es ermöglicht, die Schleifenregeln in einer einzigen Zeile zu definieren:
+
+for ( let factor = 2; factor < candidate; factor++ )
+{
+  // Skip even factors bigger than two
+  if ( factor > 2 && factor % 2 == 0 )
+  {
+    continue;
+  }
+
+  if ( candidate % factor == 0 )
+  {
+    // The remainder is zero, so the candidate is not prime
+    is_prime = false;
+    break;
+  }
+}
+Dieses Beispiel liefert dasselbe Ergebnis wie das vorherige while-Beispiel, aber der Klammerausdruck enthält drei Teile, die durch Semikola getrennt sind: die Initialisierung (let factor = 2), die Schleifenbedingung (factor < candidate) und den abschließenden Ausdruck, der am Ende jeder Schleifeniteration ausgewertet wird (factor+`). Die Anweisungen `continue` und `break` gelten auch für `for`-Schleifen. Der abschließende Ausdruck in Klammern (`factor+) wird nach der Anweisung continue ausgewertet, sollte also nicht innerhalb der Blockanweisung stehen, da er sonst vor der nächsten Iteration zweimal inkrementiert wird.
+
+JavaScript verfügt über spezielle for-Schleifen, um mit Array-ähnlichen Objekten zu arbeiten. Wir könnten zum Beispiel ein Array von Kandidatenvariablen statt nur einer prüfen:
+
+// A naive prime number tester
+
+// The array of numbers we want to evaluate
+let candidates = [111, 139, 293, 327];
+
+// Evaluates every candidate in the array
+for (candidate of candidates)
+{
+  // Auxiliary variable
+  let is_prime = true;
+
+  for ( let factor = 2; factor < candidate; factor++ )
+  {
+    // Skip even factors bigger than two
+    if ( factor > 2 && factor % 2 == 0 )
+    {
+      continue;
+    }
+
+    if ( candidate % factor == 0 )
+    {
+      // The remainder is zero, so the candidate is not prime
+      is_prime = false;
+      break;
+    }
+  }
+
+  // Display the result in the console window
+  if ( is_prime )
+  {
+    console.log(candidate, "is prime");
+  }
+  else
+  {
+    console.log(candidate, "is not prime");
+  }
+}
+Die Anweisung for (candidate of candidates) weist der Variablen candidates ein Element aus dem Array candidate zu und verwendet es in der Blockanweisung, wobei der Vorgang für jedes Element im Array wiederholt wird. Sie müssen candidate nicht eigens deklarieren, da die for-Schleife sie definiert. Schließlich wurde derselbe Code aus dem vorherigen Beispiel in diese neue Blockanweisung eingebettet, aber dieses Mal wird jeder Kandidat im Array getestet.
+
+Geführte Übungen
+Welche Werte der Variablen my_var erfüllen die Bedingung my_var > 0 && my_var < 9?
+
+Welche Werte der Variablen my_var erfüllen die Bedingung my_var > 0 || my_var < 9?
+
+Wie oft führt die folgende while-Schleife ihre Blockanweisung aus?
+
+let i = 0;
+while ( 1 )
+{
+  if ( i == 10 )
+  {
+    continue;
+  }
+  i++;
+}
+Offene Übungen
+Was passiert, wenn Sie den Gleichheitszuweisungsoperator = anstelle des Gleichheitsvergleichsoperators == verwenden?
+
+Schreiben Sie ein Codefragment unter Verwendung der if-Kontrollstruktur, bei dem ein gewöhnlicher Gleichheitsvergleich wahr ergibt, ein strenger Gleichheitsvergleich jedoch nicht.
+
+Schreiben Sie die folgende for-Anweisung um, indem Sie den unären logischen Operator NOT in der Schleifenbedingung verwenden. Das Ergebnis der Bedingung sollte dasselbe sein.
+
+for ( let factor = 2; factor < candidate; factor++ )
+Schreiben Sie auf der Grundlage der Beispiele aus dieser Lektion eine Schleifensteuerungsstruktur, die alle ganzzahligen Faktoren einer bestimmten Zahl ausgibt.
+
+Zusammenfassung
+Diese Lektion behandelt Kontrollstrukturen in JavaScript-Code. Bedingte Strukturen und Schleifen sind wesentliche Elemente jedes Programmierparadigmas, und die Webentwicklung mit JavaScript bildet da keine Ausnahme. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Die if-Anweisung und Vergleichsoperatoren.
+
+Wie man die switch-Struktur mit case, default und break verwendet.
+
+Der Unterschied zwischen gewöhnlichem und striktem Vergleich.
+
+Kontrollstrukturen für Schleifen:`while` und for.
+
+Lösungen zu den geführten Übungen
+Welche Werte der Variablen my_var erfüllen die Bedingung my_var > 0 && my_var < 9?
+
+Nur Zahlen, die sowohl größer als 0 als auch kleiner als 9 sind. Der logische Operator && (AND) erfordert, dass beide Vergleiche zutreffen.
+
+Welche Werte der Variablen my_var erfüllen die Bedingung my_var > 0 || my_var < 9?
+
+Mit dem logischen Operator || (OR) wird jede Zahl übereinstimmen, da jede Zahl entweder größer als 0 oder kleiner als 9 ist.
+
+Wie oft führt die folgende while-Schleife ihre Blockanweisung aus?
+
+let i = 0;
+while ( 1 )
+{
+  if ( i == 10 )
+  {
+    continue;
+  }
+  i++;
+}
+Die Blockanweisung wird unendlich oft wiederholt, da keine Stopp-Bedingung angegeben wurde.
+
+Lösungen zu den offenen Übungen
+Was passiert, wenn Sie den Gleichheitszuweisungsoperator = anstelle des Gleichheitsvergleichsoperators == verwenden?
+
+Der Wert auf der rechten Seite des Operators wird der Variablen auf der linken Seite zugewiesen und das Ergebnis wird an den Vergleich übergeben, was nicht unbedingt das gewünschte Verhalten ist.
+
+Schreiben Sie ein Codefragment unter Verwendung der if-Kontrollstruktur, bei dem ein gewöhnlicher Gleichheitsvergleich wahr ergibt, ein strenger Gleichheitsvergleich jedoch nicht.
+
+  let a = "1";
+  let b = 1;
+
+  if ( a == b )
+  {
+    console.log("An ordinary comparison will match.");
+  }
+
+  if ( a === b )
+  {
+    console.log("A strict comparison will not match.");
+  }
+Schreiben Sie die folgende for-Anweisung um, indem Sie den unären logischen Operator NOT in der Schleifenbedingung verwenden. Das Ergebnis der Bedingung sollte dasselbe sein.
+
+for ( let factor = 2; factor < candidate; factor++ )
+Answer:
+
+for ( let factor = 2; ! (factor >= candidate); factor++ )
+Schreiben Sie auf der Grundlage der Beispiele aus dieser Lektion eine Schleifensteuerungsstruktur, die alle ganzzahligen Faktoren einer bestimmten Zahl ausgibt.
+
+for ( let factor = 2; factor <= my_number; factor++ )
+{
+  if ( my_number % factor == 0 )
+  {
+    console.log(factor, " is an integer factor of ", my_number);
+  }
+}
+
+034.3
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+034 JavaScript-Programmierung
+
+Lernziel:	
+034.3 JavaScript-Kontrollstrukturen und -Funktionen
+
+
+Einführung
+Ergänzend zu den Standardfunktionen, die JavaScript bereitstellt, können Sie eigene, benutzerdefinierte Funktionen schreiben, um eine Eingabe auf eine Ausgabe abzubilden, die den Anforderungen der Anwendung entspricht. Benutzerdefinierte Funktionen sind im Grunde eine Reihe gekapselter Anweisungen, die irgendwo als Teil eines Ausdrucks verwendet werden können.
+
+Funktionen sind ein guter Weg, doppelten Code zu vermeiden, da sie an verschiedenen Stellen im Programm aufgerufen werden können. Außerdem erleichtert die Gruppierung von Anweisungen in Funktionen die Bindung benutzerdefinierter Aktionen an Ereignisse, was ein zentraler Aspekt der JavaScript-Programmierung ist.
+
+Eine Funktion definieren
+Je größer ein Programm, desto schwieriger wird es, seine Aufgaben ohne Funktionen zu organisieren. Jede Funktion hat ihren eigenen privaten Variablenbereich, so dass die in einer Funktion definierten Variablen nur innerhalb dieser Funktion verfügbar sind. So werden sie nicht mit Variablen aus anderen Funktionen verwechselt. Globale Variablen sind zwar immer noch innerhalb der Funktionen zugänglich, aber der bevorzugte Weg, um Eingabewerte an eine Funktion zu senden, sind Funktionsparameter. Als Beispiel werden wir den Primzahl-Prüfer aus der vorangegangenen Lektion ausbauen:
+
+// A naive prime number tester
+
+// The number we want to evaluate
+let candidate = 231;
+
+// Auxiliary variable
+let is_prime = true;
+
+// Start with the lowest prime number after 1
+let factor = 2;
+
+// Keeps evaluating while factor is less than the candidate
+while ( factor < candidate )
+{
+
+  if ( candidate % factor == 0 )
+  {
+    // The remainder is zero, so the candidate is not prime
+    is_prime = false;
+    break;
+  }
+
+  // The next number that will divide the candidate
+  factor++;
+}
+
+// Display the result in the console window
+if ( is_prime )
+{
+  console.log(candidate, "is prime");
+}
+else
+{
+  console.log(candidate, "is not prime");
+}
+Um später im Code zu prüfen, ob eine Zahl eine Primzahl ist, müssten Sie den bereits geschriebenen Code wiederholen. Diese Praxis ist allerdings nicht empfehlenswert, da etwaige Korrekturen oder Verbesserungen des ursprünglichen Codes überall dort wiederholt werden müssten, wo der Code kopiert wurde. Außerdem belastet die Wiederholung des Codes den Browser und das Netzwerk und verlangsamt möglicherweise die Anzeige der Webseite. Verschieben Sie stattdessen die entsprechenden Anweisungen in eine Funktion:
+
+// A naive prime number tester function
+function test_prime(candidate)
+{
+  // Auxiliary variable
+  let is_prime = true;
+
+  // Start with the lowest prime number after 1
+  let factor = 2;
+
+  // Keeps evaluating while factor is less than the candidate
+  while ( factor < candidate )
+  {
+
+    if ( candidate % factor == 0 )
+    {
+      // The remainder is zero, so the candidate is not prime
+      is_prime = false;
+      break;
+    }
+
+    // The next number that will divide the candidate
+    factor++;
+  }
+
+  // Send the answer back
+  return is_prime;
+}
+Die Funktionsdeklaration beginnt mit der Anweisung function, gefolgt von dem Namen der Funktion und ihren Parametern. Der Name der Funktion folgt denselben Regeln wie die Namen von Variablen. Die Parameter der Funktion, auch Argumente genannt, werden durch Kommata getrennt und in Klammern gesetzt.
+
+Tip
+Die Auflistung der Argumente in der Funktionsdeklaration ist nicht zwingend erforderlich. Die Argumente, die einer Funktion übergeben werden, können aus einem Array-ähnlichen arguments-Objekt innerhalb dieser Funktion abgerufen werden. Der Index der Argumente beginnt bei 0, d.h. das erste Argument ist arguments[0], das zweite Argument ist arguments[1] und so weiter.
+
+Im Beispiel hat die Funktion test_prime nur ein Argument (candidate), das dem zu testenden Primzahlkandidaten entspricht. Funktionsargumente funktionieren wie Variablen, aber ihre Werte werden von der Anweisung, die die Funktion aufruft, zugewiesen. Zum Beispiel ruft die Anweisung test_prime(231) die Funktion test_prime auf und weist dem Argument candidate den Wert 231 zu, der dann innerhalb des Funktionskörpers wie eine gewöhnliche Variable verfügbar ist.
+
+Wenn die aufrufende Anweisung einfache Variablen für die Funktionsparameter verwendet, werden deren Werte in die Funktionsargumente kopiert. Dieser Vorgang — das Kopieren der von der aufrufenden Anweisung genutzten Parameterwerte in die innerhalb der Funktion verwendeten Parameter — wird als Wertübergabe von Argumenten bezeichnet. Alle Änderungen, die die Funktion am Argument vornimmt, wirken sich nicht auf die ursprüngliche Variable aus, die in der aufrufenden Anweisung verwendet wird. Verwendet die aufrufende Anweisung jedoch komplexe Objekte als Argumente (d.h. ein Objekt mit Eigenschaften und Methoden) für die Parameter der Funktion, so werden diese als Referenz übergeben, und die Funktion kann das ursprüngliche Objekt, das in der aufrufenden Anweisung verwendet wurde, verändern.
+
+Die Argumente, die als Wert übergeben werden, sowie die Variablen, die innerhalb der Funktion deklariert werden, sind außerhalb der Funktion nicht sichtbar. Das heißt, ihr Geltungsbereich ist auf den Funktionskörper beschränkt, in dem sie deklariert wurden. Dennoch werden Funktionen in der Regel verwendet, um eine Ausgabe zu erzeugen, die außerhalb der Funktion sichtbar ist. Um einen Wert mit der aufrufenden Funktion zu teilen, definiert eine Funktion eine return-Anweisung.
+
+Die Funktion test_prime im Code-Beispiel gibt beispielsweise den Wert der Variablen is_prime zurück. Daher kann die Funktion die Variable überall dort ersetzen, wo sie im ursprünglichen Beispiel verwendet würde:
+
+// The number we want to evaluate
+let candidate = 231;
+
+// Display the result in the console window
+if ( test_prime(candidate) )
+{
+  console.log(candidate, "is prime");
+}
+else
+{
+  console.log(candidate, "is not prime");
+}
+Die return-Anweisung gibt, wie ihr Name schon sagt, die Kontrolle an die aufrufende Funktion zurück. Daher wird an der Stelle, an der die return-Anweisung in der Funktion platziert ist, nichts ausgeführt, was ihr folgt. Eine Funktion kann mehrere return-Anweisungen enthalten. Diese Praxis kann nützlich sein, wenn einige innerhalb von bedingten Anweisungsblöcken stehen, so dass die Funktion bei jedem Durchlauf eine bestimmte return-Anweisung ausführen kann oder nicht.
+
+Einige Funktionen geben keinen Wert zurück, so dass die Anweisung return nicht erforderlich ist. Die internen Anweisungen der Funktion werden unabhängig von ihrem Vorhandensein ausgeführt, so dass Funktionen auch dazu dienen können, die Werte globaler Variablen oder den Inhalt von Objekten zu ändern, die als Referenz übergeben werden. Hat die Funktion keine return-Anweisung, wird ihr Standard-Rückgabewert auf undefined gesetzt: eine reservierte Variable, die keinen Wert hat und nicht geschrieben werden kann.
+
+Funktionsausdrücke
+In JavaScript sind Funktionen nur eine weitere Art von Objekten. Daher können Funktionen in einem Skript wie Variablen verwendet werden. Diese Eigenschaft wird explizit, wenn die Funktion mit einer alternativen Syntax deklariert wird, den Funktionsausdrücken:
+
+let test_prime = function(candidate)
+{
+  // Auxiliary variable
+  let is_prime = true;
+
+  // Start with the lowest prime number after 1
+  let factor = 2;
+
+  // Keeps evaluating while factor is less than the candidate
+  while ( factor < candidate )
+  {
+
+    if ( candidate % factor == 0 )
+    {
+      // The remainder is zero, so the candidate is not prime
+      is_prime = false;
+      break;
+    }
+
+    // The next number that will divide the candidate
+    factor++;
+  }
+
+  // Send the answer back
+  return is_prime;
+}
+Der einzige Unterschied zwischen diesem Beispiel und der Funktionsdeklaration im vorherigen Beispiel besteht in der ersten Zeile: let test_prime = function(candidate) statt function test_prime(candidate). In einem Funktionsausdruck wird der Name test_prime für das Objekt verwendet, das die Funktion enthält, und nicht, um die Funktion selbst zu benennen. Funktionen, die in Funktionsausdrücken definiert sind, werden auf die gleiche Weise aufgerufen wie Funktionen, die mit der Deklarationssyntax definiert wurden. Während deklarierte Funktionen jedoch vor oder nach ihrer Deklaration aufgerufen werden können, können Funktionsausdrücke nur nach ihrer Initialisierung aufgerufen werden. Wie bei Variablen führt der Aufruf einer in einem Ausdruck definierten Funktion vor ihrer Initialisierung zu einem Referenzfehler.
+
+Funktionsrekursion
+Neben der Ausführung von Anweisungen und dem Aufruf von eingebauten Funktionen können benutzerdefinierte Funktionen auch andere benutzerdefinierte Funktionen aufrufen, einschließlich sich selbst. Der Aufruf einer Funktion aus sich selbst wird als Funktionsrekursion bezeichnet. Je nach Art des Problems, das Sie zu lösen versuchen, können rekursive Funktionen einfacher sein als verschachtelte Schleifen zur Ausführung sich wiederholender Aufgaben.
+
+Bisher wissen wir, wie man mit einer Funktion prüft, ob eine bestimmte Zahl eine Primzahl ist. Nehmen wir nun an, Sie wollen die nächste Primzahl nach einer gegebenen Zahl finden. Sie könnten eine while-Schleife nutzen, um die Kandidatenzahl zu erhöhen, und eine verschachtelte Schleife schreiben, die nach ganzzahligen Faktoren für diesen Kandidaten sucht:
+
+// This function returns the next prime number
+// after the number given as its only argument
+function next_prime(from)
+{
+  // We are only interested in the positive primes,
+  // so we will consider the number 2 as the next
+  // prime after any number less than two.
+  if ( from < 2 )
+  {
+    return 2;
+  }
+
+  // The number 2 is the only even positive prime,
+  // so it will be easier to treat it separately.
+  if ( from == 2 )
+  {
+    return 3;
+  }
+
+  // Decrement "from" if it is an even number
+  if ( from % 2 == 0 )
+  {
+    from--;
+  }
+
+  // Start searching for primes greater then 3.
+
+  // The prime candidate is the next odd number
+  let candidate = from + 2;
+
+  // "true" keeps the loop going until a prime is found
+  while ( true )
+  {
+    // Auxiliary control variable
+    let is_prime = true;
+
+    // "candidate" is an odd number, so the loop will
+    // try only the odd factors, starting with 3
+    for ( let factor = 3; factor < candidate; factor = factor + 2 )
+    {
+      if ( candidate % factor == 0 )
+      {
+        // The remainder is zero, so the candidate is not prime.
+        // Test the next candidate
+        is_prime = false;
+        break;
+      }
+    }
+    // End loop and return candidate if it is prime
+    if ( is_prime )
+    {
+      return candidate;
+    }
+    // If prime not found yet, try the next odd number
+    candidate = candidate + 2;
+  }
+}
+
+let from = 1024;
+console.log("The next prime after", from, "is", next_prime(from));
+Sie sehen, dass wir eine konstante Bedingung für die while-Schleife (den Ausdruck true in der Klammer) und die Hilfsvariable is_prime verwenden müssen, um zu wissen, wann die Schleife beendet werden soll. Obwohl diese Lösung korrekt ist, sind verschachtelte Schleifen nicht so elegant wie eine Rekursion, um die gleiche Aufgabe zu erfüllen:
+
+// This function returns the next prime number
+// after the number given as its only argument
+function next_prime(from)
+{
+  // We are only interested in the positive primes,
+  // so we will consider the number 2 as the next
+  // prime after any number less than two.
+  if ( from < 2 )
+  {
+    return 2;
+  }
+
+  // The number 2 is the only even positive prime,
+  // so it will be easier to treat it separately.
+  if ( from == 2 )
+  {
+    return 3;
+  }
+
+  // Decrement "from" if it is an even number
+  if ( from % 2 == 0 )
+  {
+    from--;
+  }
+
+  // Start searching for primes greater then 3.
+
+  // The prime candidate is the next odd number
+  let candidate = from + 2;
+
+  // "candidate" is an odd number, so the loop will
+  // try only the odd factors, starting with 3
+  for ( let factor = 3; factor < candidate; factor = factor + 2 )
+  {
+    if ( candidate % factor == 0 )
+    {
+      // The remainder is zero, so the candidate is not prime.
+      // Call the next_prime function recursively, this time
+      // using the failed candidate as the argument.
+      return next_prime(candidate);
+    }
+  }
+
+  // "candidate" is not divisible by any integer factor other
+  // than 1 and itself, therefore it is a prime number.
+  return candidate;
+}
+
+let from = 1024;
+console.log("The next prime after", from, "is", next_prime(from));
+Beide Versionen von next_prime geben die nächste Primzahl nach der als einziges Argument übergebenen Zahl zurück (from). Die rekursive Version beginnt, wie die vorherige Version, mit der Überprüfung der Spezialfälle (d.h. Zahlen kleiner oder gleich zwei). Dann wird der Kandidat inkrementiert und mit der for-Schleife nach ganzzahligen Faktoren gesucht (beachten Sie, dass es keine while-Schleife mehr gibt). Zu diesem Zeitpunkt wurde die einzige gerade Primzahl bereits getestet, also werden der Kandidat und seine möglichen Faktoren um zwei erhöht. (Eine ungerade Zahl plus zwei ist die nächste ungerade Zahl.)
+
+Es gibt nur zwei Auswege aus der for-Schleife im Beispiel: Wenn alle möglichen Faktoren getestet werden und keiner bei der Division des Kandidaten einen Rest gleich Null hat, wird die for-Schleife beendet und die Funktion gibt den Kandidaten als nächste Primzahl nach from zurück. Andernfalls, wenn factor ein ganzzahliger Faktor von candidate ist (candidate % factor == 0), stammt der zurückgegebene Wert von der Funktion next_prime, die rekursiv aufgerufen wird, dieses Mal mit dem inkrementierten candidate als from-Parameter. Die Aufrufe von next_prime werden übereinander gestapelt, bis ein Kandidat schließlich keine ganzzahligen Faktoren mehr aufweist. Dann wird die letzte next_prime-Instanz, die die Primzahl enthält, diese an die vorherige next_prime-Instanz zurückgeben, und somit sukzessive bis hinunter zur ersten next_prime-Instanz. Obwohl jeder Aufruf der Funktion dieselben Variablennamen verwendet, sind die Aufrufe voneinander isoliert, so dass ihre Variablen im Speicher getrennt gehalten werden.
+
+Geführte Übungen
+Welchen Overhead verringern Sie durch die Verwendung von Funktionen?
+
+Was ist der Unterschied zwischen Funktionsargumenten, die als Wert übergeben werden, und Funktionsargumenten, die als Referenz übergeben werden?
+
+Welcher Wert wird als Ausgabe einer benutzerdefinierten Funktion verwendet, wenn sie keine Rückgabeanweisung hat?
+
+Offene Übungen
+Was ist die wahrscheinliche Ursache für einen Uncaught Reference Error, der beim Aufruf einer mit Ausdruck-Syntax deklarierten Funktion auftritt?
+
+Schreiben Sie eine Funktion mit dem Namen multiples_of, die drei Argumente entgegennimmt: factor, from und to. Verwenden Sie innerhalb der Funktion die Anweisung console.log(), um alle Vielfachen von factor zwischen from und to auszugeben.
+
+Zusammenfassung
+In dieser Lektion erfahren Sie, wie Sie benutzerdefinierte Funktionen in JavaScript-Code schreiben. Mit Hilfe von benutzerdefinierten Funktionen können Sie die Anwendung in “Stücke” wiederverwendbaren Codes unterteilen, was das Schreiben und Warten größerer Programme erleichtert. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Wie man eine benutzerdefinierte Funktion definiert: Funktionsdeklarationen und Funktionsausdrücke.
+
+Verwendung von Parametern als Funktionsinput.
+
+Verwendung der return-Anweisung, um die Funktionsausgabe festzulegen.
+
+Funktionsrekursion.
+
+Lösungen zu den geführten Übungen
+Welchen Overhead verringern Sie durch die Verwendung von Funktionen?
+
+Funktionen ermöglichen die Wiederverwendung von Code, was die Wartung des Codes erleichtert. Eine kleinere Skriptdatei spart außerdem Speicherplatz und Downloadzeit.
+
+Was ist der Unterschied zwischen Funktionsargumenten, die als Wert übergeben werden, und Funktionsargumenten, die als Referenz übergeben werden?
+
+Bei der Übergabe als Wert wird das Argument in die Funktion kopiert und die Funktion kann die ursprüngliche Variable in der aufrufenden Anweisung nicht ändern. Bei der Übergabe per Referenz kann die Funktion die ursprüngliche Variable in der aufrufenden Anweisung verändern.
+
+Welcher Wert wird als Ausgabe einer benutzerdefinierten Funktion verwendet, wenn sie keine Rückgabeanweisung hat?
+
+Der zurückgegebene Wert wird auf undefined gesetzt.
+
+Lösungen zu den offenen Übungen
+Was ist die wahrscheinliche Ursache für einen Uncaught Reference Error, der beim Aufruf einer mit Ausdruck-Syntax deklarierten Funktion auftritt?
+
+Die Funktion wurde vor ihrer Deklaration in der Skriptdatei aufgerufen.
+
+Schreiben Sie eine Funktion mit dem Namen multiples_of, die drei Argumente entgegennimmt: factor, from und to. Verwenden Sie innerhalb der Funktion die Anweisung console.log(), um alle Vielfachen von factor zwischen from und to auszugeben.
+
+  function multiples_of(factor, from, to)
+  {
+    for ( let number = from; number <= to; number++ )
+    {
+      if ( number % factor == 0 )
+      {
+        console.log(factor, "*", number / factor, "=", number);
+      }
+    }
+  }
+
+
+034.4 
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+034 JavaScript Programming
+
+Lernziel:	
+034.4 JavaScript-Manipulation von Website-Inhalt und -Gestaltung
+
+Einführung
+HTML, CSS und JavaScript sind drei verschiedene Technologien, die im Web zusammenspielen. Um wirklich dynamische und interaktive Seiten zu erstellen, müssen JavaScript-Programmierer Komponenten aus HTML und CSS zur Laufzeit kombinieren; diese Aufgabe erleichtert das Document Object Model (DOM) erheblich.
+
+Interaktion mit dem DOM
+Das DOM ist eine Datenstruktur, die als Programmierschnittstelle zum Dokument fungiert, wobei jeder Aspekt des Dokuments als Knoten im DOM dargestellt wird und jede am DOM vorgenommene Änderung sich sofort im Dokument niederschlägt. Um zu sehen, wie das DOM in JavaScript verwendet werden kann, speichern Sie den folgenden HTML-Code in einer Datei mit dem Namen example.html:
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>HTML Manipulation with JavaScript</title>
+</head>
+<body>
+
+<div class="content" id="content_first">
+<p>The dynamic content goes here</p>
+</div><!-- #content_first -->
+
+<div class="content" id="content_second" hidden>
+<p>Second section</p>
+</div><!-- #content_second -->
+
+</body>
+</html>
+Das DOM steht erst zur Verfügung, wenn der HTML-Code geladen ist. Schreiben Sie daher das folgende JavaScript am Ende des Seitenkörpers (vor dem abschließenden </body>-Tag):
+
+<script>
+let body = document.getElementsByTagName("body")[0];
+console.log(body.innerHTML);
+</script>
+Das Objekt document ist das oberste DOM-Element, von dem alle anderen Elemente abzweigen. Die Methode getElementsByTagName() listet alle Elemente auf, die von document abstammen und den angegebenen Tag-Namen haben. Obwohl das Tag body nur einmal im Dokument verwendet wird, gibt die Methode getElementsByTagName() immer eine Array-ähnliche Sammlung der gefundenen Elemente zurück — daher die Verwendung des Index [0], um das erste (und einzige) gefundene Element zurückzugeben.
+
+HTML-Inhalt
+Wie im vorangegangenen Beispiel gezeigt, wurde das DOM-Element, das von document.getElementsByTagName("body")[0] zurückgegeben wurde, der Variablen body zugewiesen. Die Variable body kann dann verwendet werden, um das Body-Element der Seite zu manipulieren, da es alle DOM-Methoden und Attribute von diesem Element erbt. Zum Beispiel enthält die Eigenschaft innerHTML den gesamten HTML-Auszeichnungscode, der innerhalb des entsprechenden Elements geschrieben wurde, so dass sie zum Lesen der inneren Auszeichnung verwendet werden kann. Unser Aufruf console.log(body.innerHTML) gibt den Inhalt innerhalb von <body></body> auf der Webkonsole aus. Die Variable kann auch verwendet werden, um diesen Inhalt zu ersetzen, wie in body.innerHTML = "<p>Content erased</p>".
+
+Anstatt ganze Teile des HTML-Markups zu ändern, ist es praktischer, die Dokumentstruktur unverändert zu lassen und nur mit den Elementen zu interagieren. Sobald das Dokument vom Browser gerendert wird, sind alle Elemente über DOM-Methoden zugänglich. Es ist zum Beispiel möglich, alle HTML-Elemente aufzulisten und darauf zuzugreifen, indem man das spezielle Zeichen * in der Methode getElementsByTagName() des document-Objekts verwendet:
+
+let elements = document.getElementsByTagName("*");
+for ( element of elements )
+{
+  if ( element.id == "content_first" )
+  {
+    element.innerHTML = "<p>New content</p>";
+  }
+}
+Dieser Code speichert alle in document gefundenen Elemente in der Variablen elements. Die Variable elements ist ein Array-ähnliches Objekt, so dass wir mit einer for-Schleife über alle Elemente iterieren können. Wenn die HTML-Seite, auf der dieser Code ausgeführt wird, ein Element hat, dessen id-Attribut auf content_first gesetzt ist (siehe die zu Beginn der Lektion gezeigte HTML-Beispielseite), trifft die if-Anweisung auf dieses Element zu und sein Markup-Inhalt wird in <p>New content</p> geändert. Beachten Sie, dass die Attribute eines HTML-Elements im DOM über die dot-Notation der JavaScript-Objekteigenschaften zugänglich sind: Daher bezieht sich element.id auf das Attribut id des aktuellen Elements der for-Schleife. Die Methode getAttribute() könnte auch verwendet werden, wie in element.getAttribute("id").
+
+Es ist nicht notwendig, alle Elemente zu durchlaufen, wenn Sie nur einige untersuchen wollen. Die Methode document.getElementsByClassName() schränkt beispielsweise die übereinstimmenden Elemente auf diejenigen ein, die eine bestimmte Klasse haben:
+
+let elements = document.getElementsByClassName("content");
+for ( element of elements )
+{
+  if ( element.id == "content_first" )
+  {
+    element.innerHTML = "<p>New content</p>";
+  }
+}
+Die Iteration über viele Dokumentelemente mit Hilfe einer Schleife ist jedoch nicht die beste Strategie, wenn Sie ein bestimmtes Element auf der Seite ändern müssen.
+
+Bestimmte Elemente auswählen
+JavaScript bietet optimierte Methoden, um genau das Element auszuwählen, an dem Sie arbeiten wollen. Sie könnten die vorherige Schleife vollständig durch die Methode document.getElementById() ersetzen:
+
+let element = document.getElementById("content_first");
+element.innerHTML = "<p>New content</p>";
+Jedes id-Attribut im Dokument muss eindeutig sein, daher gibt die Methode document.getElementById() nur ein einziges DOM-Objekt zurück. Sogar die Deklaration der Variable element kann weggelassen werden, weil JavaScript uns erlaubt, Methoden direkt zu verketten:
+
+document.getElementById("content_first").innerHTML = "<p>New content</p>";
+Die Methode getElementById() ist der bevorzugte Weg, um Elemente im DOM zu finden, da sie bei komplexen Dokumenten deutlich performanter ist als iterative Methoden. Allerdings haben nicht alle Elemente eine explizite ID, und die Methode gibt einen null Wert zurück, wenn kein Element mit der angegebenen ID übereinstimmt (dies verhindert auch die Verwendung verketteter Attribute oder Funktionen, wie der im obigen Beispiel verwendeten innerHTML). Außerdem ist es praktischer, ID-Attribute nur den Hauptkomponenten der Seite zuzuweisen und dann CSS-Selektoren zu verwenden, um ihre untergeordneten Elemente zu finden.
+
+Selektoren, die in einer früheren Lektion zu CSS vorgestellt wurden, sind Muster, die auf Elemente im DOM passen. Die Methode querySelector() gibt das erste übereinstimmende Element im DOM-Baum zurück, während querySelectorAll() alle Elemente zurückgibt, die dem angegebenen Selektor entsprechen.
+
+Im vorherigen Beispiel ruft die Methode getElementById() das Element mit der ID content_first ab. Die Methode querySelector() erfüllt dieselbe Aufgabe:
+
+document.querySelector("#content_first").innerHTML = "<p>New content</p>";
+Da die Methode querySelector() die Selektor-Syntax verwendet, muss die angegebene ID mit einem Rautezeichen beginnen. Wird kein passendes Element gefunden, gibt die Methode querySelector() null zurück.
+
+Im vorigen Beispiel wird der gesamte Inhalt des Div content_first durch die angegebene Textzeichenfolge ersetzt. Die Zeichenfolge enthält HTML-Code, was nicht als best practice gilt. Sie müssen vorsichtig sein, wenn Sie hart kodierten HTML-Code zu JavaScript-Code hinzufügen, da die Verfolgung von Elementen schwierig werden kann, wenn Änderungen an der gesamten Dokumentstruktur erforderlich sind.
+
+Selektoren sind nicht auf die ID des Elements beschränkt. Das interne Element p kann direkt angesprochen werden:
+
+document.querySelector("#content_first p").innerHTML = "New content";
+Der Selektor #content_first p passt nur auf das erste p-Element innerhalb des #content_first-Div. Das funktioniert gut, wenn wir das erste Element bearbeiten wollen. Vielleicht wollen wir aber den zweiten Absatz ändern:
+
+<div class="content" id="content_first">
+<p>Don't change this paragraph.</p>
+<p>The dynamic content goes here.</p>
+</div><!-- #content_first -->
+In diesem Fall nutzen wir die Pseudoklasse :nth-child(2), um das zweite p-Element zu finden:
+
+document.querySelector("#content_first p:nth-child(2)").innerHTML = "New content";
+Die Zahl 2 in p:nth-child(2) bezeichnet den zweiten Absatz, der dem Selektor entspricht. In der Lektion über CSS-Selektoren erfahren Sie mehr über Selektoren und ihre Verwendung.
+
+Mit Attributen arbeiten
+Die Fähigkeit von JavaScript, mit dem DOM zu interagieren, ist nicht auf die Manipulation von Inhalten beschränkt. Die häufigste Verwendung von JavaScript im Browser besteht tatsächlich darin, die Attribute der vorhandenen HTML-Elemente zu ändern.
+
+Nehmen wir an, unsere ursprüngliche HTML-Beispielseite hat jetzt drei Inhaltsabschnitte:
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>HTML Manipulation with JavaScript</title>
+</head>
+<body>
+
+<div class="content" id="content_first" hidden>
+<p>First section.</p>
+</div><!-- #content_first -->
+
+<div class="content" id="content_second" hidden>
+<p>Second section.</p>
+</div><!-- #content_second -->
+
+<div class="content" id="content_third" hidden>
+<p>Third section.</p>
+</div><!-- #content_third -->
+
+</body>
+</html>
+Möglicherweise möchten Sie jeweils nur eines von ihnen sichtbar machen, daher das Attribut hidden in allen div-Tags. Dies ist z.B. nützlich, um nur ein Bild aus einer Bildergalerie anzuzeigen. Um eines der Bilder beim Laden der Seite sichtbar zu machen, fügen Sie den folgenden JavaScript-Code in die Seite ein:
+
+// Which content to show
+let content_visible;
+
+switch ( Math.floor(Math.random() * 3) )
+{
+  case 0:
+    content_visible = "#content_first";
+  break;
+  case 1:
+    content_visible = "#content_second";
+  break;
+  case 2:
+    content_visible = "#content_third";
+  break;
+}
+
+document.querySelector(content_visible).removeAttribute("hidden");
+Der von der Anweisung switch ausgewertete Ausdruck gibt zufällig die Zahl 0, 1 oder 2 zurück. Der entsprechende ID-Selektor wird dann der Variablen content_visible zugewiesen, die von der Methode querySelector(content_visible) verwendet wird. Der verkettete Aufruf removeAttribute("hidden") entfernt das Attribut hidden aus dem Element.
+
+Der umgekehrte Ansatz ist ebenfalls möglich: Alle Abschnitte könnten zunächst sichtbar sein (ohne das Attribut hidden), und das JavaScript-Programm kann dann jedem Abschnitt außer dem in content_visible das Attribut hidden zuweisen. Dafür müssen Sie alle Inhalts-Div-Elemente durchgehen, die sich von dem ausgewählten unterscheiden, was mit der Methode querySelectorAll() geschieht:
+
+// Which content to show
+let content_visible;
+
+switch ( Math.floor(Math.random() * 3) )
+{
+  case 0:
+    content_visible = "#content_first";
+  break;
+  case 1:
+    content_visible = "#content_second";
+  break;
+  case 2:
+    content_visible = "#content_third";
+  break;
+}
+
+// Hide all content divs, except content_visible
+for ( element of document.querySelectorAll(".content:not("+content_visible+")") )
+{
+  // Hidden is a boolean attribute, so any value will enable it
+  element.setAttribute("hidden", "");
+}
+Wenn die Variable content_visible auf #content_first gesetzt wurde, lautet der Selektor .content:not(#content_first), was bedeutet, dass alle Elemente mit der Klasse content außer denen mit der ID content_first angezeigt werden. Die Methode setAttribute() fügt Attribute von HTML-Elementen hinzu oder ändert sie. Ihr erster Parameter ist der Name des Attributs und der zweite der Wert des Attributs.
+
+Der richtige Weg, um das Erscheinungsbild von Elementen zu ändern, führt jedoch über CSS. In diesem Fall können wir die CSS-Eigenschaft display auf hidden setzen und sie dann mit JavaScript in block ändern:
+
+<style>
+div.content { display: none }
+</style>
+
+<div class="content" id="content_first">
+<p>First section.</p>
+</div><!-- #content_first -->
+
+<div class="content" id="content_second">
+<p>Second section.</p>
+</div><!-- #content_second -->
+
+<div class="content" id="content_third">
+<p>Third section.</p>
+</div><!-- #content_third -->
+
+<script>
+// Which content to show
+let content_visible;
+
+switch ( Math.floor(Math.random() * 3) )
+{
+  case 0:
+    content_visible = "#content_first";
+  break;
+  case 1:
+    content_visible = "#content_second";
+  break;
+  case 2:
+    content_visible = "#content_third";
+  break;
+}
+document.querySelector(content_visible).style.display = "block";
+</script>
+Dieselben Verfahren für das Mischen von HTML-Tags mit JavaScript gelten auch für CSS. So ist es nicht empfehlenswert, CSS-Eigenschaften direkt in JavaScript-Code zu schreiben. Stattdessen sollten Sie CSS-Regeln getrennt vom JavaScript-Code schreiben. Der richtige Weg zur alternativen visuellen Gestaltung besteht darin, eine vordefinierte CSS-Klasse für das Element auszuwählen.
+
+Mit Klassen arbeiten
+Elemente können mehr als eine zugehörige Klasse haben, was es einfacher macht, Stile zu schreiben, die bei Bedarf hinzugefügt oder entfernt werden. Es wäre mühsam, viele CSS-Attribute direkt in JavaScript zu ändern. Daher können Sie eine neue CSS-Klasse mit diesen Attributen erstellen und die Klasse dann dem Element hinzufügen. DOM-Elemente haben die Eigenschaft classList, mit der die dem entsprechenden Element zugewiesenen Klassen angezeigt und bearbeitet werden.
+
+Anstatt die Sichtbarkeit des Elements zu ändern, können wir zum Beispiel eine zusätzliche CSS-Klasse erstellen, um unser content-Div hervorzuheben:
+
+div.content {
+  border: 1px solid black;
+  opacity: 0.25;
+}
+div.content.highlight {
+  border: 1px solid red;
+  opacity: 1;
+}
+Dieses Stylesheet fügt allen Elementen mit der Klasse content einen dünnen schwarzen Rand und Semitransparenz hinzu. Nur die Elemente, die auch die Klasse highlight haben, werden vollständig undurchsichtig sein und den dünnen roten Rand haben. Anstatt die CSS-Eigenschaften direkt zu ändern, wie wir es zuvor unternommen haben, können wir die Methode classList.add("highlight") in dem ausgewählten Element verwenden:
+
+// Which content to highlight
+let content_highlight;
+
+switch ( Math.floor(Math.random() * 3) )
+{
+  case 0:
+    content_highlight = "#content_first";
+  break;
+  case 1:
+    content_highlight = "#content_second";
+  break;
+  case 2:
+    content_highlight = "#content_third";
+  break;
+}
+
+// Highlight the selected div
+document.querySelector(content_highlight).classList.add("highlight");
+Alle Techniken und Beispiele, die wir bisher kennengelernt haben, wurden am Ende des Ladevorgangs der Seite ausgeführt, aber sie sind nicht auf diese Phase beschränkt. Was JavaScript für Webentwickler so nützlich macht, ist seine Fähigkeit, auf Ereignisse auf der Seite zu reagieren, wie wir im Folgenden sehen werden.
+
+Event Handler
+Alle sichtbaren Seitenelemente sind empfänglich für interaktive Ereignisse, wie z.B. den Klick oder die Bewegung der Maus selbst. Wir können diesen Ereignissen benutzerdefinierte Aktionen zuordnen, was die Möglichkeiten eines HTML-Dokuments erheblich erweitert.
+
+Das wahrscheinlich offensichtlichste HTML-Element in Verbindung mit einer zugehörigen Aktion ist das Element button. Um zu zeigen, wie es funktioniert, fügen Sie drei Schaltflächen über dem ersten div-Element der Beispielseite ein:
+
+<p>
+<button>First</button>
+<button>Second</button>
+<button>Third</button>
+</p>
+
+<div class="content" id="content_first">
+<p>First section.</p>
+</div><!-- #content_first -->
+
+<div class="content" id="content_second">
+<p>Second section.</p>
+</div><!-- #content_second -->
+
+<div class="content" id="content_third">
+<p>Third section.</p>
+</div><!-- #content_third -->
+Die Schaltflächen tun von sich aus nichts. Wollen Sie aber beispielsweise das div, das der gedrückten Schaltfläche entspricht, hervorheben, weisen Sie über das Attribut onClick jeder Schaltfläche eine Aktion zu:
+
+<p>
+<button onClick="document.getElementById('content_first').classList.toggle('highlight')">First</button>
+<button onClick="document.getElementById('content_second').classList.toggle('highlight')">Second</button>
+<button onClick="document.getElementById('content_third').classList.toggle('highlight')">Third</button>
+</p>
+Die Methode classList.toggle() fügt dem Element die angegebene Klasse hinzu, wenn sie nicht vorhanden ist, und entfernt sie, wenn sie bereits vorhanden ist. Wenn Sie das Beispiel ausführen, werden Sie feststellen, dass mehr als ein div gleichzeitig hervorgehoben werden kann. Um nur das div hervorzuheben, das der gedrückten Schaltfläche entspricht, ist es notwendig, die Klasse highlight aus den anderen div-Elementen zu entfernen. Wenn die benutzerdefinierte Aktion jedoch zu lang ist oder mehr als eine Codezeile umfasst, ist es praktischer, eine Funktion außerhalb des Element-Tags zu schreiben:
+
+function highlight(id)
+{
+  // Remove the "highlight" class from all content elements
+  for ( element of document.querySelectorAll(".content") )
+  {
+    element.classList.remove('highlight');
+  }
+
+  // Add the "highlight" class to the corresponding element
+  document.getElementById(id).classList.add('highlight');
+}
+Wie in den vorangegangenen Beispielen können Sie diese Funktion innerhalb eines <script>-Tags oder in einer externen, mit dem Dokument verbundenen JavaScript-Datei platzieren. Die Funktion highlight entfernt zunächst die Klasse highlight aus allen div-Elementen, die mit der Klasse content verbunden sind, und fügt dann die Klasse highlight dem ausgewählten Element hinzu. Jede Schaltfläche sollte dann diese Funktion über ihr onClick-Attribut aufrufen, wobei die entsprechende ID als Argument der Funktion verwendet wird:
+
+<p>
+<button onClick="highlight('content_first')">First</button>
+<button onClick="highlight('content_second')">Second</button>
+<button onClick="highlight('content_third')">Third</button>
+</p>
+Neben dem Attribut onClick könnten wir das Attribut onMouseOver verwenden (ausgelöst, wenn das Zeigegerät den Cursor auf das Element bewegt), das Attribut onMouseOut (ausgelöst, wenn das Zeigegerät nicht mehr im Element ist) usw. Außerdem sind die Event Handler nicht auf Schaltflächen beschränkt, so dass Sie diesen Event Handlern für alle sichtbaren HTML-Elemente benutzerdefinierte Aktionen zuweisen können.
+
+Geführte Übungen
+Wie fügen Sie mit der Methode document.getElementById() den Text “Dynamic content” in den inneren Inhalt des Elements mit der ID message ein?
+
+Was ist der Unterschied zwischen der Referenzierung eines Elements über seine ID mit der Methode document.querySelector() und der Referenzierung über die Methode document.getElementById()?
+
+Was ist der Zweck der Methode classList.remove()?
+
+Was bewirkt die Methode myelement.classList.toggle("active"), wenn myelement nicht die Klasse active zugewiesen ist?
+
+Offene Übungen
+Welches Argument für die Methode document.querySelectorAll() bewirkt, dass sie die Methode document.getElementsByTagName("input") nachahmt?
+
+Wie nutzen Sie die Eigenschaft classList, um alle Klassen aufzulisten, die mit einem bestimmten Element verbunden sind?
+
+Zusammenfassung
+In dieser Lektion haben Sie gelernt, wie Sie mit JavaScript HTML-Inhalte und deren CSS-Eigenschaften mithilfe des DOM (Document Object Model) ändern. Diese Änderungen können durch Benutzerereignisse ausgelöst werden, was für die Erstellung dynamischer Schnittstellen nützlich ist. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Wie man die Struktur des Dokuments mit Methoden wie document.getElementById(), document.getElementsByClassName(), document.getElementsByTagName(), document.querySelector() und document.querySelectorAll() untersucht.
+
+Wie man den Inhalt des Dokuments mit der Eigenschaft innerHTML ändert.
+
+Wie man die Attribute von Seitenelementen mit den Methoden setAttribute() und removeAttribute() hinzufügt und ändert.
+
+Die richtige Art und Weise, Elementklassen mit der Eigenschaft classList zu manipulieren und ihre Beziehung zu CSS-Stilen.
+
+Wie man Funktionen an Maus-Ereignisse in bestimmten Elementen bindet.
+
+Lösungen zu den geführten Übungen
+Wie fügen Sie mit der Methode document.getElementById() den Text “Dynamic content” in den inneren Inhalt des Elements mit der ID message ein?
+
+Mit der Eigenschaft innerHTML:
+
+document.getElementById("message").innerHTML = "Dynamic content"
+Was ist der Unterschied zwischen der Referenzierung eines Elements über seine ID mit der Methode document.querySelector() und der Referenzierung über die Methode document.getElementById()?
+
+Die ID muss in Funktionen, die Selektoren verwenden, wie z.B. document.querySelector(), mit dem Rautezeichen versehen werden.
+
+Was ist der Zweck der Methode classList.remove()?
+
+Sie entfernt die Klasse (deren Name als Argument der Funktion angegeben wird) aus dem Attribut class des entsprechenden Elements.
+
+Was bewirkt die Methode myelement.classList.toggle("active"), wenn myelement nicht die Klasse active zugewiesen ist?
+
+Die Methode weist myelement die Klasse active zu.
+
+Lösungen zu den offenen Übungen
+Welches Argument für die Methode document.querySelectorAll() bewirkt, dass sie die Methode document.getElementsByTagName("input") nachahmt?
+
+document.querySelectorAll("input") passt auf alle input-Elemente der Seite, genau wie document.getElementsByTagName("input").
+
+Wie nutzen Sie die Eigenschaft classList, um alle Klassen aufzulisten, die mit einem bestimmten Element verbunden sind?
+
+Die Eigenschaft classList ist ein Array-ähnliches Objekt, so dass mit einer for-Schleife alle darin enthaltenen Klassen durchlaufen werden können.

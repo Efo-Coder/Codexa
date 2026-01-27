@@ -1,0 +1,1234 @@
+033.1 Modul 3
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+033 Gestaltung von Inhalten mit CSS
+
+Lernziel:	
+033.1 CSS-Grundlagen
+
+Einführung
+Alle Webbrowser geben HTML-Seiten nach standardisierten Darstellungsregeln wieder, die praktisch und einfach, aber optisch wenig ansprechend sind. HTML selbst bietet nur wenige Funktionen, um aufwendige Seiten zu schreiben, die modernen Konzepten der Benutzerfreundlichkeit folgen. Sie haben vermutlich festgestellt, dass unsere ersten HTML-Seiten im Vergleich zu gut gestalteten Seiten im Internet unansehnlich sind. Das liegt daran, dass in modernem HTML der Auszeichnungscode, der Struktur und Funktion der Elemente im Dokument bestimmt (Semantik), von den Regeln getrennt ist, die festlegen, wie die Elemente aussehen sollen (Darstellung). Die Regeln für die Darstellung werden in einer anderen Sprache geschrieben, den Cascading Style Sheets (CSS). Damit gestalten Sie fast alle visuellen Aspekte des Dokuments, z.B. Schriftarten, Farben und die Anordnung der Elemente auf der Seite.
+
+HTML-Dokumente sind in den meisten Fällen nicht dafür gedacht, in einem festen Layout angezeigt zu werden wie etwa eine PDF-Datei. Vielmehr werden HTML-basierte Webseiten auf einer Vielzahl von Bildschirmgrößen wiedergegeben oder sogar gedruckt. Über einstellbare Optionen stellt CSS sicher, dass die Webseite wie gewünscht erscheint — angepasst an das Gerät oder die Anwendung, die sie öffnet.
+
+Stile anwenden
+Es gibt mehrere Möglichkeiten, CSS in ein HTML-Dokument einzubinden: Sie können es direkt in das Tag des Elements schreiben, in einen separaten Abschnitt des Quellcodes der Seite oder in eine externe Datei, auf die die HTML-Seite verweist.
+
+Das Attribut style
+Der einfachste Weg, den Stil eines bestimmten Elements zu ändern, besteht darin, ihn mit dem Attribut style direkt in das Element-Tag zu schreiben. Alle sichtbaren HTML-Elemente erlauben ein style-Attribut, dessen Wert eine oder mehrere CSS-Regeln sein können, auch bekannt als Eigenschaften oder Properties. Beginnen wir mit einem einfachen Beispiel, einem Absatzelement:
+
+<p>My stylized paragraph</p>
+Die grundlegende Syntax einer benutzerdefinierten CSS-Eigenschaft lautet Eigenschaft: Wert, wobei Eigenschaft der bestimmte Aspekt ist, den Sie in dem Element ändern möchten, und Wert den Ersatz für die vom Browser vorgenommene Standardoption definiert. Einige Eigenschaften gelten für alle Elemente, andere Eigenschaften nur für bestimmte Elemente. Ebenso gibt es für jede Eigenschaft passende Werte, die zu verwenden sind.
+
+Um die Farbe unseres einfachen Absatzes zu ändern, verwenden wir zum Beispiel die Eigenschaft color. Die Eigenschaft color bezieht sich auf die Vordergrundfarbe, d.h. die Farbe der Buchstaben des Absatzes. Die Farbe selbst steht im Werteteil der Regel und kann in vielen verschiedenen Formaten angegeben werden, einschließlich einfacher Namen wie red, green, blue, yellow usw. Um also die Schrift des Absatzes lila zu färben, fügen Sie die angepasste Eigenschaft color: purple zum Attribut style des Elements hinzu:
+
+<p style="color: purple">My first stylized paragraph</p>
+Andere benutzerdefinierte Eigenschaften können in der gleichen Eigenschaft style enthalten sein, müssen aber jeweils durch Semikolon getrennt werden. Um etwa auch die Schrift zu vergrößern, fügen Sie font-size: larger zur Eigenschaft style hinzu:
+
+<p style="color: purple; font-size: larger">My first stylized paragraph</p>
+Note
+Es ist nicht notwendig, Leerzeichen um die Doppelpunkte und Semikola zu setzen, aber sie verbessern die Lesbarkeit des CSS-Codes .
+
+Um das Ergebnis dieser Änderungen zu sehen, speichern Sie den folgenden HTML-Code in einer Datei und öffnen Sie diese dann in einem Webbrowser (Figure 1):
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>CSS Basics</title>
+</head>
+<body>
+
+<p style="color: purple; font-size: larger">My first stylized paragraph</p>
+
+<p style="color: green; font-size: larger">My second stylized paragraph</p>
+
+</body>
+</html>
+fig01
+Figure 1. Eine sehr einfache visuelle Änderung mit CSS
+Stellen Sie sich jedes Element auf der Seite als ein Rechteck oder einen Kasten vor, dessen geometrische Eigenschaften und Gestaltung Sie mit CSS manipulieren. Der Rendering-Mechanismus verwendet zwei Standardkonzepte für die Platzierung von Elementen: Block-Platzierung und Inline-Platzierung. Block-Elemente nehmen den gesamten horizontalen Platz ihres übergeordneten Elements ein und werden von oben nach unten gesetzt. Ihre Höhe (ihre vertikale Dimension, nicht zu verwechseln mit ihrer Top-Position auf der Seite) hängt im Allgemeinen von der Menge ihres Inhalts ab. Inline-Elemente folgen der Links-nach-Rechts-Methode, ähnlich wie in westlichen Schriftsprachen: Elemente werden horizontal von links nach rechts platziert, bis auf der rechten Seite kein Platz mehr ist, woraufhin das Element in einer neuen Zeile direkt unter der aktuellen Zeile fortgesetzt wird. Elemente wie p, div und section werden standardmäßig als Blöcke platziert, während Elemente wie span, em, a und einzelne Buchstaben inline platziert werden. Diese grundlegenden Platzierungsmethoden können Sie über CSS-Regeln grundlegend ändern.
+
+Das Rechteck, das dem Element p im Body des HTML-Beispiels entspricht, wird sichtbar, wenn Sie die Eigenschaft background-color zur Regel hinzufügen (Figure 2):
+
+<p style="color: purple; font-size: larger; background-color: silver">My first stylized paragraph</p>
+
+<p style="color: green; font-size: larger; background-color: silver">My second stylized paragraph</p>
+fig02
+Figure 2. Rechtecke, die den Absätzen entsprechen
+Wenn Sie dem Attribut style neue benutzerdefinierte CSS-Eigenschaften hinzufügen, werden Sie feststellen, dass der Code insgesamt unübersichtlich wird. Zu viele CSS-Regeln im style-Attribut weichen die Trennung von Struktur (HTML) und Darstellung (CSS) auf. Außerdem nutzen verschiedene Elemente dieselben Stile, und es ist nicht ratsam, sie in jedem Element zu wiederholen.
+
+CSS-Regeln
+Statt die Elemente direkt in ihren style-Attributen anzupassen, ist es viel praktischer, dem Browser sämtliche Elemente zu nennen, für die ein benutzerdefinierter Stil gilt. Das geschieht über einen sogenannten Selektor, den wir den benutzerdefinierten Eigenschaften hinzufügen. Er gleicht Elemente nach Typ, Klasse, ID, relativer Position usw. ab. Die Kombination aus einem Selektor und Eigenschaften — auch als Deklarationen bezeichnet — nennt man CSS-Regel. Die grundlegende Syntax einer CSS-Regel lautet Selektor { Eigenschaft: Wert }. Wie beim Attribut style können durch Semikolon getrennte Eigenschaften gruppiert werden, wie in p { color: purple; font-size: larger }. Diese Regel passt zu jedem p-Element auf der Seite und wendet die angepassten Eigenschaften color und font-size an.
+
+Eine CSS-Regel für ein übergeordnetes Element wird automatisch auf alle seine untergeordneten Elemente angewendet. Das bedeutet, dass wir die benutzerdefinierten Eigenschaften auf den gesamten Text der Seite anwenden können, unabhängig davon, ob er sich innerhalb oder außerhalb eines <p>-Tags befindet, indem wir stattdessen den Selektor body verwenden: body { color: purple; font-size: larger }. Diese Strategie erspart es uns, dieselbe Regel für alle Kinder zu schreiben, wobei es notwendig sein kann, zusätzliche Regeln zu schreiben, um die geerbten Regeln zu ändern oder zu “ignorieren”.
+
+Das Tag style
+Mit dem <style>-Tag schreiben wir CSS-Regeln innerhalb der HTML-Seite, die wir gestalten. Es ermöglicht es dem Browser, den CSS-Code vom HTML-Code zu unterscheiden. Das <style>-Tag steht im head-Abschnitt des Dokuments:
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>CSS Basics</title>
+
+  <style type="text/css">
+
+  p { color: purple; font-size: larger }
+
+  </style>
+
+</head>
+<body>
+
+<p>My first stylized paragraph</p>
+
+<p>My second stylized paragraph</p>
+
+</body>
+</html>
+Das type-Attribut teilt dem Browser mit, welche Art von Inhalt sich innerhalb des <style>-Tags befindet, d.h. den MIME-Typ. Da jeder Browser, der CSS unterstützt, davon ausgeht, dass der Typ des <style>-Tags standardmäßig text/css ist, ist die Angabe des Attributs type optional. Es gibt auch ein media-Attribut, das das Medium angibt — z.B. Bildschirm oder Ausdruck — für das die CSS-Regeln im <style>-Tag gelten. Standardmäßig gelten die CSS-Regeln für jedes Medium, auf dem das Dokument dargestellt wird.
+
+Wie im HTML-Code ändern Zeilenumbrüche und Einrückungen nichts daran, wie der Browser die CSS-Regeln interpretiert:
+
+<style type="text/css">
+
+p { color: purple; font-size: larger }
+
+</style>
+liefert dasselbe Ergebnis wie:
+
+<style type="text/css">
+
+p {
+  color: purple;
+  font-size: larger;
+}
+
+</style>
+Die zusätzlichen Bytes, die durch die Leerzeichen und Zeilenumbrüche anfallen, machen nur einen geringen Unterschied in der Dokumentgröße und haben keine nennenswerten Auswirkungen auf die Ladezeit der Seite, so dass die Wahl des Layouts eine Frage des Geschmacks ist. Beachten Sie das Semikolon nach der letzten Deklaration (font-size: larger;) der CSS-Regel. Dieses Semikolon ist nicht zwingend erforderlich, aber es erleichtert das Hinzufügen einer weiteren Deklaration in der nächsten Zeile, ohne dass man sich Gedanken über fehlende Semikola machen muss.
+
+Die Deklarationen in separaten Zeilen machen es einfacher, einzelne Deklarationen auszukommentieren. Um eine Deklaration zum Beispiel zur Fehlersuche vorübergehend zu deaktivieren, schließen Sie die entsprechende Zeile mit /* und */ ein:
+
+p {
+  color: purple;
+  /*
+  font-size: larger;
+  */
+}
+oder:
+
+p {
+  color: purple;
+  /* font-size: larger; */
+}
+So geschrieben, ignoriert der Browser die Deklaration font-size: larger. Achten Sie darauf, die Kommentare richtig zu öffnen und zu schließen, da der Browser die Regeln sonst möglicherweise nicht interpretieren kann.
+
+Kommentare sind auch nützlich, um die Regeln zu erläutern:
+
+/* Texts inside <p> are purple and larger */
+p {
+  color: purple;
+  font-size: larger;
+}
+Zusätze wie in diesem Beispiel sind in Stylesheets mit wenigen Regeln entbehrlich, aber sie sind unerlässlich, um über Stylesheets mit Hunderten (oder mehr) Regeln den Überblick zu behalten.
+
+Obwohl das style-Attribut und das <style>-Tag für das Testen benutzerdefinierter Stile geeignet und in bestimmten Situationen nützlich sind, werden sie nicht häufig verwendet. Stattdessen werden die CSS-Regeln üblicherweise in einer separaten Datei gespeichert, auf die im HTML-Dokument verwiesen wird.
+
+CSS in externen Dateien
+Die bevorzugte Methode, CSS-Definitionen mit einem HTML-Dokument zu verknüpfen, besteht darin, das CSS in einer separaten Datei zu speichern. Diese Methode bietet zwei wesentliche Vorteile gegenüber den vorherigen Methoden:
+
+Verschiedene Dokumente können dieselben Styling-Regeln nutzen.
+
+Der Browser speichert die CSS-Datei in der Regel zwischen, was die Ladezeiten künftig verbessert.
+
+CSS-Dateien haben die Endung .css und lassen sich wie HTML-Dateien mit einem beliebigen Texteditor bearbeiten. Im Gegensatz zu HTML-Dateien haben CSS-Dateien keine Struktur auf oberster Ebene mit hierarchischen Tags wie <head> oder <body>. Vielmehr ist die CSS-Datei nur eine Liste von Regeln, die der Browser in einer bestimmten Reihenfolge abarbeitet. Die gleichen Regeln, die in einem <style>-Tag stehen, könnten auch in einer CSS-Datei stehen.
+
+Die Verbindung zwischen dem HTML-Dokument und den in einer Datei gespeicherten CSS-Regeln wird nur im HTML-Dokument definiert. Für die CSS-Datei spielt es keine Rolle, ob es Elemente gibt, die ihren Regeln entsprechen, so dass es nicht notwendig ist, in der CSS-Datei die HTML-Dokumente aufzuzählen, mit denen sie verknüpft ist. Auf der HTML-Seite wird jedes verknüpfte Stylesheet auf das Dokument so angewandt, als wären die Regeln in einem <style>-Tag enthalten.
+
+Das HTML-Tag <link> definiert ein externes Stylesheet, das im aktuellen Dokument verwendet werden soll. Es sollte im head-Abschnitt des HTML-Dokuments stehen:
+
+<head>
+  <meta charset="utf-8" />
+  <title>CSS Basics</title>
+
+  <link href="style.css" rel="stylesheet">
+
+</head>
+Jetzt können Sie die zuvor verwendete Regel für das Element p in die Datei style.css einfügen. Die Ergebnisse, die der Besucher der Webseite sieht, werden die gleichen sein. Wenn sich die CSS-Datei nicht im selben Verzeichnis wie das HTML-Dokument befindet, geben Sie ihren relativen oder vollständigen Pfad im Attribut href an. Das <link>-Tag kann auf verschiedene Arten von externen Ressourcen verweisen, so dass klar sein muss, welche Beziehung die externe Ressource zum aktuellen Dokument hat. Für externe CSS-Dateien wird die Beziehung in rel="stylesheet" definiert.
+
+Das Attribut media nutzen Sie auf die gleiche Weise wie das <style>-Tag: Es gibt das Medium an, auf das die Regeln in der externen Datei angewendet werden sollen, z.B. Computerbildschirm oder Druckausgabe.
+
+CSS kann ein Element vollständig verändern, aber es ist trotzdem wichtig, das richtige Element für die Komponenten der Seite zu verwenden. Andernfalls können unterstützende Technologien wie Screenreader die richtigen Abschnitte der Seite möglicherweise nicht erkennen.
+
+Geführte Übungen
+Welche Methoden dienen dazu, das Aussehen von HTML-Elementen mit CSS zu verändern?
+
+Warum ist es nicht empfehlenswert, das Attribut style des <p>-Tags zu nutzen, um mehrere Absätze gleich aussehen zu lassen?
+
+Wie wird ein div-Element standardmäßig platziert?
+
+Welches Attribut des <link>-Tags gibt den Speicherort einer externen CSS-Datei an?
+
+In welchem Abschnitt eines HTML-Dokuments sollten Sie das link-Element platzieren?
+
+Offene Übungen
+Warum ist es nicht empfehlenswert, ein <div>-Tag zu nutzen, um ein Wort in einem normalen Satz zu kennzeichnen?
+
+Was passiert, wenn Sie in der Mitte einer CSS-Datei einen Kommentar mit /* beginnen, aber vergessen, ihn mit */ zu schließen?
+
+Schreiben Sie eine CSS-Regel, um alle em-Elemente des Dokuments zu unterstreichen.
+
+Wie geben Sie an, dass ein Stylesheet aus einem <style>- oder <link>-Tag nur von Sprachsynthesizern verwendet werden soll?
+
+Zusammenfassung
+Diese Lektion befasst sich mit den grundlegenden Konzepten von CSS und wie man es in HTML integriert. In CSS-Stylesheets geschriebene Regeln sind die Standardmethode, um das Aussehen von HTML-Dokumenten zu ändern. CSS macht es möglich, den semantischen Inhalt von den Präsentationsregeln zu trennen. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Wie man CSS-Eigenschaften mit dem Attribut style ändert.
+
+Die grundlegende CSS-Regelsyntax.
+
+Verwendung des <style>-Tags, um CSS-Regeln in das Dokument einzubetten.
+
+Verwendung des <link>-Tags, um externe Stylesheets in das Dokument einzubinden.
+
+Lösungen zu den geführten Übungen
+Welche Methoden dienen dazu, das Aussehen von HTML-Elementen mit CSS zu verändern?
+
+Es gibt drei grundlegende Methoden: Man schreibt sie direkt in das Tag des Elements, in einen separaten Abschnitt des Quellcodes der Seite oder in eine externe Datei, auf die die HTML-Seite verweist.
+
+Warum ist es nicht empfehlenswert, das Attribut style des <p>-Tags zu nutzen, um mehrere Absätze gleich aussehen zu lassen?
+
+Die CSS-Deklaration muss in den anderen <p>-Tags wiederholt werden, was zeitaufwendig ist, die Dateigröße erhöht und fehleranfällig ist.
+
+Wie wird ein div-Element standardmäßig platziert?
+
+Das div-Element wird standardmäßig als Block-Element behandelt, so dass es den gesamten horizontalen Platz seines übergeordneten Elements einnimmt und seine Höhe von seinem Inhalt abhängt.
+
+Welches Attribut des <link>-Tags gibt den Speicherort einer externen CSS-Datei an?
+
+Das Attribut href.
+
+In welchem Abschnitt eines HTML-Dokuments sollten Sie das link-Element platzieren?
+
+Das link-Element sollte sich im head-Abschnitt des HTML-Dokuments befinden.
+
+Lösungen zu den offenen Übungen
+Warum ist es nicht empfehlenswert, ein <div>-Tag zu nutzen, um ein Wort in einem normalen Satz zu kennzeichnen?
+
+Das <div>-Tag bietet eine semantische Trennung zwischen zwei Abschnitten des Dokuments und stört den Zugriff von Tools für Barrierefreiheit, wenn es für Inline-Textelemente verwendet wird.
+
+Was passiert, wenn Sie in der Mitte einer CSS-Datei einen Kommentar mit /* beginnen, aber vergessen, ihn mit */ zu schließen?
+
+Der Browser ignoriert alle Regeln, die auf den Kommentar folgen.
+
+Schreiben Sie eine CSS-Regel, um alle em-Elemente des Dokuments zu unterstreichen.
+
+em { text-decoration: underline }
+
+oder
+
+em { text-decoration-line: underline }
+
+Wie geben Sie an, dass ein Stylesheet aus einem <style>- oder <link>-Tag nur von Sprachsynthesizern verwendet werden soll?
+
+Der Wert des Attributs media muss speech sein.
+
+033.2
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+033 Gestaltung der Inhalte mit CSS
+
+Lernziel:	
+033.2 CSS-Selektoren und Stilanwendung
+
+
+Einführung
+Wenn wir eine CSS-Regel schreiben, müssen wir dem Browser mitteilen, für welche Elemente die Regel gilt. Dies geschieht durch die Angabe eines Selektors: ein Muster, das auf ein Element oder eine Gruppe von Elementen passt. Selektoren gibt es in vielen verschiedenen Formen, die auf dem Namen des Elements, dessen Attributen, dessen relativer Platzierung in der Dokumentstruktur oder einer Kombination dieser Merkmale basieren.
+
+Seitenweite Stile
+Einer der Vorteile von CSS ist, dass Sie keine individuellen Regeln für Elemente mit demselben Stil schreiben müssen. Ein Sternchen wendet die Regel auf alle Elemente auf der Webseite an, wie im folgenden Beispiel gezeigt:
+
+* {
+  color: purple;
+  font-size: large;
+}
+Der Selektor * ist nicht die einzige Methode, um eine Stilregel auf alle Elemente der Seite anzuwenden. Ein Selektor, der mit dem Tag-Namen eines Elements übereinstimmt, wird als Typselektor bezeichnet, so dass jeder HTML-Tag-Name wie body, p, table, em usw. als Selektor dienen kann. In CSS wird der Stil des übergeordneten Elements an seine untergeordneten Elemente vererbt. In der Praxis hat also der Selektor * die gleiche Wirkung wie die Anwendung einer Regel auf das Element body:
+
+body {
+  color: purple;
+  font-size: large;
+}
+Darüber hinaus ermöglicht die Kaskadierungsfunktion von CSS eine Feinabstimmung der vererbten Eigenschaften eines Elements. Sie können eine allgemeine CSS-Regel schreiben, die für alle Elemente auf der Seite gilt, und dann Regeln für bestimmte Elemente oder Elementgruppen ergänzen.
+
+Wenn dasselbe Element zwei oder mehr widersprüchlichen Regeln unterliegt, wendet der Browser die Regel des spezifischsten Selektors an. Nehmen Sie die folgenden CSS-Regeln als Beispiel:
+
+body {
+  color: purple;
+  font-size: large;
+}
+
+li {
+  font-size: small;
+}
+Der Browser wendet die Stile color: purple und font-size: large auf alle Elemente innerhalb des Elements body an. Gibt es jedoch li-Elemente in der Seite, wird der Browser den Stil font-size: large durch den Stil font-size: small ersetzen, da der li-Selektor eine engere Beziehung zum li-Element hat als der body-Selektor.
+
+CSS schränkt die Anzahl gleichwertiger Selektoren in einem Stylesheet nicht ein, so dass Sie zwei oder mehr Regeln mit demselben Selektor schreiben können:
+
+li {
+  font-size: small;
+}
+
+li {
+  font-size: x-small;
+}
+In diesem Fall sind beide Regeln gleichermaßen spezifisch für das Element li. Der Browser kann jedoch keine widersprüchlichen Regeln anwenden und wählt daher jene, die in der CSS-Datei weiter unten steht. Um Verwirrung zu vermeiden, empfiehlt es sich, alle Eigenschaften, die denselben Selektor verwenden, in Gruppen zusammenzufassen.
+
+Die Reihenfolge, in der die Regeln im Stylesheet erscheinen, wirkt sich darauf aus, wie sie im Dokument angewendet werden, aber Sie können dieses Verhalten durch eine important-Regel außer Kraft setzen. Wollen Sie aus irgendeinem Grund die beiden getrennten li-Regeln beibehalten, aber die Anwendung der ersten statt der zweiten Regel erzwingen, markieren Sie die erste Regel als important:
+
+li {
+  font-size: small !important;
+}
+
+li {
+  font-size: x-small;
+}
+Vorsicht bei mit !important gekennzeichneten Regeln! Sie unterbrechen die natürliche Kaskadierung des Stylesheets und machen es schwieriger, Probleme innerhalb der CSS-Datei zu finden und zu korrigieren.
+
+Restriktive Selektoren
+Wir haben gesehen, dass wir bestimmte geerbte Eigenschaften mit Selektoren ändern, die bestimmten Tags entsprechen. In der Regel müssen wir jedoch unterschiedliche Stile für Elemente desselben Typs verwenden.
+
+Sie integrieren Attribute von HTML-Tags in Selektoren, um die Menge der Elemente, auf die sie sich beziehen, einzuschränken. Eine HTML-Seite hat beispielsweise zwei Arten von ungeordneten Listen (<ul>): eine dient oben auf der Seite als Menü zu den Abschnitten der Website, die anderen als herkömmliche Listen im Body:
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>CSS Basics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/articles">Articles</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+<div id="content">
+
+<p>The three rocky planets of the solar system are:</p>
+
+<ul>
+  <li>Mercury</li>
+  <li>Venus</li>
+  <li>Earth</li>
+  <li>Mars</li>
+</ul>
+
+<p>The outer giant planets made most of gas are:</p>
+
+<ul>
+  <li>Jupiter</li>
+  <li>Saturn</li>
+  <li>Uranus</li>
+  <li>Neptune</li>
+</ul>
+
+</div><!-- #content -->
+
+
+<div id="footer">
+
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/articles">Articles</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</div><!-- #footer -->
+
+</body>
+</html>
+Standardmäßig hat jedes Listenelement einen schwarzen Kreis auf der linken Seite. Vielleicht möchten Sie die Kreise in der Menüliste entfernen, während Sie sie in anderen Liste belassen. Der Selektor li verbietet sich, da dadurch auch die Kreise in den Listen im Body verschwinden. Sie müssen dem Browser mitteilen, dass er nur die Listenelemente der einen Liste ändert, nicht aber die der anderen.
+
+Es gibt mehrere Möglichkeiten, Selektoren für bestimmte Elemente auf der Seite zu schreiben. Wie bereits erwähnt, gehen wir dazu zunächst über Attribute der Elemente. Für dieses Beispiel nutzen wir das Attribut id, um nur die oberste Liste anzugeben.
+
+Das Attribut id weist dem entsprechenden Element einen eindeutigen Bezeichner zu, den wir als Selektorteil der CSS-Regel nutzen. Bevor Sie die CSS-Regel schreiben, bearbeiten Sie die HTML-Beispieldatei und fügen id="topmenu" zum Element ul für das obere Menü hinzu:
+
+<ul id="topmenu">
+  <li>Home</li>
+  <li>Articles</li>
+  <li>About</li>
+</ul>
+Es gibt bereits ein link-Element im head-Abschnitt des HTML-Dokuments, das auf die Stylesheet-Datei style.css im selben Verzeichnis verweist, so dass wir die folgenden CSS-Regeln hinzufügen:
+
+ul#topmenu {
+  list-style-type: none
+}
+Das Hash-Zeichen bezeichnet in einem Selektor nach einem Element eine ID (ohne Leerzeichen). Der Tag-Name links von der Raute ist optional, da es kein anderes Element mit derselben ID geben wird. Sie könnten den Selektor auch einfach als #topmenu angeben.
+
+Auch wenn list-style-type keine direkte Eigenschaft des ul-Elements ist, werden die CSS-Eigenschaften des übergeordneten Elements an seine Kinder vererbt, so dass die untergeordneten li-Elemente den dem ul-Element zugewiesenen Stil erben.
+
+Nicht alle Elemente haben eine ID, über die sie sich auswählen lassen. Tatsächlich werden nur von wenigen wichtigen Layoutelementen auf einer Seite IDs erwartet. Nehmen Sie z.B. die Listen von Planeten im Beispielcode: Obwohl es möglich wäre, jedem einzelnen sich wiederholenden Element eindeutige IDs zuzuweisen, ist diese Methode für längere Seiten mit vielen Inhalten nicht praktikabel. Stattdessen nutzen wir die ID des übergeordneten div-Elements als Selektor, um die Eigenschaften seiner inneren Elemente zu ändern.
+
+Das div-Element hat jedoch keinen direkten Bezug zu HTML-Listen, so dass das Hinzufügen der Eigenschaft list-style-type keine Auswirkungen auf seine Kinder hat. Um den schwarzen Kreis in den Listen innerhalb des div-Elements in einen hohlen Kreis umzuwandeln, sollten wir einen Nachfahrenselektor verwenden:
+
+#topmenu {
+  list-style-type: none
+}
+
+#content ul {
+  list-style-type: circle
+}
+Der Selektor #content ul wird als Nachfahrenselektor (Descendant Selector) bezeichnet, weil er nur mit den ul-Elementen übereinstimmt, die Kinder des Elements sind, dessen ID content lautet. Wir können so viele Abstufungen wie nötig vornehmen. Zum Beispiel würde #content ul li nur für die li-Elemente gelten, die Nachkommen von ul-Elementen sind, die wiederum Nachkommen des Elements sind, dessen ID content ist. In diesem Beispiel hat der längere Selektor jedoch dieselbe Wirkung wie #content ul, da die li-Elemente die CSS-Eigenschaften erben, die für ihr übergeordnetes ul gelten. Nachfahrenselektoren sind eine wichtige Technik, wenn das Seitenlayout komplexer wird.
+
+Nehmen wir an, Sie möchten die Eigenschaft font-style der Listenelemente in der Liste topmenu und in der Liste im footer div ändern und die Schrift schräg (oblique) setzen. Sie können nicht einfach eine CSS-Regel mit ul als Selektor schreiben, da dies auch die Listenelemente im content div verändern würde. Bisher haben wir CSS-Eigenschaften über jeweils nur einen Selektor geändert und können diese Methode auch für diese Aufgabe anwenden:
+
+#topmenu {
+  font-style: oblique
+}
+
+#footer ul {
+  font-style: oblique
+}
+Getrennte Selektoren sind jedoch nicht die einzige Möglichkeit. Mit CSS können wir Selektoren, die einen oder mehrere Stile gemeinsam haben, in einer durch Kommata getrennten Selektorenliste zusammenfassen:
+
+#topmenu, #footer ul {
+  font-style: oblique
+}
+Durch die Gruppierung von Selektoren entfällt der zusätzliche Aufwand für die Erstellung doppelter Stile. Außerdem möchten Sie die Eigenschaft möglicherweise in Zukunft erneut ändern und müssen sich dann nicht an all die verschiedenen Stellen erinnern.
+
+Klassen
+Wenn Sie sich nicht zu viele Gedanken über die Elementhierarchie machen wollen, fügen Sie der Gruppe von Elementen, die Sie anpassen möchten, einfach eine class hinzu. Klassen sind ähnlich wie IDs, identifizieren aber eine Gruppe von Elementen mit den gleichen Merkmalen statt nur ein einzelnes Element auf der Seite.
+
+Nehmen Sie zum Beispiel die HTML-Beispielseite, an der wir gerade arbeiten. Es ist unwahrscheinlich, dass wir in realen Seiten so einfache Strukturen vorfinden, daher wäre es praktischer, ein Element nur über Klassen oder eine Kombination aus Klassen und Abstammung auszuwählen. Um die Eigenschaft font-style: oblique auf die Menülisten anzuwenden, müssen wir zunächst die Eigenschaft class zu den Elementen in der HTML-Datei hinzufügen — zunächst im oberen Menü:
+
+<ul id="topmenu" class="menu">
+  <li><a href="/">Home</a></li>
+  <li><a href="/articles">Articles</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+Und dann im Menü der Fußzeile:
+
+<div id="footer">
+
+<ul class="menu">
+  <li><a href="/">Home</a></li>
+  <li><a href="/articles">Articles</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</div><!-- #footer -->
+Damit können wir die Selektorgruppe #topmenu, #footer ul durch den klassenbasierten Selektor .menu ersetzen:
+
+.menu {
+  font-style: oblique
+}
+Wie bei den ID-basierten Selektoren ist das Hinzufügen des Tag-Namens links vom Punkt bei klassenbasierten Selektoren optional. Im Gegensatz zu IDs kann dieselbe Klasse jedoch in mehr als einem Element verwendet werden, und sie müssen nicht einmal vom selben Typ sein. Wenn also verschiedene Elementtypen die Klasse menu nutzen, würde der Selektor ul.menu nur auf die ul-Elemente der Klasse menu passen. Stattdessen passt der Selektor .menu auf jedes Element mit der Klasse menu, unabhängig von dessen Typ.
+
+Außerdem können Sie Elemente mit mehr als einer Klasse assoziieren. Um etwa zwischen dem oberen und dem unteren Menü zu unterscheiden, fügen wir jedem eine zusätzliche Klasse hinzu:
+
+<ul id="topmenu" class="menu top">
+Und im Menü der Fußzeile:
+
+<ul class="menu footer">
+Enthält das Attribut class mehr als eine Klasse, müssen sie durch Leerzeichen getrennt werden. Zusätzlich zu der CSS-Regel, die die Elemente der Klasse menu gemeinsam nutzen, können wir nun das obere und das untere Menü mit ihren entsprechenden Klassen ansprechen:
+
+.menu {
+  font-style: oblique
+}
+
+.menu.top {
+  font-size: large
+}
+
+.menu.footer {
+  font-size: small
+}
+Beachten Sie, dass die Schreibweise .menu.top sich von .menu .top (mit einem Leerzeichen zwischen den Wörtern) unterscheidet. Der erste Selektor passt auf Elemente, die sowohl die Klassen menu als auch top haben, während der zweite auf Elemente passt, die die Klasse top und ein übergeordnetes Element mit der Klasse menu haben.
+
+Spezielle Selektoren
+CSS-Selektoren können auch dynamischen Zuständen von Elementen entsprechen. Diese Selektoren sind besonders nützlich für interaktive Elemente, wie z.B. Hyperlinks. Sie möchten vielleicht, dass Hyperlinks erscheinen, wenn der Mauszeiger darüber fährt, um die Aufmerksamkeit des Besuchers darauf zu lenken.
+
+Zurück zu unserer Beispielseite: Wir entfernen die Unterstreichungen aus den Links im oberen Menü und zeigen nur dann eine Linie an, wenn der Mauszeiger über den entsprechenden Link bewegt wird. Dazu schreiben wir zunächst eine Regel, um die Unterstreichung aus den Links im oberen Menü zu entfernen:
+
+.menu.top a {
+  text-decoration: none
+}
+Dann nutzen wir die Pseudoklasse :hover für dieselben Elemente, um eine CSS-Regel zu erstellen, die nur gilt, wenn sich der Mauszeiger über dem entsprechenden Element befindet:
+
+.menu.top a:hover {
+  text-decoration: underline
+}
+Der Pseudoklassenselektor :hover akzeptiert alle CSS-Eigenschaften der herkömmlichen CSS-Regeln. Zu den weiteren Pseudoklassen gehören :visited, das Hyperlinks entspricht, die bereits besucht wurden, und :focus, das Formularelementen entspricht, die den Fokus haben.
+
+Geführte Übungen
+Einer HTML-Seite ist ein Stylesheet zugeordnet, das die beiden folgenden Regeln enthält:
+
+p {
+  color: green;
+}
+
+p {
+  color: red;
+}
+Welche Farbe wird der Browser auf den Text innerhalb der p-Elemente anwenden?
+
+Was ist der Unterschied zwischen den ID-Selektoren div#main und #main?
+
+Welcher Selektor passt zu allen p-Elementen innerhalb eines div mit dem ID-Attribut #main?
+
+Was ist der Unterschied zwischen den Klassenselektoren p.highlight und .highlight?
+
+Offene Übungen
+Schreiben Sie eine einzige CSS-Regel, die die Eigenschaft font-style in oblique ändert. Die Regel soll nur auf a-Elemente passen, die sich innerhalb von <div id="sidebar"></div> oder <ul class="links"></ul> befinden.
+
+Sie wollen den Stil der Elemente ändern, deren Attribut class auf article reference gesetzt ist, wie in <p class="article reference">. Der Selektor .article .reference scheint ihr Aussehen jedoch nicht zu verändern. Warum passt der Selektor nicht wie erwartet zu den Elementen?
+
+Schreiben Sie eine CSS-Regel, um die Eigenschaft color aller besuchten Links auf der Seite in red zu ändern.
+
+Zusammenfassung
+Diese Lektion behandelt CSS-Selektoren und wie der Browser entscheidet, welche Stile auf die einzelnen Elemente anzuwenden sind. Da CSS vom HTML-Markup getrennt ist, bietet es viele Selektoren, um einzelne Elemente oder Gruppen von Elementen auf der Seite anzupassen. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Seitenweite Stile und Stilvererbung.
+
+Elemente nach Typ gestalten.
+
+Element-ID und Klasse als Selektor.
+
+Zusammengesetzte Selektoren.
+
+Pseudoklassen zur dynamischen Gestaltung von Elementen.
+
+Lösungen zu den geführten Übungen
+Einer HTML-Seite ist ein Stylesheet zugeordnet, das die beiden folgenden Regeln enthält:
+
+p {
+  color: green;
+}
+
+p {
+  color: red;
+}
+Welche Farbe wird der Browser auf den Text innerhalb der p-Elemente anwenden?
+
+Die Farbe red. Wenn zwei oder mehr gleichwertige Selektoren widersprüchliche Eigenschaften haben, wählt der Browser den letzten.
+
+Was ist der Unterschied zwischen den ID-Selektoren div#main und #main?
+
+Der Selektor div#main passt auf ein div-Element mit der ID main, während der Selektor #main auf das Element mit der ID main passt, unabhängig von dessen Typ.
+
+Welcher Selektor passt zu allen p-Elementen innerhalb eines div mit dem ID-Attribut #main?
+
+Der Selektor #main p oder div#main p.
+
+Was ist der Unterschied zwischen den Klassenselektoren p.highlight und .highlight?
+
+Der Selektor p.highlight passt nur auf die Elemente des Typs p mit der Klasse highlight, während der Selektor .highlight auf alle Elemente der Klasse highlight passt, unabhängig von deren Typ.
+
+Lösungen zu den offenen Übungen
+Schreiben Sie eine einzige CSS-Regel, die die Eigenschaft font-style in oblique ändert. Die Regel soll nur auf a-Elemente passen, die sich innerhalb von <div id="sidebar"></div> oder <ul class="links"></ul> befinden.
+
+#sidebar a, ul.links a {
+  font-style: oblique
+}
+Sie wollen den Stil der Elemente ändern, deren Attribut class auf article reference gesetzt ist, wie in <p class="article reference">. Der Selektor .article .reference scheint ihr Aussehen jedoch nicht zu verändern. Warum passt der Selektor nicht wie erwartet zu den Elementen?
+
+Der Selektor .article .reference passt zu den Elementen der Klasse reference, die von Elementen der Klasse article abstammen. Um Elemente zu finden, die sowohl die Klasse article als auch die Klasse reference haben, sollte der Selektor .article.reference lauten (ohne das Leerzeichen dazwischen).
+
+Schreiben Sie eine CSS-Regel, um die Eigenschaft color aller besuchten Links auf der Seite in red zu ändern.
+
+a:visited {
+  color: red;
+}
+
+033.3
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+033 Gestaltung der Inhalte mit CSS
+
+Lernziel:	
+033.3 Gestaltung mit CSS
+
+
+Einführung
+CSS bietet Hunderte von Eigenschaften, mit denen sich das Erscheinungsbild von HTML-Elementen verändern lässt. Nur erfahrene Designer können sich die meisten von ihnen merken. Dennoch ist es praktisch, die grundlegenden Eigenschaften zu kennen, die auf jedes Element anwendbar sind, sowie einige elementspezifische Eigenschaften. Diese Lektion behandelt einige gängige Eigenschaften, die Sie wahrscheinlich verwenden werden.
+
+Allgemeine CSS-Eigenschaften und -Werte
+Viele CSS-Eigenschaften haben denselben Wertetyp. Farben zum Beispiel haben stets das gleiche Zahlenformat, egal ob Sie die Schriftfarbe oder die Hintergrundfarbe ändern. In ähnlicher Weise werden die Einheiten, die zur Änderung der Schriftgröße zur Verfügung stehen, auch zur Änderung der Dicke eines Rahmens verwendet. Das Format des Wertes ist jedoch nicht immer eindeutig. Farben zum Beispiel können in verschiedenen Formaten angegeben werden, wie wir im Folgenden sehen.
+
+Farben
+Das Ändern der Farbe eines Elements ist wahrscheinlich eines der ersten Dinge, die Designer mit CSS lernen. Sie können die Farbe des Textes, die Hintergrundfarbe, die Farbe des Randes von Elementen und vieles mehr ändern.
+
+Der Wert einer Farbe in CSS kann als Farbschlüsselwort (d.h. als Farbname) oder als numerischer Wert geschrieben werden, der die einzelnen Farbkomponenten angibt. Alle gebräuchlichen Farbnamen wie black, white, red, purple, green, yellow und blue werden als Farbschlüsselwörter akzeptiert. Die gesamte Liste der von CSS akzeptierten Farbschlüsselwörter ist auf der W3C-Webseite zu finden. Um die Farbe besser kontrollieren zu können, nutzen Sie den numerischen Wert.
+
+Farbschlüsselwörter
+Wir werden zunächst mit einem Schlüsselwort arbeiten, weil es einfacher ist. Die Eigenschaft color ändert die Farbe des Textes in dem entsprechenden Element. Um also den gesamten Text auf der Seite lila zu färben, schreiben Sie die folgende CSS-Regel:
+
+* {
+  color: purple;
+}
+Numerische Farbwerte
+Obwohl sie intuitiv sind, bieten Farbschlüsselwörter nicht die gesamte Palette der möglichen Farben in modernen Displays. Webdesigner entwickeln in der Regel eine Farbpalette, die benutzerdefinierte Farben verwendet, indem sie den Rot-, Grün- und Blaukomponenten bestimmte Werte zuweisen.
+
+Jeder Farbanteil ist eine Acht-Bit-Binärzahl zwischen 0 und 255. Alle drei Anteile müssen in der Farbmischung angegeben werden, und ihre Reihenfolge ist immer Rot, Grün, Blau. Um die Farbe für den gesamten Text auf der Seite unter Verwendung der RGB-Notation in Rot zu ändern, verwenden Sie daher rgb(255,0,0):
+
+* {
+  color: rgb(255,0,0);
+}
+Ein auf 0 gesetzter Farbanteil bedeutet, dass die entsprechende Grundfarbe nicht in der Farbmischung verwendet wird. Anstelle von Zahlen können auch Prozentsätze stehen:
+
+* {
+  color: rgb(100%,0%,0%);
+}
+Die RGB-Notation ist selten zu sehen, wenn Sie ein Zeichenprogramm verwenden, um Layouts zu erstellen oder einfach nur um die Farben auszuwählen. Vielmehr ist es üblich, Farben in CSS als hexadezimale Werte auszudrücken. Die Farbanteile im Hexadezimalsystem reichen ebenfalls von 0 bis 255, aber in einer prägnanteren Form, die mit einem Rautezeichen # beginnt, gefolgt von jeweils zwei Zeichen für jeden Farbanteil. Der Minimalwert 0 ist 00 und der Maximalwert 255 ist FF — also ist die Farbe red #FF0000.
+
+Tip
+Wenn sich die Zeichen eines Farbanteils einer hexadezimalen Farbe wiederholen, kann das zweite Zeichen weggelassen werden. Die Farbe red zum Beispiel können Sie daher mit einem einzigen Zeichen für jeden Farbanteil schreiben: #F00.
+
+Die folgende Tabelle zeigt RGB- und Hexadezimalschreibweise für einige Grundfarben:
+
+Farbschlüsselwort	RGB-Notation	Hexadezimalwert
+black
+
+rgb(0,0,0)
+
+#000000
+
+white
+
+rgb(255,255,255)
+
+#FFFFFF
+
+red
+
+rgb(255,0,0)
+
+#FF0000
+
+purple
+
+rgb(128,0,128)
+
+#800080
+
+green
+
+rgb(0,128,0)
+
+#008000
+
+yellow
+
+rgb(255,255,0)
+
+#FFFF00
+
+blue
+
+rgb(0,0,255)
+
+#0000FF
+
+Bei den Farbschlüsselwörtern und den Buchstaben in den hexadezimalen Farbwerten wird nicht zwischen Groß- und Kleinschreibung unterschieden.
+
+Deckkraft von Farben
+Neben deckenden Farben ist es auch möglich, Seitenelemente mit halbtransparenten Farben zu füllen. Die Deckkraft einer Farbe bestimmt eine vierte Komponente im Farbwert. Im Gegensatz zu den anderen Farbkomponenten, bei denen es sich um ganzzahlige Werte zwischen 0 und 255 handelt, ist die Deckkraft ein Bruchteil zwischen 0 und 1.
+
+Der niedrigste Wert, 0, ergibt eine vollkommen transparente Farbe, die von keiner anderen vollkommen transparenten Farbe zu unterscheiden ist. Der höchste Wert, 1, führt zu einer vollkommen deckenden Farbe, die der Originalfarbe ohne jegliche Transparenz entspricht.
+
+Bei der RGB-Notation geben Sie Farben mit einer Deckkraftkomponente durch das Präfix rgba statt rgb an. Um also die Farbe Rot halb-transparent zu machen, verwenden Sie rgba(255,0,0,0.5). Das a steht für Alpha-Kanal, ein Begriff, der im Jargon der digitalen Grafik häufig zur Angabe der Deckkraftkomponente verwendet wird.
+
+Die Deckkraft kann auch in hexadezimaler Notation angegeben werden. Hier reicht die Deckkraft wie bei den anderen Farbkomponenten von 00 bis FF. Um die Farbe red in hexadezimaler Notation halbtransparent zu machen, verwenden Sie also #FF000080.
+
+Hintergrund
+Die Hintergrundfarbe einzelner Elemente oder der gesamten Seite bestimmt die Eigenschaft background-color. Sie nimmt die gleichen Werte an wie die Eigenschaft color, entweder als Schlüsselwörter oder in der RGB/Hexadezimal-Notation.
+
+Der Hintergrund von HTML-Elementen ist jedoch nicht auf Farben beschränkt. Mit der Eigenschaft background-image ist es möglich, ein Bild als Hintergrund zu verwenden. Die akzeptierten Bildformate sind alle, die vom Browser üblicherweise akzeptiert werden, wie JPEG und PNG.
+
+Der Pfad zum Bild sollte mit einem url()-Bezeichner angegeben werden. Befindet sich das zu verwendende Bild im selben Verzeichnis wie die HTML-Datei, reicht es aus, nur den Dateinamen anzugeben:
+
+body {
+  background-image: url("background.jpg");
+}
+In diesem Beispiel wird die Bilddatei background.jpg als Hintergrundbild für den gesamten Text der Seite verwendet. Standardmäßig wird das Hintergrundbild wiederholt, wenn seine Größe nicht die gesamte Seite abdeckt, beginnend mit der linken oberen Ecke des Bereichs, der dem Selektor der Regel entspricht. Dieses Verhalten ändern Sie mit der Eigenschaft background-repeat. Soll das Hintergrundbild im Bereich des Elements platziert werden, ohne es zu wiederholen, verwenden Sie den Wert no-repeat:
+
+body {
+  background-image: url("background.jpg");
+  background-repeat: no-repeat;
+}
+Sie können das Bild auch nur in horizontaler Richtung (background-repeat: repeat-x) oder nur in vertikaler Richtung (background-repeat: repeat-y) wiederholen lassen.
+
+background repeat
+Figure 1. Platzierung des Hintergrunds unter Verwendung der Eigenschaft background-repeat
+Tip
+Zwei oder mehr CSS-Eigenschaften können in einer einzigen Eigenschaft background in Kurzform zusammengefasst werden. Die Eigenschaften background-image und background-repeat lassen sich zum Beispiel so in einer einzigen Eigenschaft background mit background: no-repeat url("background.jpg") kombinieren.
+
+Sie können ein Hintergrundbild auch an einer bestimmten Position im Bereich des Elements über die Eigenschaft background-position platzieren. Die fünf Grundpositionen sind top, bottom, left, right und center, wobei die Position des Bildes oben links auch mit Prozentangaben spezifiziert werden kann:
+
+body {
+  background-image: url("background.jpg");
+  background-repeat: no-repeat;
+  background-position: 30% 10%;
+}
+Die background-position wird von den Rändern des enthaltenden Elements aus gemessen, das in diesem Beispiel der gesamte Body der Seite ist. Die Position kann in exakten Einheiten (z.B. 1em) oder als Prozentsatz des enthaltenden Elements angegeben werden. In diesem Beispiel beginnt das Hintergrundbild also bei 30 % der Breite des Body von der linken Seite des Body und 10 % der Höhe des Body vom oberen Rand des Body.
+
+Rahmen
+Die Änderung des Rahmens eines Elements ist ebenfalls eine gängige Layout-Anpassung per CSS. Der Rahmen bezieht sich auf die Linie, die ein Rechteck um das Element bildet; sie hat drei Grundeigenschaften: color, style und width.
+
+Die Farbe des Rahmens, die mit border-color definiert wird, folgt demselben Format, das wir für die anderen Farbeigenschaften gesehen haben.
+
+Rahmen können in einem anderen Stil als einer durchgezogenen Linie gezeichnet werden, beispielsweise Striche für die Umrandung mit der Eigenschaft border-style: dashed. Die anderen möglichen Stilwerte sind:
+
+dotted
+Eine Folge von abgerundeten Punkten
+
+double
+Zwei gerade Linien
+
+groove
+Lässt die Linie eingekerbt wirken
+
+ridge
+Lässt die Linie erhaben wirken
+
+inset
+Lässt das Element eingelassen wirken
+
+outset
+Lässt das Element aufgesetzt wirken
+
+Die Eigenschaft border-width legt die Dicke des Rahmens fest. Ihr Wert kann ein Schlüsselwort (thin, medium oder thick) oder ein numerischer Wert sein. Wenn Sie einen numerischen Wert vorziehen, müssen Sie auch die entsprechende Einheit angeben, was wir im Folgenden beschreiben.
+
+Einheiten
+Größen und Abstände können Sie in CSS auf verschiedene Weise definieren. Absolute Einheiten basieren auf einer festen Anzahl von Bildschirmpixeln und unterscheiden sich daher nicht wesentlich von den festen Größen und Abmessungen in Printmedien. Es gibt auch relative Einheiten, die dynamisch aus einem Maß errechnet werden, das das Medium vorgibt, in dem die Seite gerendert wird, z.B. der verfügbare Platz oder eine andere in absoluten Einheiten angegebene Größe.
+
+Absolute Einheiten
+Absolute Einheiten entsprechen ihren physikalischen Gegenstücken, wie Zentimeter oder Zoll. Auf herkömmlichen Computerbildschirmen entspricht ein Zoll einer Breite von 96 Pixeln. Die folgenden absoluten Einheiten werden üblicherweise verwendet:
+
+in (Inch/Zoll)
+1 Zoll entspricht 2,54 cm oder 96 px.
+
+cm (Zentimeter)
+1 cm entspricht 96 px / 2,54.
+
+mm (Millimeter)
+1 mm entspricht 1 cm / 10.
+
+px (Pixel)
+1 px entspricht einem 1/96 eines Zolls.
+
+pt (Punkt)
+1 pt entspricht 1/72 eines Zolls.
+
+Beachten Sie, dass das Verhältnis von Pixeln zu Zoll variieren kann. Bei hochauflösenden Bildschirmen, bei denen die Pixel dichter gepackt sind, entspricht ein Zoll mehr als 96 Pixeln.
+
+Relative Einheiten
+Relative Einheiten variieren je nach anderen Maßen oder den Abmessungen des Ansichtsfensters (Viewport). Das Ansichtsfenster ist der Bereich des Dokuments, der in seinem Fenster sichtbar ist. Im Vollbildmodus entspricht der Ansichtsbereich dem Bildschirm des Geräts. Die folgenden relativen Einheiten werden üblicherweise verwendet:
+
+%
+Prozentsatz, relativ zum übergeordneten Element.
+
+em
+Größe der im Element verwendeten Schriftart.
+
+rem
+Größe der im Root-Eement verwendeten Schriftart.
+
+vw
+1 % der Breite des Ansichtsfensters.
+
+vh
+1 % der Höhe des Ansichtsfensters.
+
+Der Vorteil relativer Einheiten besteht darin, dass Layouts durch die Änderung nur weniger Schlüsselgrößen anpassbar sind. Sie können zum Beispiel die Einheit pt für die Schriftgröße im body-Element und die Einheit rem für die Schriftgrößen der anderen Elemente verwenden. Sobald Sie die Größe der Schrift für den Body ändern, werden alle anderen Schriftgrößen entsprechend angepasst. Außerdem können Sie mit den Einheiten vw und vh die Abmessungen von Seitenabschnitten festlegen, um sie an Bildschirme mit unterschiedlichen Größen anzupassen.
+
+Schriftarten und Texteigenschaften
+Typografie und Schriftarten sind sehr umfangreiche Design-Themen, und die CSS-Typografie steht dem in nichts nach. Es gibt jedoch einige grundlegende Schrifteigenschaften, die den Anforderungen der meisten Benutzer, die CSS lernen, genügen werden.
+
+Die Eigenschaft font-family bestimmt den Namen der zu verwendenden Schrift. Es gibt keine Garantie, dass die gewählte Schrift in dem System, in dem die Seite angezeigt wird, verfügbar ist, so dass diese Eigenschaft im Dokument möglicherweise keine Wirkung hat. Obwohl es möglich ist, den Browser anzuweisen, die angegebene Font-Datei herunterzuladen und zu verwenden, begnügen sich die meisten Webdesigner mit allgemein verfügbaren Fonts in ihren Dokumenten.
+
+Die drei gängigsten Font-Familien sind serif, sans-serif und monospace. Serif ist die Standard-Schriftfamilie in den meisten Browsern. Wenn Sie sans-serif für die gesamte Seite bevorzugen, fügen Sie die folgende Regel zu Ihrem Stylesheet hinzu:
+
+* {
+  font-family: sans-serif;
+}
+Optional können Sie zuerst den Namen einer bestimmten Schriftfamilie festlegen, gefolgt von der allgemeinen Bezeichnung:
+
+* {
+  font-family: "DejaVu Sans", sans-serif;
+}
+Wenn das Gerät, das die Seite darstellt, über diese spezielle Schriftfamilie verfügt, verwendet der Browser sie. Ist sie nicht vorhanden, wird die Standardschriftart verwendet, die dem generischen Familiennamen entspricht. Browser suchen die Schriftarten in der Reihenfolge, in der sie in der Eigenschaft angegeben sind.
+
+Jeder, der schon einmal ein Textverarbeitungsprogramm benutzt hat, wird auch mit drei anderen Schriftanpassungen vertraut sein: Größe, Gewicht und Stil. Für diese drei Merkmale gibt es entsprechende CSS-Eigenschaften: font-size, font-weight und font-style.
+
+Die Eigenschaft font-size akzeptiert Schlüsselwortgrößen wie xx-small, x-small, small, medium, large, x-large, xx-large, xxx-large. Diese Schlüsselwörter beziehen sich auf die vom Browser verwendete Standardschriftgröße. Die Schlüsselwörter larger und smaller ändern die Schriftgröße relativ zur Schriftgröße des übergeordneten Elements. Sie können die Schriftgröße auch mit numerischen Werten ausdrücken, einschließlich der Einheit nach dem Wert, oder mit Prozentsätzen.
+
+Wenn Sie nicht die Schriftgröße, sondern den Abstand zwischen den Zeilen ändern wollen, verwenden Sie die Eigenschaft line-height. Bei einer line-height von 1 entspricht die Zeilenhöhe der Schriftgröße des Elements, wodurch die Textzeilen zu eng beieinander liegen können. Daher ist ein Wert größer als 1 für Texte besser geeignet. Wie bei der Eigenschaft font-size können auch andere Einheiten zusammen mit dem numerischen Wert verwendet werden.
+
+Das font-weight setzt die Stärke der Schrift mit den bekannten Schlüsselwörtern normal oder bold. Die Schlüsselwörter lighter und bolder ändern die Schriftstärke des Elements relativ zur Schriftstärke seines übergeordneten Elements.
+
+Die Eigenschaft font-style kann auf italic gesetzt werden, um die kursive Version der aktuellen Schriftfamilie auszuwählen. Der Wert oblique wählt die schräge Version der Schriftart. Diese beiden Optionen sind fast identisch, aber die kursive Version einer Schriftart ist normalerweise etwas schmaler als die schräge Version. Wenn weder eine kursive noch eine schräge Version der Schrift existiert, wird die Schrift vom Browser künstlich geneigt.
+
+Es gibt weitere Eigenschaften, die die Darstellung von Text im Dokument verändern. Sie können zum Beispiel Teile des Textes, die Sie hervorheben wollen, unterstreichen. Verwenden Sie zunächst ein <span>-Tag, um den Text abzugrenzen:
+
+<p>CSS is the <span class="under">proper mechanism</span> to style HTML documents.</p>
+Dann nutzen Sie den Selektor .under, um die Eigenschaft text-decoration zu ändern:
+
+.under {
+  text-decoration: underline;
+}
+Standardmäßig sind alle a-Elemente (Links) unterstrichen. Um das zu verhindern, setzen Sie den Wert none für die text-decoration aller a-Elemente:
+
+a {
+  text-decoration: none;
+}
+Bei Textkorrekturen streichen manche Autoren gerne falsche oder veraltete Textteile durch, damit der Leser weiß, dass der Text aktualisiert bzw. was entfernt wurde. Verwenden Sie dazu den Wert line-through der Eigenschaft text-decoration:
+
+.disregard {
+  text-decoration: line-through;
+}
+Auch hier kann ein <span>-Tag dazu dienen, den Stil anzuwenden:
+
+<p>Netscape Navigator <span class="disregard">is</span> was one of the most popular Web browsers.</p>
+Andere Auszeichnungen können spezifisch für ein Element sein. Die Kreise in Aufzählungslisten können Sie mit der Eigenschaft list-style-type anpassen. Um sie z.B. in Quadrate zu ändern, verwenden Sie list-style-type: square. Um sie zu entfernen, setzen Sie den Wert von list-style-type auf none.
+
+Geführte Übungen
+Wie fügen Sie der Farbe Blau (RGB-Notation rgb(0,0,255)) Halbtransparenz hinzu, um sie in der CSS-Eigenschaft color zu verwenden?
+
+Welche Farbe entspricht dem hexadezimalen Wert #000?
+
+Times New Roman ist eine serif-Schriftart und steht nicht auf allen Geräten zur Verfügung. Wie könnte eine CSS-Regel lauten, um Times New Roman anzufordern und gleichzeitig die generische Schriftfamilie serif als Fallback zu verwenden?
+
+Wie nutzen Sie ein Schlüsselwort für relative Größe, um die Schriftgröße des Elements <p class="disclaimer"> im Verhältnis zu seinem übergeordneten Element kleiner zu machen?
+
+Offene Übungen
+Die Eigenschaft background ist eine Abkürzung, um mehr als eine background-*-Eigenschaft auf einmal festzulegen. Schreiben Sie die folgende CSS-Regel als eine einzige background-Eigenschaft um.
+
+body {
+  background-image: url("background.jpg");
+  background-repeat: repeat-x;
+}
+Schreiben Sie eine CSS-Regel für das Element <div id="header"></div>, die nur dessen untere Randbreite auf 4px ändert.
+
+Schreiben Sie eine font-size-Eigenschaft, die die im Root-Element der Seite verwendete Schriftgröße verdoppelt.
+
+Doppelter Zeilenabstand ist eine gängige Textformatierungsfunktion in Textverarbeitungsprogrammen. Wie definieren Sie ein ähnliches Format mit CSS?
+
+Zusammenfassung
+Diese Lektion behandelt die Anwendung einfacher Stile auf Elemente eines HTML-Dokuments. CSS bietet Hunderte von Eigenschaften, und die meisten Webdesigner werden auf Referenzhandbücher zurückgreifen, um sie sich alle zu merken. Eine relativ kleine Anzahl von Eigenschaften und Werten wird allerdings häufig verwendet, und es ist wichtig, diese auswendig zu kennen. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Grundlegende CSS-Eigenschaften für Farben, Hintergründe und Schriftarten.
+
+Absolute und relative Einheiten, die CSS zur Festlegung von Größen und Abständen verwenden kann, wie z.B. px, em, rem, vw, vh, etc.
+
+Lösungen zu den geführten Übungen
+Wie fügen Sie der Farbe Blau (RGB-Notation rgb(0,0,255)) Halbtransparenz hinzu, um sie in der CSS-Eigenschaft color zu verwenden?
+
+Verwenden Sie das Präfix rgba und fügen Sie 0.5 als vierten Wert hinzu: rgba(0,0,0,0.5).
+
+Welche Farbe entspricht dem hexadezimalen Wert #000?
+
+Die Farbe black. Der hexadezimale Wert #000 ist eine Kurzform für #000000.
+
+Times New Roman ist eine serif-Schriftart und steht nicht auf allen Geräten zur Verfügung. Wie könnte eine CSS-Regel lauten, um Times New Roman anzufordern und gleichzeitig die generische Schriftfamilie serif als Fallback zu verwenden?
+
+* {
+  font-family: "Times New Roman", serif;
+}
+Wie nutzen Sie ein Schlüsselwort für relative Größe, um die Schriftgröße des Elements <p class="disclaimer"> im Verhältnis zu seinem übergeordneten Element kleiner zu machen?
+
+Mit dem Schlüsselwort smaller:
+
+p.disclaimer {
+  font-size: smaller;
+}
+Lösungen zu den offenen Übungen
+Die Eigenschaft background ist eine Abkürzung, um mehr als eine background-*-Eigenschaft auf einmal festzulegen. Schreiben Sie die folgende CSS-Regel als eine einzige background-Eigenschaft um.
+
+body {
+  background-image: url("background.jpg");
+  background-repeat: repeat-x;
+}
+body {
+  background: repeat-x url("background.jpg");
+}
+Schreiben Sie eine CSS-Regel für das Element <div id="header"></div>, die nur dessen untere Randbreite auf 4px ändert.
+
+#header {
+  border-bottom-width: 4px;
+}
+Schreiben Sie eine font-size-Eigenschaft, die die im Root-Element der Seite verwendete Schriftgröße verdoppelt.
+
+Die Einheit rem entspricht der im Root-Element verwendeten Schriftgröße, so dass die Eigenschaft font-size: 2rem lautet.
+
+Doppelter Zeilenabstand ist eine gängige Textformatierungsfunktion in Textverarbeitungsprogrammen. Wie definieren Sie ein ähnliches Format mit CSS?
+
+Setzen Sie die Eigenschaft line-height auf den Wert 2em, denn die Einheit em entspricht der Schriftgröße des aktuellen Elements.
+
+033.4
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+033 Gestaltung der Inhalte mit CSS
+
+Lernziel:	
+033.4 CSS-Box-Modell und -Layout
+
+
+Einführung
+Jedes sichtbare Element in einem HTML-Dokument wird als Rechteck oder Box gerendert. Daher beschreibt der Begriff Box-Modell den Ansatz, mit dem CSS die visuellen Eigenschaften der Elemente modifiziert. Wie unterschiedlich große Boxen werden HTML-Elemente in Container-Elementen — in der Regel dem Element div — verschachtelt, so dass sie in Abschnitte unterteilt werden können.
+
+Wir nutzen CSS, um die Position der Boxen zu ändern, von kleinen Anpassungen bis hin zu umfassenden Änderungen in der Anordnung der Elemente auf der Seite. Neben dem normalen Fluss kann die Position jeder Box abhängig von den umgebenden Elementen sein — entweder von ihrem übergeordneten Container oder bezogen auf den Viewport, d.h. den für Benutzer sichtbaren Bereich der Seite. Es gibt keinen Mechanismus, der alle möglichen Layout-Anforderungen erfüllt, so dass Sie die Verfahren möglicherweise kombinieren müssen.
+
+Normaler Fluss
+Die Standardeinstellung des Browsers für die Darstellung der Dokumentstruktur ist der normale Fluss (normal flow). Die Rechtecke, die den Elementen entsprechen, werden mehr oder weniger in der gleichen Reihenfolge platziert, in der sie im Dokumentbaum erscheinen, relativ zu ihren übergeordneten Elementen. Je nach Elementtyp kann das entsprechende Rechteck jedoch unterschiedlichen Positionierungsregeln folgen.
+
+Eine gute Möglichkeit, die Logik des normalen Flusses nachzuvollziehen, besteht darin, die Boxen sichtbar zu machen. Wir beginnen mit einer sehr einfachen Seite mit nur drei separaten div-Elementen, von denen jedes einen Absatz mit beliebigem Text enthält:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CSS Box Model and Layout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="first">
+  <h2>First div</h2>
+  <p><span>Sed</span> <span>eget</span> <span>velit</span>
+  <span>id</span> <span>ante</span> <span>tempus</span>
+  <span>porta</span> <span>pulvinar</span> <span>et</span>
+  <span>ex.</span></p>
+</div><!-- #first -->
+
+<div id="second">
+  <h2>Second div</h2>
+  <p><span>Fusce</span> <span>vitae</span> <span>vehicula</span>
+  <span>neque.</span> <span>Etiam</span> <span>maximus</span>
+  <span>vulputate</span> <span>neque</span> <span>eu</span>
+  <span>lobortis.</span> <span>Phasellus</span> <span>condimentum,</span>
+  <span>felis</span> <span>eget</span> <span>eleifend</span>
+  <span>aliquam,</span> <span>dui</span> <span>dolor</span>
+  <span>bibendum</span> <span>leo.</span></p>
+</div><!-- #second -->
+
+<div id="third">
+  <h2>Third div</h2>
+  <p><span>Pellentesque</span> <span>ornare</span> <span>ultricies</span>
+  <span>elementum.</span> <span>Morbi</span> <span>vulputate</span>
+  <span>pretium</span> <span>arcu,</span> <span>sed</span>
+  <span>faucibus.</span></p>
+</div><!-- #third -->
+
+</body>
+</html>
+Jedes Wort befindet sich in einem span-Element, so dass wir die Wörter auszeichnen und sehen, wie auch sie als Boxen behandelt werden. Um die Boxen sichtbar zu machen, bearbeiten wir die Stylesheet-Datei style.css, auf die das HTML-Dokument verweist. Die folgenden Regeln liefern das gewünschte Ergebnis:
+
+* {
+  font-family: sans;
+  font-size: 14pt;
+}
+
+div {
+  border: 2px solid #00000044;
+}
+
+#first {
+  background-color: #c4a000ff;
+}
+
+#second {
+  background-color: #4e9a06ff;
+}
+
+#third {
+  background-color: #5c3566da;
+}
+
+h2 {
+  background-color: #ffffff66;
+}
+
+p {
+  background-color: #ffffff66;
+}
+
+span {
+  background-color: #ffffffaa;
+}
+Das Ergebnis zeigt Figure 1.
+
+fig01
+Figure 1. Der grundlegende Elementfluss verläuft von oben nach unten und von links nach rechts.
+Figure 1 zeigt, dass jedes HTML-Tag eine entsprechende Box im Layout hat. Die Elemente div, h2 und p nehmen die Breite ihres übergeordneten Elements ein. Zum Beispiel ist das übergeordnete Element der div-Elemente das body-Element, so dass sie die Breite des Body annehmen, während das übergeordnete Element jedes h2- und p-Elements das entsprechende div ist. Die Boxen, die sich auf die Breite ihres übergeordneten Elements erstrecken, werden Block-Elemente genannt. Einige der häufigsten HTML-Tags, die als Blöcke dargestellt werden, sind h1, h2, h3, p, ul, ol, table, li, div, section, form und aside. Geschwister-Block-Elemente — also Block-Elemente, die dasselbe unmittelbare Elternelement haben — werden innerhalb ihres Elternelements von oben nach unten gestapelt.
+
+Note
+Einige Block-Elemente sind nicht dafür vorgesehen, als Container für andere Block-Elemente zu dienen. Es ist zwar möglich, ein Block-Element in ein h1- oder p-Element einzufügen, doch gilt dies nicht als gute Praxis. Stattdessen sollten Designer ein geeignetes Tag als Container verwenden. Übliche Container-Tags sind div, section und aside.
+
+Neben dem Text selbst erwarten Elemente wie h1, p und li nur Inline-Elemente als Kinder. Wie die meisten westlichen Schriftsysteme folgen Inline-Elemente dem Textfluss von links nach rechts. Wenn auf der rechten Seite kein Platz mehr ist, wird der Fluss der Inline-Elemente in der nächsten Zeile fortgesetzt, genau wie Text. Einige gängige HTML-Tags, die als Inline-Boxen behandelt werden, sind span, a, em, strong, img, input und label.
+
+In unserer HTML-Beispielseite wurde jedes Wort innerhalb der Absätze von einem span-Tag umgeben, um es mit einer entsprechenden CSS-Regel hervorheben zu können. Wie in der Abbildung gezeigt, wird jedes span-Element horizontal von links nach rechts platziert, bis kein Platz mehr im übergeordneten Element vorhanden ist.
+
+Die Höhe des Elements hängt von seinem Inhalt ab. Der Browser passt die Höhe eines Container-Elements so an, dass es die verschachtelten Block-Elemente oder Zeilen von Inline-Elementen aufnehmen kann. Einige CSS-Eigenschaften wirken sich jedoch auf die Form einer Box, ihre Position und die Platzierung ihrer inneren Elemente aus.
+
+Die Eigenschaften margin und padding betreffen alle Box-Typen. Wenn Sie diese Eigenschaften nicht explizit festlegen, setzt der Browser einige von ihnen mit Standardwerten. Wie in Figure 1 zu sehen, ist zwischen den Elementen h2 und p ein Abstand. Solche Abstände sind die oberen und unteren Ränder, die der Browser standardmäßig zu diesen Elementen hinzufügt. Wir können sie über die CSS-Regeln für die Selektoren h2 ind p ändern:
+
+h2 {
+  background-color: #ffffff66;
+  margin: 0;
+}
+
+p {
+  background-color: #ffffff66;
+  margin: 0;
+}
+Das Ergebnis zeigt Figure 2.
+
+fig02
+Figure 2. Über der Eigenschaft margin verändern oder entfernen Sie die Ränder von Elementen.
+Das Element body hat standardmäßig einen kleinen Rand, der einen Abstand um das Element herum bildet. Auch dieser Abstand kann über Eigenschaft margin entfernt werden.
+
+Während die Eigenschaft margin den Abstand zwischen dem Element und seiner Umgebung definiert, bestimmt die Eigenschaft padding des Elements den inneren Abstand zwischen den Grenzen des Containers und seinen Kind-Elementen. Betrachten wir zum Beispiel die Elemente h2 und p innerhalb jedes div im Beispielcode. Wir könnten einen Abstand zu den Grenzen des entsprechenden div über ihre margin-Eigenschaft schaffen, aber es ist einfacher, die padding-Eigenschaft des Containers zu ändern:
+
+#second {
+  background-color: #4e9a06ff;
+  padding: 1em;
+}
+Nur die Regel für das zweite div wurde geändert, so dass die Ergebnisse (Figure 3) den Unterschied zwischen dem zweiten div und den anderen div-Containern zeigen.
+
+fig03
+Figure 3. Verschiedene div-Container können unterschiedliche Padding-Werte haben.
+Die Eigenschaft margin ist eine Abkürzung für vier Eigenschaften, die die vier Seiten der Box steuern: margin-top, margin-right, margin-bottom und margin-left. Ist margin ein einzelner Wert zugewiesen, wie in den bisherigen Beispielen, wird dieser für alle vier Ränder der Box verwendet. Wenn zwei Werte gesetzt sind, definiert der erste den oberen und unteren Rand, während der zweite den rechten und linken Rand bestimmt. margin: 1em 2em zum Beispiel definiert einen Abstand von 1 em für den oberen und unteren Rand, und einen Abstand von 2 em für den rechten und linken Rand. Die Angabe von vier Werten legt die Ränder für die vier Seiten im Uhrzeigersinn fest, beginnend mit dem oberen Rand. Die verschiedenen Werte in der Shorthand-Eigenschaft müssen nicht die gleichen Einheiten verwenden.
+
+Die Eigenschaft padding ist ebenfalls eine Kurzform, die denselben Grundsätzen folgt wie die Eigenschaft margin.
+
+Standardmäßig passen sich Block-Elemente an die verfügbare Breite an. Dies ist jedoch nicht zwingend erforderlich. Mit der Eigenschaft width können Sie eine feste horizontale Größe für die Box festlegen:
+
+#first {
+  background-color: #c4a000ff;
+  width: 6em;
+}
+Durch die Ergänzung width: 6em zur CSS-Regel wird das erste div horizontal geschrumpft, so dass auf der rechten Seite ein Leerraum bleibt (Figure 4).
+
+fig04
+Figure 4. Die Eigenschaft width ändert die horizontale Breite des ersten div.
+Statt das erste div links auszurichten, wollen wir es zentrieren. Das Zentrieren einer Box ist gleichbedeutend mit gleich großen Rändern auf beiden Seiten, so dass wir die Eigenschaft margin verwenden können. Die Größe des verfügbaren Platzes kann variieren, daher verwenden wir den Wert auto für linken und rechten Rand:
+
+#first {
+  background-color: #c4a000ff;
+  width: 6em;
+  margin: 0 auto;
+}
+Linker und rechter Rand werden automatisch vom Browser berechnet und die Box wird zentriert (Figure 5).
+
+fig05
+Figure 5. Das erste div ist über die Eigenschaft margin zentriert.
+Wie gezeigt, wird durch die Verschmälerung eines Block-Elements der verbleibende Platz nicht für das nächste Element verfügbar gemacht. Der normale Fluss bleibt erhalten, als ob das schmalere Element weiterhin die gesamte verfügbare Breite einnimmt.
+
+Den normalen Fluss anpassen
+Der normale Fluss ist einfach und sequentiell. Mit CSS können Sie ihn unterbrechen und Elemente auf ganz bestimmte Weise positionieren und sogar den Bildlauf der Seite überschreiben. In diesem Abschnitt sehen wir uns verschiedene Möglichkeiten zur Steuerung der Positionierung von Elementen an.
+
+Floating-Elemente
+Es ist möglich, dass sich Geschwister-Block-Elemente denselben horizontalen Raum teilen. Ein Weg dahin ist die Eigenschaft float, die das Element aus dem normalen Fluss herausnimmt. Wie der Name schon sagt, lässt die Eigenschaft float die Box über den nachfolgenden Block-Elementen “schweben” als ob sich diese unter der schwebenden Box befänden. Um das erste div nach rechts zu verschieben, fügen Sie der entsprechenden CSS-Regel float: right hinzu:
+
+#first {
+  background-color: #c4a000ff;
+  width: 6em;
+  float: right;
+}
+Die automatischen Ränder werden in einer schwebenden Box ignoriert, so dass die Eigenschaft margin entfernt werden kann. Figure 6 zeigt das Ergebnis der Verschiebung des ersten div nach rechts.
+
+fig06
+Figure 6. Das erste div ist schwebend und gehört nicht zum normalen Fluss.
+Standardmäßig werden alle Block-Elemente, die auf das schwebende Element folgen, unter dieses geschoben. Bei ausreichender Höhe überdeckt die Floating-Box alle übrigen Block-Elemente.
+
+Obwohl ein Floating-Element über anderen Block-Elementen steht, umschließt der Inline-Inhalt im Container des schwebenden Elements das schwebende Element. Die Darstellung stammt vom Zeitschriften- und Zeitungslayout, wo Text häufig um ein Bild herumgeführt wird.
+
+Das vorangegangene Bild zeigt, wie das erste div das zweite div und einen Teil des dritten div bedeckt. Wollen wir das erste div über dem zweiten, aber nicht über dem dritten div schweben lassen, müssen wir die Eigenschaft clear in die CSS-Regel für das dritte div aufnehmen:
+
+#third {
+  background-color: #5c3566da;
+  clear: right;
+}
+Wird die Eigenschaft clear auf right gesetzt, überspringt das entsprechende Element alle vorherigen Elemente, die nach rechts verschoben wurden, und der normale Fluss wird wieder aufgenommen (Figure 7).
+
+fig07
+Figure 7. Die Eigenschaft clear führt zum normalen Fluss zurück.
+War ein vorheriges Element links schwebend, nutzen Sie entsprechend clear: left, um den normalen Fluss wieder aufzunehmen. Müssen schwebende Elemente sowohl auf der linken als auch auf der rechten Seite übersprungen werden, setzen Sie clear: both.
+
+Boxen positionieren
+Bei normalem Fluss folgt jede Box den vorhergehenden im Dokumentenbaum. Die vorhergehenden Geschwisterelemente “schieben” die nachfolgenden Elemente nach rechts und nach unten innerhalb ihres übergeordneten Elements. Das Elternelement kann selbst Geschwister haben, die das gleiche mit ihm machen. Es ist, als würde man von oben Fliesen nebeneinander an einer Wand anordnen.
+
+Man bezeichnet diese Methode der Positionierung von Boxen als statisch — dies ist der Standardwert für die CSS-Eigenschaft position. Anders als bei der Definition von Rändern und Abständen gibt es keine Möglichkeit, eine statische Box auf der Seite neu zu positionieren.
+
+Wie bei Wandfliesen ist eine statische Platzierung nicht zwingend erforderlich. Wie die Fliesen können Sie die Boxen überall platzieren, selbst wenn sie andere Boxen überlagern. Dazu weisen Sie der Eigenschaft position einen der folgenden Werte zu:
+
+relative
+Das Element folgt dem normalen Fluss des Dokuments, aber es kann die Eigenschaften top, right, bottom und left nutzen, um Versatz relativ zu seiner ursprünglichen statischen Position anzugeben. Der Versatz kann auch negativ sein. Die anderen Elemente bleiben an ihren ursprünglichen Positionen, als ob das relative Element immer noch statisch wäre.
+
+absolute
+Das Element ignoriert den normalen Fluss der anderen Elemente und positioniert sich selbst auf der Seite über die Eigenschaften top, right, bottom und left. Die Werte sind relativ zum Dokument-Body oder zu einem nicht-statischen Eltern-Container.
+
+fixed
+Das Element ignoriert den normalen Fluss der anderen Elemente und positioniert sich selbst anhand der Eigenschaften top, right, bottom und left. Die Werte beziehen sich auf den Viewport (also den Bildschirmbereich, in dem das Dokument angezeigt wird). Fixe Elemente bewegen sich nicht, wenn sich der Besucher durch das Dokument bewegt, sondern ähneln einem Aufkleber, der auf dem Bildschirm klebt.
+
+sticky
+Das Element folgt dem normalen Fluss des Dokuments. Statt jedoch beim Scrollen des Dokuments den Viewport zu verlassen, bleibt es an der durch die Eigenschaften top, right, bottom und left festgelegten Position stehen. Ist der top-Wert zum Beispiel 10px, wird das Element aufhören, unter dem oberen Teil des Viewport zu scrollen, wenn es 10 Pixel von der oberen Grenze des Ansichtsfensters erreicht. Der Rest der Seite scrollt weiter, während sich das Sticky-Element in dieser Position wie ein fixes Element verhält. Es kehrt an seine ursprüngliche Position zurück, wenn das Dokument wieder an seine Position im Ansichtsfenster zurückscrollt. Sticky-Elemente werden häufig für Top-Menüs genutzt, die immer sichtbar sind.
+
+Positionen, die die Eigenschaften top, right, bottom und left verwenden können, müssen sie nicht alle nutzen. Wenn Sie zum Beispiel die Eigenschaften top und height eines absoluten Elements festlegen, berechnet der Browser dessen Eigenschaft bottom (top + height = bottom).
+
+Die Eigenschaft display
+Wenn die durch den normalen Fluss vorgegebene Reihenfolge in Ihrem Design kein Problem darstellt, Sie aber die Ausrichtung der Boxen auf der Seite ändern möchten, ändern Sie die Eigenschaft display des Elements. Die Eigenschaft display kann das Element sogar vollständig aus dem gerenderten Dokument verschwinden lassen, indem Sie display: none setzen. Das ist nützlich, wenn Sie das Element später mit JavaScript einblenden wollen.
+
+Mit der Eigenschaft display sorgen Sie beispielsweise auch dafür, dass sich ein Block-Element wie ein Inline-Element (display: inline) verhält, was aber nicht als gute Praxis gilt. Es gibt bessere Methoden, um Container-Elemente nebeneinander zu platzieren, wie zum Beispiel das Flexbox-Modell.
+
+Das Flexbox-Modell wurde eingeführt, um die Beschränkungen von Floats zu überwinden und die unangemessene Verwendung von Tabellen zur Strukturierung des Seitenlayouts zu vermeiden. Setzen Sie die Eigenschaft display eines Container-Elements auf flex, um es in einen Flexbox-Container zu verwandeln, verhalten sich seine unmittelbaren Kinder mehr oder weniger wie Zellen in einer Tabellenzeile.
+
+Tip
+Wenn Sie noch mehr Kontrolle über die Platzierung der Elemente auf der Seite haben möchten, werfen Sie einen Blick auf CSS Grid. Das Raster ist ein leistungsfähiges System auf der Basis von Zeilen und Spalten für aufwendige Layouts.
+
+Um die flexible Anzeige zu testen, fügen Sie der Beispielseite ein neues div-Element hinzu und machen es zum Container für die drei vorhandenen div-Elemente:
+
+<div id="container">
+
+<div id="first">
+  <h2>First div</h2>
+  <p><span>Sed</span> <span>eget</span> <span>velit</span>
+  <span>id</span> <span>ante</span> <span>tempus</span>
+  <span>porta</span> <span>pulvinar</span> <span>et</span>
+  <span>ex.</span></p>
+</div><!-- #first -->
+
+<div id="second">
+  <h2>Second div</h2>
+  <p><span>Fusce</span> <span>vitae</span> <span>vehicula</span>
+  <span>neque.</span> <span>Etiam</span> <span>maximus</span>
+  <span>vulputate</span> <span>neque</span> <span>eu</span>
+  <span>lobortis.</span> <span>Phasellus</span> <span>condimentum,</span>
+  <span>felis</span> <span>eget</span> <span>eleifend</span>
+  <span>aliquam,</span> <span>dui</span> <span>dolor</span>
+  <span>bibendum</span> <span>leo.</span></p>
+</div><!-- #second -->
+
+<div id="third">
+  <h2>Third div</h2>
+  <p><span>Pellentesque</span> <span>ornare</span> <span>ultricies</span>
+  <span>elementum.</span> <span>Morbi</span> <span>vulputate</span>
+  <span>pretium</span> <span>arcu,</span> <span>sed</span>
+  <span>faucibus.</span></p>
+</div><!-- #third -->
+
+
+</div><!-- #container -->
+Fügen Sie die folgende CSS-Regel in das Stylesheet ein, um den Container div in einen Flexbox-Container zu verwandeln:
+
+#container {
+  display: flex;
+}
+Das Ergebnis sind die drei inneren div-Elemente, die nebeneinander dargestellt werden (Figure 8).
+
+fig08
+Figure 8. Das Flexbox-Modell erstellt ein Raster.
+Der Wert inline-flex anstelle von flex hat im Grunde das gleiche Ergebnis, führt aber dazu, dass sich die untergeordneten Elemente eher wie Inline-Elemente verhalten.
+
+Responsive Design
+Wir wissen, dass CSS Eigenschaften zur Verfügung stellt, über die sich die Größe von Elementen und Schriften an den verfügbaren Bildschirmbereich anpassen. Vielleicht möchten Sie aber noch weiter gehen und für verschiedene Geräte unterschiedliche Designs nutzen, beispielsweise Desktop-Systeme gegenüber Geräten mit Bildschirmen bis zu einer bestimmten Größe. Dieser Ansatz wird Responsive Webdesign genannt, und CSS bietet dafür entsprechende Methoden, sogenannte Media Queries.
+
+Im vorangegangenen Beispiel haben wir das Seitenlayout so geändert, dass die div-Elemente nebeneinander in Spalten angeordnet sind. Dieses Layout ist für größere Bildschirme geeignet, ist aber auf kleineren Bildschirmen zu unübersichtlich. Um dieses Problem zu lösen, können wir im Stylesheet eine Media Query (“Medienabfrage”) ergänzen, so dass nur Bildschirme mit einer Breite von mindestens 600px berücksichtigt werden:
+
+@media (min-width: 600px){
+  #container {
+    display: flex;
+  }
+}
+Die CSS-Regeln innerhalb der @media-Anweisung greifen nur, wenn die Kriterien in Klammern erfüllt sind. In diesem Beispiel wird die Regel nicht auf den Container div angewendet, wenn die Breite des Ansichtsfensters kleiner als 600px ist, und seine Kinder dann als herkömmliche div-Elemente dargestellt. Der Browser wertet die Medienabfragen jedes Mal neu aus, wenn sich die Abmessungen des Ansichtsfensters ändern, so dass sich das Layout in Echtzeit ändert, sobald sich die Größe des Browserfensters ändert oder das Smartphone gedreht wird.
+
+Geführte Übungen
+Welche Positionierungsmethode wendet der Browser an, wenn die Eigenschaft position nicht geändert wird?
+
+Wie stellen Sie sicher, dass die Box eines Elements nach allen schwebenden (floating) Elementen gerendert wird?
+
+Wie nutzen Sie die Eigenschaft margin, um die oberen/unteren Ränder auf 4px und die rechten/linken Ränder auf 6em zu setzen?
+
+Wie zentrieren Sie ein statisches Container-Element mit fester Breite auf der Seite horizontal?
+
+Offene Übungen
+Schreiben Sie eine CSS-Regel für das Element <div class="picture">, so dass der Text in den folgenden Block-Elementen rechts davon platziert wird.
+
+Wie wirkt sich die Eigenschaft top auf ein statisches Element im Verhältnis zu seinem übergeordneten Element aus?
+
+Wie wirkt sich die Änderung der Eigenschaft display eines Elements in flex auf seine Platzierung im normalen Fluss aus?
+
+Welches CSS-Feature ermöglicht es Ihnen, je nach Bildschirmgröße einen eigenen Satz von Regeln zu verwenden?
+
+Zusammenfassung
+In dieser Lektion geht es um das CSS-Box-Modell und wie wir es anpassen können. Zusätzlich zum normalen Fluss des Dokuments kann der Designer verschiedene Positionierungsmechanismen nutzen, um ein benutzerdefiniertes Layout zu implementieren. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Der normale Fluss des Dokuments.
+
+Anpassungen von Rand (Margin) und Füllung (Padding) der Box eines Elements.
+
+Die Eigenschaften float und clear.
+
+Positionierungsmechanismen: static, relative, absolute, fixed and sticky.
+
+Alternative Werte für die Eigenschaft display.
+
+Grundlagen des Responsive Design.
+
+Lösungen zu den geführten Übungen
+Welche Positionierungsmethode wendet der Browser an, wenn die Eigenschaft position nicht geändert wird?
+
+Die Methode static.
+
+Wie stellen Sie sicher, dass die Box eines Elements nach allen schwebenden (floating) Elementen gerendert wird?
+
+Die Eigenschaft clear des Elements sollte auf both gesetzt werden.
+
+Wie nutzen Sie die Eigenschaft margin, um die oberen/unteren Ränder auf 4px und die rechten/linken Ränder auf 6em zu setzen?
+
+Es kann entweder margin: 4px 6em oder margin: 4px 6em 4px 6em sein.
+
+Wie zentrieren Sie ein statisches Container-Element mit fester Breite auf der Seite horizontal?
+
+Mit dem Wert auto in den Eigenschaften margin-left und margin-right.
+
+Lösungen zu den offenen Übungen
+Schreiben Sie eine CSS-Regel für das Element <div class="picture">, so dass der Text in den folgenden Block-Elementen rechts davon platziert wird.
+
+.picture { float: left; }
+
+Wie wirkt sich die Eigenschaft top auf ein statisches Element im Verhältnis zu seinem übergeordneten Element aus?
+
+Die Eigenschaft top gilt nicht für statische Elemente.
+
+Wie wirkt sich die Änderung der Eigenschaft display eines Elements in flex auf seine Platzierung im normalen Fluss aus?
+
+Die Platzierung des Elements selbst ändert sich nicht, aber seine unmittelbaren Kindelemente werden horizontal nebeneinander gerendert.
+
+Welches CSS-Feature ermöglicht es Ihnen, je nach Bildschirmgröße einen eigenen Satz von Regeln zu verwenden?
+
+Mit Media Queries prüft der Browser die Abmessungen des Ansichtsfensters, bevor er eine CSS-Regel anwendet.

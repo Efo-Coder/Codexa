@@ -1,0 +1,1232 @@
+035.1 Modul 5
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+035 Node.js Server-Programmierung
+
+Lernziel:	
+035.1 Node.js Grundlagen
+
+
+Einführung
+Node.js ist eine JavaScript-Laufzeitumgebung, die JavaScript-Code auf Webservern — dem so genannten Web Backend (Serverseite) — ausführt, anstatt eine zweite Sprache wie Python oder Ruby für serverseitige Programme zu verwenden. JavaScript wird bereits auf der modernen Frontend-Seite von Webanwendungen verwendet und interagiert mit dem HTML und CSS der Schnittstelle, die der Anwender mit einem Webbrowser nutzt. Node.js in Verbindung mit JavaScript im Browser bietet die Möglichkeit einer einzigen Programmiersprache für die gesamte Anwendung.
+
+Der Hauptgrund für die Existenz von Node.js ist die Art und Weise, wie es mehrere gleichzeitige Verbindungen im Backend handhabt. Einer der häufigsten Wege, wie ein Webanwendungsserver Verbindungen verwaltet, ist die Ausführung mehrerer Prozesse. Wenn Sie eine Desktop-Anwendung auf Ihrem Computer öffnen, wird ein Prozess gestartet, der viele Ressourcen verbraucht. Stellen Sie sich nun vor, dass Tausende Benutzer auf diese Weise auf eine große Webanwendung zugreifen.
+
+Node.js umgeht dieses Problem durch die sogenannte Event Loop, eine interne Schleife, die ständig überprüft, ob neue Aufgaben ankommen, die berechnet werden müssen. Dank der weiten Verbreitung von JavaScript und von Webtechnologien hat Node.js eine große Verbreitung sowohl in kleinen als auch in großen Anwendungen. Es gibt weitere Merkmale, die zu dieser weiten Verbreitung von Node.js beigetragen haben, z.B. die asynchrone und nicht blockierende Verarbeitung von Eingaben und Ausgaben (I/O), die später in dieser Lektion erläutert wird.
+
+Die Node.js-Umgebung nutzt eine JavaScript-Engine zur Interpretation und Ausführung von JavaScript-Code auf der Serverseite oder auf dem Desktop. Unter diesen Bedingungen wird der vom Programmierer geschriebene JavaScript-Code geparst und just-in-time kompiliert, um die vom ursprünglichen JavaScript-Code erzeugten Maschinenbefehle auszuführen.
+
+Note
+Im diesen Lektionen über Node.js werden Sie vielleicht feststellen, dass das Node.js-JavaScript sich von dem unterscheidet, das im Browser läuft (das der ECMAScript-Spezifikation folgt), aber doch recht ähnlich ist.
+
+Erste Schritte
+In diesem Abschnitt und den folgenden Beispielen gehen wir davon aus, dass Node.js bereits auf Ihrem Linux-System installiert ist und dass Sie über grundlegende Kenntnisse verfügen, z.B. die Ausführung von Befehlen im Terminal.
+
+Um die folgenden Beispiele auszuführen, erstellen Sie ein Arbeitsverzeichnis namens node_examples. Öffnen Sie ein Terminal und geben Sie node ein. Wenn Node.js korrekt installiert ist, erscheint eine Eingabeaufforderung, in der Sie JavaScript-Befehle interaktiv testen können. Diese Art von Umgebung wird REPL genannt, was für “read, evaluate, print, and loop” steht. Geben Sie die folgenden Eingaben (oder einige andere JavaScript-Anweisungen) nach dem Prompt > ein. Drücken Sie nach jeder Zeile die Eingabetaste, und die REPL-Umgebung wird die Ergebnisse ihrer Aktionen zurückgeben:
+
+> let array = ['a', 'b', 'c', 'd'];
+undefined
+> array.map( (element, index) => (`Element: ${element} at index: ${index}`));
+[
+  'Element: a at index: 0',
+  'Element: b at index: 1',
+  'Element: c at index: 2',
+  'Element: d at index: 3'
+]
+>
+Das Snippet folgt der ES6-Syntax, die eine Map-Funktion bietet, um über das Array zu iterieren und die Ergebnisse mithilfe von String-Templates auszugeben. Sie können so ziemlich jeden gültigen Befehl schreiben. Um das Node.js-Terminal zu verlassen, geben Sie .exit ein — vergessen Sie nicht den einleitenden Punkt!
+
+Für längere Skripte und Module ist es bequemer, einen Texteditor wie VS Code, Emacs oder Vim zu verwenden. Speichern Sie die beiden eben gezeigten Codezeilen (mit einer kleinen Änderung) in einer Datei namens start.js:
+
+let array = ['a', 'b', 'c', 'd'];
+array.map( (element, index) => ( console.log(`Element: ${element} at index: ${index}`)));
+Führen Sie nun das Skript in der Shell aus, um dasselbe Ergebnis wie zuvor zu erhalten:
+
+$ node ./start.js
+Element: a at index: 0
+Element: b at index: 1
+Element: c at index: 2
+Element: d at index: 3
+Bevor wir in den Code eintauchen, verschaffen wir uns einen Überblick über die Funktionsweise von Node.js, indem wir die Single-Thread-Ausführungsumgebung und die Event Loop nutzen.
+
+Event Loop und Single Thread
+Es ist schwer vorherzusagen, wie viel Zeit Ihr Node.js-Programm für die Bearbeitung einer Anfrage benötigen wird. Einige Anfragen können kurz sein – vielleicht nur eine Schleife durch Variablen im Speicher und deren Rückgabe –, während andere zeitaufwändige Aktivitäten erfordern, wie das Öffnen einer Datei im System oder das Auslösen einer Abfrage an eine Datenbank und das Warten auf die Ergebnisse. Wie geht Node.js mit dieser Unsicherheit um? Die Event Loop (Ereignisschleife) ist die Antwort.
+
+Stellen Sie sich einen Koch vor: Das Backen eines Kuchens nimmt viel Zeit in Anspruch — der Koch wartet aber nicht die Backzeit im Ofen ab, um erst dann Kaffee zu kochen. Er kocht den Kaffee parallel und erledigt andere Aufgaben. Dabei prüft er ständig, wann der jeweils richtige Zeitpunkt ist, sich auf eine bestimmte Aufgabe zu konzentrieren.
+
+Die Event Loop ist wie ein Koch, der ständig die Aktivitäten in seiner Umgebung im Blick hat. In Node.js prüft ein Event-Checker permanent, ob Operationen abgeschlossen sind oder darauf warten, von der JavaScript-Engine verarbeitet zu werden.
+
+Bei diesem Ansatz blockiert eine asynchrone, lange Operation nicht andere, schnellere Operationen, die später folgen. Das liegt daran, dass der Mechanismus der Event Loop prüft, ob die lange Aufgabe, z.B. eine I/O-Operation, bereits abgeschlossen ist. Ist dies nicht der Fall, kann Node.js mit der Bearbeitung anderer Aufgaben fortfahren. Sobald die Hintergrundaufgabe abgeschlossen ist, werden die Ergebnisse zurückgegeben, und die auf Node.js aufsetzende Anwendung kann eine Triggerfunktion (Callback) verwenden, um die Ausgabe weiter zu verarbeiten.
+
+Da Node.js mehrere Threads im Gegensatz zu anderen Umgebungen vermeidet, wird es als Single-Threaded Environment bezeichnet, und daher ist ein nicht-blockierender Ansatz von größter Bedeutung. Aus diesem Grund verwendet Node.js eine Event Loop. Für rechenintensive Aufgaben gehört Node.js jedoch nicht zu den besten Tools: Es gibt andere Programmiersprachen und Umgebungen, die diese Probleme effizienter lösen.
+
+In den folgenden Abschnitten werden wir uns die Callback-Funktionen genauer ansehen. Machen Sie sich zunächst klar, dass Callback-Funktionen Auslöser sind, die nach Abschluss einer vordefinierten Operation ausgeführt werden.
+
+Module
+Es ist ein bewährtes Verfahren, komplexe Funktionen und umfangreiche Codeteile in kleinere Teile zu zerlegen. Diese Modularisierung hilft dabei, die Codebasis besser zu organisieren, die Implementierungen zu abstrahieren und komplizierte strukturelle Probleme zu vermeiden. Dafür verpacken Programmierer Codeblöcke, die von anderen internen oder externen Codeteilen verwendet werden können.
+
+Nehmen wir das Beispiel eines Programms, das das Volumen einer Kugel berechnet. Öffnen Sie Ihren Texteditor und erstellen Sie eine Datei mit dem Namen volumeCalculator.js, die das folgende JavaScript enthält:
+
+const sphereVol = (radius) => {
+  return 4 / 3 * Math.PI * radius
+}
+
+console.log(`A sphere with radius 3 has a ${sphereVol(3)} volume.`);
+console.log(`A sphere with radius 6 has a ${sphereVol(6)} volume.`);
+Führen Sie nun die Datei mit Node aus:
+
+$ node volumeCalculator.js
+A sphere with radius 3 has a 113.09733552923254 volume.
+A sphere with radius 6 has a 904.7786842338603 volume.
+Wir nutzen eine einfache Funktion, um das Volumen einer Kugel auf der Grundlage ihres Radius zu berechnen. Nehmen wir nun an, wir müssen auch das Volumen eines Zylinders, Kegels usw. berechnen: Wir merken schnell, dass diese spezifischen Funktionen der Datei volumeCalculator.js hinzugefügt werden müssen, die so zu einer umfangreichen Sammlung von Funktionen werden kann. Zur besseren Strukturierung nutzen Module als Pakete von separatem Code.
+
+Dazu erstellen Sie eine separate Datei mit dem Namen polyhedrons.js:
+
+const coneVol = (radius, height) => {
+  return 1 / 3 * Math.PI * Math.pow(radius, 2) * height;
+}
+
+const cylinderVol = (radius, height) => {
+  return Math.PI * Math.pow(radius, 2) * height;
+}
+
+const sphereVol = (radius) => {
+  return 4 / 3 * Math.PI * Math.pow(radius, 3);
+}
+
+module.exports = {
+  coneVol,
+  cylinderVol,
+  sphereVol
+}
+Löschen Sie nun in der Datei volumeCalculator.js den alten Code und ersetzen Sie ihn durch diesen Schnipsel:
+
+const polyhedrons = require('./polyhedrons.js');
+
+console.log(`A sphere with radius 3 has a ${polyhedrons.sphereVol(3)} volume.`);
+console.log(`A cylinder with radius 3 and height 5 has a ${polyhedrons.cylinderVol(3, 5)} volume.`);
+console.log(`A cone with radius 3 and height 5 has a ${polyhedrons.coneVol(3, 5)} volume.`);
+Und dann führen Sie die Datei in der Node.js-Umgebung aus:
+
+$ node volumeCalculator.js
+A sphere with radius 3 has a 113.09733552923254 volume.
+A cylinder with radius 3 and height 5 has a 141.3716694115407 volume.
+A cone with radius 3 and height 5 has a 47.12388980384689 volume.
+In der Node.js-Umgebung wird jede Quellcodedatei als Modul betrachtet, aber das Wort “module” in Node.js steht für ein Code-Paket, das wie im vorigen Beispiel verpackt ist. Durch die Verwendung von Modulen haben wir die Volumenfunktionen aus der Hauptdatei volumeCalculator.js herausgezogen, was deren Größe verringert und Unit-Tests erleichtert, was wiederum bei der Entwicklung von Anwendungen gute Praxis ist.
+
+Nachdem wir nun wissen, wie Module in Node.js verwendet werden, können wir eines der wichtigsten Werkzeuge nutzen: den Node Package Manager (NPM).
+
+Eine der Hauptaufgaben von NPM ist es, externe Module zu verwalten, herunterzuladen und im Projekt oder im Betriebssystem zu installieren. Sie initialisieren ein Node-Repository mit dem Befehl npm init.
+
+NPM stellt Standardfragen nach dem Namen Ihres Repositorys, der Version, der Beschreibung und so weiter. Sie können diese Schritte mit npm init --yes überspringen. Der Befehl erzeugt dann automatisch eine Datei package.json, die die Eigenschaften Ihres Projekts/Moduls beschreibt.
+
+Öffnen Sie die Datei package.json in Ihrem bevorzugten Texteditor und Sie sehen eine JSON-Datei, die Eigenschaften wie Schlüsselwörter, Skriptbefehle zur Verwendung mit NPM, einen Namen usw. enthält.
+
+Eine dieser Eigenschaften sind die Abhängigkeiten, die in Ihrem lokalen Repository installiert sind. NPM fügt den Namen und die Version dieser Abhängigkeiten in die Datei package.json ein, zusammen mit package-lock.json, einer weiteren Datei, die von NPM als Fallback verwendet wird, falls package.json fehlschlägt.
+
+Geben Sie Folgendes in Ihr Terminal ein:
+
+$ npm i dayjs
+Das Flag i ist eine Abkürzung für das Argument install. Wenn Sie mit dem Internet verbunden sind, sucht NPM im Remote-Repository von Node.js nach einem Modul namens dayjs, lädt es herunter und installiert es lokal. NPM fügt diese Abhängigkeit auch zu Ihren Dateien package.json und package-lock.json hinzu. Sie sehen nun ein Verzeichnis namens node_modules, das das installierte sowie weitere Module enthält, falls diese benötigt werden. Das Verzeichnis node_modules enthält den eigentlichen Code, der verwendet wird, wenn die Bibliothek importiert und aufgerufen wird. Allerdings wird dieser Ordner in Versionierungssystemen wie Git nicht gespeichert, da die Datei package.json alle verwendeten Abhängigkeiten enthält. Ein anderer User nutzt die Datei package.json und führt einfach npm install auf seinem eigenen Rechner aus, wo NPM ein Verzeichnis node_modules mit allen Abhängigkeiten in der package.json erstellt und so die Versionskontrolle für Tausende von Dateien im NPM-Repository vermeidet.
+
+Nachdem das Modul dayjs im lokalen Verzeichnis installiert ist, öffnen Sie die Node.js-Konsole und geben Sie die folgenden Zeilen ein:
+
+const dayjs = require('dayjs');
+dayjs().format('YYYY MM-DDTHH:mm:ss')
+Das Modul dayjs wird mit dem Schlüsselwort require geladen. Wenn eine Methode des Moduls aufgerufen wird, nimmt die Bibliothek die aktuelle Systemzeit und gibt sie im angegebenen Format aus:
+
+2020 11-22T11:04:36
+Dies ist der gleiche Mechanismus wie im vorherigen Beispiel, bei dem die Node.js-Laufzeitumgebung die Funktion eines Drittanbieters in den Code lädt.
+
+Server-Funktionalität
+Da Node.js das Backend von Webanwendungen steuert, besteht eine seiner Hauptaufgaben darin, HTTP-Anfragen zu verarbeiten.
+
+Hier eine Zusammenfassung, wie Webserver eingehende HTTP-Anfragen behandeln. Die Funktion des Servers besteht darin, auf Anfragen zu warten, so schnell wie möglich die passende Antwort zu ermitteln und diese an den Absender der Anfrage zurückzusenden. Die Anwendung muss eine vom Benutzer ausgelöste eingehende HTTP-Anforderung empfangen, die Anforderung analysieren, die Berechnung durchführen, die Antwort generieren und sie zurücksenden. Ein HTTP-Modul wie Node.js vereinfacht diese Schritte und erlaubt es Ihnen, sich auf die Entwicklung der eigentlichen Anwendung zu konzentrieren.
+
+Betrachten Sie das folgende Beispiel, das diese sehr grundlegende Funktionalität implementiert:
+
+const http = require('http');
+const url = require('url');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  const queryObject = url.parse(req.url,true).query;
+  let result = parseInt(queryObject.a) + parseInt(queryObject.b);
+
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end(`Result: ${result}\n`);
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+Speichern Sie diese Inhalte in einer Datei mit dem Namen basic_server.js und führen Sie sie mit einem node-Befehl aus. Das Terminal, auf dem Node.js läuft, wird die folgende Meldung anzeigen:
+
+Server running at http://127.0.0.1:3000/
+Rufen Sie dann die folgende URL in Ihrem Webbrowser auf: http://127.0.0.1:3000/numbers?a=2&b=17
+
+Node.js ist ein Webserver, der auf Ihrem Computer läuft und zwei Module verwendet: http und url. Das http-Modul richtet einen einfachen HTTP-Server ein, verarbeitet die eingehenden Webanfragen und übergibt sie an unseren einfachen Anwendungscode. Das URL-Modul analysiert die in der URL übergebenen Argumente, wandelt sie in ein Ganzzahlformat um und führt die Additionsoperation durch. Das http-Modul sendet dann die Antwort als Text an den Webbrowser.
+
+In einer echten Webanwendung wird Node.js üblicherweise verwendet, um Daten zu verarbeiten und abzurufen — in der Regel aus einer Datenbank — und die verarbeiteten Informationen an das Frontend zur Anzeige zurückzugeben. Die Basisanwendung in dieser Lektion zeigt jedoch kurz und bündig, wie Node.js Module verwendet, um Webanfragen als Webserver zu bearbeiten.
+
+Geführte Übungen
+Warum sollten Sie Module nutzen, anstatt einfache Funktionen zu schreiben?
+
+Warum ist die Node.js-Umgebung so verbreitet? Nennen Sie ein Merkmal.
+
+Wozu dient die Datei package.json?
+
+Warum ist es nicht empfehlenswert, das Verzeichnis node_modules zu speichern und weiterzugeben?
+
+Offene Übungen
+Wie führen Sie Node.js-Anwendungen auf Ihrem Computer aus?
+
+Wie grenzen Sie Parameter in der URL ab, um sie innerhalb des Servers zu parsen?
+
+Beschreiben Sie ein Szenario, in dem eine bestimmte Aufgabe einen Flaschenhals für eine Node.js-Anwendung darstellen könnte.
+
+Wie implementieren Sie einen Parameter zum Multiplizieren oder Summieren der beiden Zahlen im Serverbeispiel?
+
+Zusammenfassung
+Diese Lektion gibt einen Überblick über die Node.js-Umgebung, ihre Eigenschaften und wie sie zur Implementierung einfacher Programme verwendet werden kann. Sie umfasst die folgenden Konzepte:
+
+Was Node.js ist und warum es verwendet wird.
+
+Wie man Node.js-Programme über die Kommandozeile ausführt.
+
+Ereignisschleifen und der einzelne Thread.
+
+Module.
+
+Node Package Manager (NPM).
+
+Server-Funktionalität.
+
+Lösungen zu den geführten Übungen
+Warum sollten Sie Module nutzen, anstatt einfache Funktionen zu schreiben?
+
+Mit Modulen anstelle herkömmlicher Funktionen schaffen Sie eine einfachere Codebasis, die Sie lesen, pflegen und für die Sie automatisierte Tests schreiben können.
+
+Warum ist die Node.js-Umgebung so verbreitet? Nennen Sie ein Merkmal.
+
+Ein Grund ist die Flexibilität der Sprache JavaScript, die im Frontend von Webanwendungen bereits weit verbreitet ist. Node.js ermöglicht die Verwendung von nur einer Programmiersprache im gesamten System.
+
+Wozu dient die Datei package.json?
+
+Diese Datei enthält Metadaten zum Projekt, z.B. den Namen, die Version, Abhängigkeiten (Bibliotheken) usw. Mit einer Datei package.json können andere dieselben Bibliotheken herunterladen und installieren und Tests auf dieselbe Weise durchführen wie der ursprüngliche Ersteller.
+
+Warum ist es nicht empfehlenswert, das Verzeichnis node_modules zu speichern und weiterzugeben?
+
+Das Verzeichnis node_modules enthält die Implementierungen von Bibliotheken in entfernten Repositories. Der bessere Weg, diese Bibliotheken gemeinsam zu nutzen, besteht darin, sie in der Datei package.json anzugeben und dann NPM zu verwenden, um diese Bibliotheken herunterzuladen. Diese Methode ist einfacher und fehlerfreier, da Sie die Bibliotheken nicht lokal verfolgen und pflegen müssen.
+
+Lösungen zu den offenen Übungen
+Wie führen Sie Node.js-Anwendungen auf Ihrem Computer aus?
+
+Sie führen sie aus, indem Sie node PATH/FILE_NAME.js in die Befehlszeile Ihres Terminals eingeben (PATH in den Pfad Ihrer Node.js-Datei und FILE_NAME.js in den von Ihnen gewählten Dateinamen ändern).
+
+Wie grenzen Sie Parameter in der URL ab, um sie innerhalb des Servers zu parsen?
+
+Das kaufmännische Und-Zeichen & dient dazu, diese Parameter abzugrenzen, so dass sie im JavaScript-Code extrahiert und geparst werden können.
+
+Beschreiben Sie ein Szenario, in dem eine bestimmte Aufgabe einen Flaschenhals für eine Node.js-Anwendung darstellen könnte.
+
+Node.js ist keine geeignete Umgebung für die Ausführung CPU-intensiver Prozesse, da es nur einen einzigen Thread verwendet. Ein Szenario mit numerischen Berechnungen könnte die gesamte Anwendung verlangsamen und blockieren. Wenn eine numerische Simulation erforderlich ist, sind andere Tools geeigneter.
+
+Wie implementieren Sie einen Parameter zum Multiplizieren oder Summieren der beiden Zahlen im Serverbeispiel?
+
+Verwenden Sie einen ternären Operator oder eine if-else-Bedingung, um nach einem zusätzlichen Parameter zu suchen. Wenn der Parameter die Zeichenkette mult ist, geben Sie das Produkt der Zahlen zurück, andernfalls die Summe. Ersetzen Sie den alten Code durch den unten stehenden Ausschnitt. Starten Sie den Server in der Befehlszeile über kbd:[Ctrl+C] neu und führen Sie den Befehl erneut aus, um den Server neu zu starten. Testen Sie nun die neue Anwendung, indem Sie die URL http://127.0.0.1:3000/numbers?a=2&b=17&operation=mult in Ihrem Browser aufrufen. Wenn Sie den letzten Parameter weglassen oder ändern, sollte das Ergebnis jeweils die Summe der Zahlen sein.
+
+let result = queryObject.operation == 'mult' ? parseInt(queryObject.a) * parseInt(queryObject.b) : parseInt(queryObject.a) + parseInt(queryObject.b);
+
+035.2
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+035 Node.js Server-Programmierung
+
+Lernziel:	
+035.2 Node.js Express Grundlagen
+
+
+Einführung
+Express.js, oder einfach Express, ist ein beliebtes Framework, das auf Node.js läuft und dem Schreiben von HTTP-Servern dient, die Anfragen von Clients der Webanwendung bearbeiten. Express unterstützt viele Arten zum Lesen von über HTTP gesendeten Parametern.
+
+Erstes Server-Skript
+Um die grundlegenden Funktionen von Express für den Empfang und die Bearbeitung von Anfragen zu demonstrieren, simulieren wir eine Anwendung, die einige Informationen vom Server anfordert. Genauer gesagt, der Beispielserver
+
+bietet eine echo-Funktion, die lediglich die vom Client gesendete Nachricht zurückgibt.
+
+teilt dem Client auf Anfrage seine IP-Adresse mit.
+
+verwendet Cookies, um bekannte Clients zu identifizieren.
+
+Der erste Schritt besteht darin, die JavaScript-Datei zu erstellen, die als Server fungieren wird. Erstellen Sie mit npm ein Verzeichnis namens myserver mit der JavaScript-Datei:
+
+$ mkdir myserver
+$ cd myserver/
+$ npm init
+Als Einstiegspunkt können Sie einen beliebigen Dateinamen wählen. Hier nutzen wir den Standarddateinamen index.js. Die folgende Auflistung zeigt eine einfache index.js-Datei, die als Einstiegspunkt für unseren Server dient:
+
+const express = require('express')
+const app = express()
+const host = "myserver"
+const port = 8080
+
+app.get('/', (req, res) => {
+  res.send('Request received')
+})
+
+app.listen(port, host, () => {
+  console.log(`Server ready at http://${host}:${port}`)
+})
+Einige wichtige Konstanten für die Serverkonfiguration sind in den ersten Zeilen des Skripts definiert. Die ersten beiden, express und app, entsprechen dem eingeschlossenen Modul express und einer Instanz dieses Moduls, die unsere Anwendung ausführt. Wir fügen die vom Server auszuführenden Aktionen zum Objekt app hinzu.
+
+Die beiden anderen Konstanten, host und port, definieren den Host und den Kommunikationsport des Servers.
+
+Wenn Sie einen öffentlich zugänglichen Host haben, verwenden Sie dessen Namen anstelle von myserver als Wert für host. Wenn Sie den Hostnamen nicht angeben, verwendet Express standardmäßig localhost, den Computer, auf dem die Anwendung läuft. In diesem Fall können keine externen Clients das Programm erreichen, was für Testzwecke in Ordnung sein mag, aber in der Produktion wenig Nutzen bringt.
+
+Der Port muss angegeben werden, andernfalls kann der Server nicht gestartet werden.
+
+Dieses Skript fügt nur zwei Prozeduren an das app-Objekt an: die Aktion app.get(), die Anfragen von Clients über HTTP GET beantwortet, und den Aufruf app.listen(), der erforderlich ist, um den Server zu aktivieren und ihm einen Host und einen Port zuzuweisen.
+
+Um den Server zu starten, führen Sie einfach den Befehl node aus und geben den Skriptnamen als Argument an:
+
+$ node index.js
+Sobald die Meldung Server ready at http://myserver:8080 erscheint, ist der Server bereit, Anfragen von einem HTTP-Client zu empfangen. Die Anfragen können von einem Browser auf demselben Computer gestellt werden, auf dem der Server läuft, oder von einem anderen Rechner, der Zugriff auf den Server hat.
+
+Alle Transaktionsdetails, die wir im Folgenden sehen, werden im Browser angezeigt, wenn Sie ein Fenster für die Entwicklerkonsole öffnen. Alternativ nutzen Sie den Befehl curl für die HTTP-Kommunikation, mit dem Sie die Verbindungsdetails einfacher überprüfen. Wenn Sie mit der Shell-Befehlszeile nicht vertraut sind, können Sie ein HTML-Formular erstellen, um Anfragen an einen Server zu senden.
+
+Das folgende Beispiel zeigt, wie Sie den Befehl curl in der Befehlszeile nutzen, um eine HTTP-Anfrage an den neu eingerichteten Server zu stellen:
+
+$ curl http://myserver:8080 -v
+* Trying 192.168.1.225:8080...
+* TCP_NODELAY set
+* Connected to myserver (192.168.1.225) port 8080 (#0)
+> GET / HTTP/1.1
+> Host: myserver:8080
+> User-Agent: curl/7.68.0
+>Accept: /
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< Content-Type: text/html; charset=utf-8
+< Content-Length: 16
+< ETag: W/"10-1WVvDtVyAF0vX9evlsFlfiJTT5c"
+< Date: Fri, 02 Jul 2021 14:35:11 GMT
+< Connection: keep-alive
+<
+* Connection #0 to host myserver left intact
+Request received
+Die Option -v des Befehls curl zeigt alle Anfrage- und Antwort-Header sowie andere Debugging-Informationen. Die Zeilen, die mit > beginnen, zeigen die vom Client gesendeten Anfrage-Header, und die Zeilen, die mit < beginnen, zeigen die vom Server gesendeten Antwort-Header. Zeilen, die mit * beginnen, sind Informationen, die curl selbst erzeugt. Der Inhalt der Antwort wird erst am Ende angezeigt — in diesem Fall die Zeile Request received.
+
+Die URL des Dienstes, die in diesem Fall den Hostnamen und den Port des Servers (http://myserver:8080) enthält, wurde curl als Argument übergeben. Da kein Verzeichnis oder Dateiname angegeben wurde, werden diese standardmäßig auf das Stammverzeichnis / gesetzt. Der Schrägstrich taucht als Anfragedatei in der Zeile > GET / HTTP/1.1 auf, auf die in der Ausgabe der Hostname und der Port folgen.
+
+Neben der Anzeige von HTTP-Verbindungsheadern unterstützt der Befehl curl die Anwendungsentwicklung, indem Sie Daten mit verschiedenen HTTP-Methoden und in unterschiedlichen Formaten an den Server senden können. Diese Flexibilität macht es einfacher, Probleme zu beheben und neue Funktionen auf dem Server zu implementieren.
+
+Routen
+Welche Anfragen der Client an den Server stellen kann, hängt davon ab, welche Routen in der Datei index.js definiert wurden. Eine Route spezifiziert eine HTTP-Methode und einen Pfad (genauer gesagt: einen URI), den der Client anfordern kann.
+
+Bislang haben wir auf dem Server nur eine Route konfiguriert:
+
+app.get('/', (req, res) => {
+  res.send('Request received')
+})
+Obwohl es sich um eine sehr einfache Route handelt, die lediglich eine Textnachricht an den Client zurücksendet, reicht sie aus, um die wichtigsten Komponenten zu identifizieren, die zur Strukturierung der meisten Routen verwendet werden:
+
+Die HTTP-Methode, die von der Route bedient wird. In diesem Beispiel ist die HTTP-Methode GET durch die Eigenschaft get des Objekts app angegeben.
+
+Der Pfad, der von der Route bedient wird. Wenn der Client keinen Pfad für die Anfrage angibt, verwendet der Server das Root-Verzeichnis, also das Basisverzeichnis, das für den Webserver reserviert ist. Ein späteres Beispiel in dieser Lektion verwendet den Pfad /echo, der einer Anfrage an myserver:8080/echo entspricht.
+
+Die Funktion, die ausgeführt wird, wenn der Server eine Anfrage auf dieser Route erhält. Sie wird gewöhnlich in abgekürzter Form als Pfeilfunktion geschrieben, da die Syntax ⇒ auf die Definition der namenlosen Funktion verweist. Die Parameter req (kurz für “request”) und res (kurz für “response”) geben Details über die Verbindung an, die von der App-Instanz selbst an die Funktion übergeben werden.
+
+POST-Methode
+Um die Funktionalität unseres Test-Servers zu erweitern, sehen wir uns an, wie man eine Route für die HTTP-Methode POST definiert. Sie wird von Clients verwendet, um zusätzliche Daten an den Server zu senden, die über die im Request-Header enthaltenen Angaben hinausgehen. Die Option --data des curl-Befehls ruft automatisch die POST-Methode auf und enthält Informationen, die über POST an den Server gesendet werden. Die Zeile POST / HTTP/1.1 in der folgenden Ausgabe zeigt, dass die Methode POST verwendet wurde. Unser Server hat jedoch nur eine GET-Methode definiert, so dass ein Fehler auftritt, wenn wir curl verwenden, um eine Anfrage über POST zu senden:
+
+$ curl http://myserver:8080/echo --data message="This is the POST request body"
+* Trying 192.168.1.225:8080...
+* TCP_NODELAY set
+* Connected to myserver (192.168.1.225) port 8080 (#0)
+> POST / HTTP/1.1
+> Host: myserver:8080
+> User-Agent: curl/7.68.0
+>Accept: /
+> Content-Length: 37
+> Content-Type: application/x-www-form-urlencoded
+>
+* upload completely sent off: 37 out of 37 bytes
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 404 Not Found
+< X-Powered-By: Express
+< Content-Security-Policy: default-src 'none'
+< X-Content-Type-Options: nosniff
+< Content-Type: text/html; charset=utf-8
+< Content-Length: 140
+< Date: Sat, 03 Jul 2021 02:22:45 GMT
+< Connection: keep-alive
+<
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /</pre>
+</body>
+</html>
+* Connection #0 to host myserver left intact
+Im vorangegangenen Beispiel entspricht die Ausführung von curl mit dem Parameter --data message="This is the POST request body" dem Absenden eines Formulars, das ein Textfeld namens message enthält, das mit This is the POST request body gefüllt ist.
+
+Da der Server mit nur einer Route für den /-Pfad konfiguriert ist und diese Route nur auf die HTTP-Methode GET antwortet, enthält der Antwort-Header die Zeile HTTP/1.1 404 Not Found. Außerdem generiert Express automatisch eine kurze HTML-Antwort mit der Warnung Cannot POST.
+
+Nachdem wir gesehen haben, wie curl eine POST-Anfrage erzeugt, schreiben wir nun ein Express-Programm, das die Anfrage erfolgreich bearbeitet.
+
+Beachten Sie zunächst, dass das Feld Content-Type im Request-Header besagt, dass die vom Client gesendeten Daten im Format application/x-www-form-urlencoded vorliegen. Express erkennt dieses Format standardmäßig nicht, also nutzen wir das Modul express.urlencoded. Wenn wir dieses Modul einbinden, hat das req-Objekt — das als Parameter an die Handler-Funktion übergeben wird — die Eigenschaft req.body.message, die dem vom Client gesendeten Feld message entspricht. Das Modul wird mit app.use geladen, das vor der Deklaration von Routen platziert werden sollte:
+
+const express = require('express')
+const app = express()
+const host = "myserver"
+const port = 8080
+
+app.use(express.urlencoded({ extended: true }))
+Sobald dies geschehen ist, würde es genügen, in der bestehenden Route app.get in app.post zu ändern, um Anfragen, die über POST gestellt werden, zu erfüllen und den Request-Body wiederherzustellen:
+
+app.post('/', (req, res) => {
+  res.send(req.body.message)
+})
+Statt die Route zu ersetzen, könnte man auch einfach diese neue Route hinzufügen, denn Express erkennt die HTTP-Methode im Request-Header und nutzt die entsprechende Route. Da wir diesem Server mehr als eine Funktionalität hinzuzufügen wollen, bietet es sich an, jede mit ihrem eigenen Pfad zu trennen, z.B. /echo und /ip.
+
+Pfad und Funktionshandler
+Nachdem wir festgelegt haben, welche HTTP-Methode auf die Anfrage antwortet, müssen wir nun einen spezifischen Pfad für die Ressource und eine Funktion definieren, die eine Antwort an den Client verarbeitet und erzeugt.
+
+Um die echo-Funktionalität des Servers zu erweitern, definieren wir mit der Methode POST eine Route mit dem Pfad /echo:
+
+app.post('/echo', (req, res) => {
+  res.send(req.body.message)
+})
+Der Parameter req der Handler-Funktion enthält alle Details der Anfrage, die als Eigenschaften gespeichert sind. Der Inhalt des Feldes message im Request Body ist in der Eigenschaft req.body.message verfügbar. Im Beispiel wird dieses Feld einfach durch den Aufruf res.send(req.body.message) an den Client zurückgesendet.
+
+Denken Sie daran, dass die von Ihnen vorgenommenen Änderungen erst nach einem Neustart des Servers wirksam werden. Da Sie den Server während der Beispiele in diesem Kapitel in einem Terminalfenster ausführen, können Sie den Server durch Drücken von kbd:[Strg+C] in diesem Terminal herunterfahren. Starten Sie dann den Server erneut mit dem Befehl node index.js. Die Antwort, die der Client auf die zuvor gezeigte curl-Anfrage erhält, ist nun erfolgreich:
+
+$ curl http://myserver:8080/echo --data message="This is the POST request body"
+This is the POST request body
+Andere Möglichkeiten der Übergabe und Rückgabe von Informationen in einer GET-Anfrage
+Die HTTP-Methode`POST` könnte übertrieben sein, wenn nur kurze Textnachrichten wie die im Beispiel gesendet werden sollen. In solchen Fällen können die Daten in einem Query String gesendet werden, der mit einem Fragezeichen beginnt. So könnte die Zeichenkette ?message=This+is+the+message in den Abfragepfad der HTTP-Methode GET aufgenommen werden. Die im Abfrage-String verwendeten Felder stehen dem Server in der Eigenschaft req.query zur Verfügung. Daher ist ein Feld mit dem Namen message in der Eigenschaft req.query.message verfügbar.
+
+Eine weitere Möglichkeit, Daten über die HTTP-Methode GET zu senden, sind die Routing-Parameter von Express:
+
+app.get('/echo/:message', (req, res) => {
+  res.send(req.params.message)
+})
+Die Route in diesem Beispiel passt zu Anfragen, die mit der Methode GET unter Verwendung des Pfades /echo/:message gestellt werden, wobei :message ein Platzhalter für jeden Begriff ist, der mit diesem Label vom Client gesendet wird. Diese Parameter sind über die Eigenschaft req.params zugänglich. Mit dieser neuen Route kann die Funktion echo des Servers vom Client knapper abgefragt werden:
+
+$ curl http://myserver:8080/echo/hello
+hello
+In anderen Situationen müssen die Informationen, die der Server zur Bearbeitung der Anfrage benötigt, nicht explizit vom Client bereitgestellt werden, zum Beispiel die öffentliche IP-Adresse des Clients. Diese Information ist standardmäßig im Objekt req in der Eigenschaft req.ip enthalten:
+
+app.get('/ip', (req, res) => {
+  res.send(req.ip)
+})
+Jetzt kann der Client den Pfad /ip mit der Methode GET anfordern, um seine eigene öffentliche IP-Adresse zu ermitteln:
+
+$ curl http://myserver:8080/ip
+187.34.178.12
+Andere Eigenschaften des req-Objekts kann der Client ändern, insbesondere die in req.headers verfügbaren Anfrage-Header. Die Eigenschaft req.headers.user-agent zum Beispiel identifiziert das Programm, das die Anfrage stellt. Obwohl es nicht üblich ist, kann der Client den Inhalt dieses Feldes ändern, so dass der Server es nicht verwenden sollte, um einen bestimmten Client zuverlässig zu identifizieren. Noch wichtiger ist es, die explizit vom Client bereitgestellten Daten zu validieren, um Inkonsistenzen bei Grenzen und Formaten zu vermeiden, die sich nachteilig auf die Anwendung auswirken könnten.
+
+Anpassungen an die Antwort
+Wie in früheren Beispielen gesehen, ist der Parameter res für die Rückgabe einer Antwort an den Client verantwortlich. Außerdem kann das res-Objekt andere Teile der Antwort ändern. Sie haben vielleicht bemerkt, dass, obwohl die bislang implementierten Antworten nur kurze Textnachrichten sind, der Content-Type-Header der Antworten text/html; charset=utf-8 verwendet. Obwohl dies nicht verhindert, dass die Klartext-Antwort akzeptiert wird, wäre es korrekter, das Feld im Antwort-Header mit der Einstellung res.type('text/plain') auf text/plain zu setzen.
+
+Andere Anpassungen der Antwort nutzen Cookies, die es dem Server ermöglichen, einen Client zu identifizieren, der zuvor eine Anfrage gestellt hat. Cookies sind wichtig für fortgeschrittene Funktionen, wie z.B. die Erstellung privater Sitzungen, die Anfragen einem bestimmten Benutzer zuordnen. Hier betrachten wir jedoch nur ein einfaches Beispiel für den Einsatz von Cookies, um einen Client zu identifizieren, der zuvor auf den Server zugegriffen hat.
+
+Aufgrund des modularen Aufbaus von Express muss die Cookie-Verwaltung mit dem Befehl npm installiert werden, bevor sie im Skript nutzbar ist:
+
+$ npm install cookie-parser
+Nach der Installation muss die Cookie-Verwaltung in das Serverskript aufgenommen werden. Fügen Sie dazu die folgende Definition am Anfang der Datei ein:
+
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+Um die Verwendung von Cookies zu veranschaulichen, ändern wir die Handler-Funktion der Route mit dem Wurzelpfad /, die bereits im Skript vorhanden ist. Das Objekt req hat eine Eigenschaft req.cookies, in der die im Request-Header gesendeten Cookies gespeichert werden. Das res-Objekt hingegen verfügt über eine Methode res.cookie(), die ein neues Cookie erstellt, das an den Client gesendet wird. Die Handler-Funktion im folgenden Beispiel prüft, ob ein Cookie mit dem Namen known in der Anfrage existiert. Falls nicht, geht der Server davon aus, dass es sich um einen Erstbesucher handelt, und sendet ihm über den Aufruf res.cookie('known', '1') ein Cookie dieses Namens. Wir weisen dem Cookie willkürlich den Wert 1 zu, weil es irgendeinen Inhalt haben soll, aber der Server fragt diesen Wert nicht ab. Diese Anwendung geht einfach davon aus, dass das Vorhandensein des Cookies darauf hinweist, dass der Client diese Route bereits zuvor angefordert hat:
+
+app.get('/', (req, res) => {
+  res.type('text/plain')
+  if ( req.cookies.known === undefined ){
+    res.cookie('known', '1')
+    res.send('Welcome, new visitor!')
+  }
+  else
+    res.send('Welcome back, visitor');
+})
+Standardmäßig verwendet curl keine Cookies in Transaktionen. Es gibt jedoch Optionen zum Speichern (-c cookies.txt) und Senden gespeicherter Cookies (-b cookies.txt):
+
+$ curl http://myserver:8080/ -c cookies.txt -b cookies.txt -v
+* Trying 192.168.1.225:8080...
+* TCP_NODELAY set
+* Connected to myserver (192.168.1.225) port 8080 (#0)
+> GET / HTTP/1.1
+> Host: myserver:8080
+> User-Agent: curl/7.68.0
+>Accept: /
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< Content-Type: text/plain; charset=utf-8
+* Added cookie known="1" for domain myserver, path /, expire 0
+< Set-Cookie: known=1; Path=/
+< Content-Length: 21
+< ETag: W/"15-l7qrxcqicl4xv6EfA5fZFWCFrgY"
+< Date: Sat, 03 Jul 2021 23:45:03 GMT
+< Connection: keep-alive
+<
+* Connection #0 to host myserver left intact
+Welcome, new visitor!
+Da dieser Befehl der erste Zugriff seit der Implementierung von Cookies auf dem Server war, verfügte der Client über keine Cookies, die er in die Anfrage aufnehmen konnte. Wie erwartet hat der Server das Cookie in der Anfrage nicht identifiziert und daher das Cookie in die Antwort-Header aufgenommen, wie in der Zeile Set-Cookie: known=1; Path=/ in der Ausgabe zu sehen. Da wir Cookies in curl aktiviert haben, wird eine neue Anfrage das Cookie known=1 in den Header der Anfrage aufnehmen, so dass der Server das Vorhandensein des Cookies erkennen kann:
+
+$ curl http://myserver:8080/ -c cookies.txt -b cookies.txt -v
+* Trying 192.168.1.225:8080...
+* TCP_NODELAY set
+* Connected to myserver (192.168.1.225) port 8080 (#0)
+> GET / HTTP/1.1
+> Host: myserver:8080
+> User-Agent: curl/7.68.0
+>Accept: /
+> Cookie: known=1
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< Content-Type: text/plain; charset=utf-8
+< Content-Length: 21
+< ETag: W/"15-ATq2flQYtLMYIUpJwwpb5SjV9Ww"
+< Date: Sat, 03 Jul 2021 23:45:47 GMT
+< Connection: keep-alive
+<
+* Connection #0 to host myserver left intact
+Welcome back, visitor
+Cookie-Sicherheit
+Sie sollten sich potenzieller Schwachstellen bewusst sein, wenn Sie Cookies zur Identifizierung von Clients nutzen, die Anfragen stellen. Angreifer können Techniken wie Cross-Site Scripting (XSS) und Cross-Site Request Forgery (CSRF) einsetzen, um Cookies von einem Client zu stehlen und sich damit bei einer Anfrage an den Server als dieser auszugeben. Im Allgemeinen verwenden diese Arten von Angriffen nicht überprüfte Kommentarfelder oder sorgfältig konstruierte URLs, um schädlichen JavaScript-Code in die Seite einzufügen. Wenn dieser Code von einem authentischen Client ausgeführt wird, kann er gültige Cookies kopieren und sie speichern oder an ein anderes Ziel weiterleiten.
+
+Daher ist es vor allem bei professionellen Anwendungen wichtig, speziellere Express-Funktionen zu installieren und zu verwenden, die als Middleware bezeichnet werden. Die Module express-session oder cookie-session bieten eine umfassendere und sicherere Kontrolle über die Verwaltung von Sitzungen und Cookies. Diese Komponenten ermöglichen zusätzliche Kontrollen, um zu verhindern, dass Cookies von ihrem ursprünglichen Aussteller umgeleitet werden.
+
+Geführte Übungen
+Wie kann der Inhalt des Feldes comment, der in einem Query-String der HTTP-Methode GET gesendet wird, in einer Handler-Funktion gelesen werden?
+
+Schreiben Sie eine Route, die die HTTP-Methode GET und den Pfad /agent verwendet, um den Inhalt der Kopfzeile user-agent an den Client zurückzusenden.
+
+Express.js hat ein Feature namens Routing-Parameter, bei dem ein Pfad wie /user/:name genutzt werden kann, um den vom Client gesendeten Parameter name zu empfangen. Wie kann auf den Parameter name innerhalb der Handler-Funktion der Route zugegriffen werden?
+
+Offene Übungen
+Wenn der Hostname eines Servers myserver lautet, welche Express-Route würde die Übermittlung in der folgenden Form empfangen?
+
+<form action="/contact/feedback" method="post"> ... </form>
+Während der Serverentwicklung ist es Ihnen nicht möglich, die Eigenschaft req.body zu lesen, obwohl Sie überprüft haben, dass der Client den Inhalt korrekt über die HTTP-Methode POST sendet. Was ist eine mögliche Ursache für dieses Problem?
+
+Was passiert, wenn der Server eine Route auf den Pfad /user/:name gesetzt hat und der Client eine Anfrage an /user/ stellt?
+
+Zusammenfassung
+Diese Lektion erklärt, wie man Express-Skripte schreibt, um HTTP-Anfragen zu empfangen und zu bearbeiten. Express verwendet das Konzept der Routen, um die Ressourcen zu definieren, die den Clients zur Verfügung stehen, was Ihnen große Flexibilität beim Aufbau von Servern für jede Art von Webanwendung bietet. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Routen, die die HTTP-Methoden GET und POST verwenden.
+
+Wie Formulardaten im request-Objekt gespeichert werden.
+
+Wie man Routen-Parameter verwendet.
+
+Anpassen der Antwort-Header.
+
+Grundlegende Cookie-Verwaltung.
+
+Lösungen zu den geführten Übungen
+Wie kann der Inhalt des Feldes comment, der in einem Query-String der HTTP-Methode GET gesendet wird, in einer Handler-Funktion gelesen werden?
+
+Das Feld comment ist in der Eigenschaft req.query.comment verfügbar.
+
+Schreiben Sie eine Route, die die HTTP-Methode GET und den Pfad /agent verwendet, um den Inhalt der Kopfzeile user-agent an den Client zurückzusenden.
+
+app.get('/agent', (req, res) => {
+  res.send(req.headers.user-agent)
+})
+Express.js hat ein Feature namens Routing-Parameter, bei dem ein Pfad wie /user/:name genutzt werden kann, um den vom Client gesendeten Parameter name zu empfangen. Wie kann auf den Parameter name innerhalb der Handler-Funktion der Route zugegriffen werden?
+
+Der Parameter name ist über die Eigenschaft req.params.name zugänglich.
+
+Lösungen zu den offenen Übungen
+Wenn der Hostname eines Servers myserver lautet, welche Express-Route würde die Übermittlung in der folgenden Form empfangen?
+
+<form action="/contact/feedback" method="post"> ... </form>
+app.post('/contact/feedback', (req, res) => {
+  ...
+})
+Während der Serverentwicklung ist es Ihnen nicht möglich, die Eigenschaft req.body zu lesen, obwohl Sie überprüft haben, dass der Client den Inhalt korrekt über die HTTP-Methode POST sendet. Was ist eine mögliche Ursache für dieses Problem?
+
+Das Modul express.urlencoded, mit dem Express den Body einer Anfrage extrahieren kann, wurde nicht eingebunden.
+
+Was passiert, wenn der Server eine Route auf den Pfad /user/:name gesetzt hat und der Client eine Anfrage an /user/ stellt?
+
+Der Server gibt eine Antwort 404 Not Found aus, da die Route die Angabe des Parameters :name durch den Client erfordert.
+
+035.2
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+035 Node.js Server-Programmierung
+
+Lernziel:	
+035.2 Grundlagen von Node.js Express
+
+
+Einführung
+Webserver haben vielseitige Mechanismen, um auf Client-Anfragen zu antworten. Bei einigen Anfragen reicht es aus, wenn der Webserver eine statische, unverarbeitete Antwort liefert, da die angeforderte Ressource für jeden Client gleich ist. Wenn ein Client beispielsweise ein Bild anfordert, das allgemein zugänglich ist, genügt es, dass der Server die Bilddatei sendet.
+
+Werden Antworten jedoch dynamisch erzeugt, müssen sie unter Umständen besser strukturiert sein als einfache Zeilen im Serverskript. In solchen Fällen ist es praktisch, wenn der Webserver ein vollständiges Dokument generiert, das der Client interpretieren und rendern kann. Bei der Entwicklung von Webanwendungen werden HTML-Dokumente üblicherweise als Vorlagen erstellt und vom Serverskript getrennt gehalten, das dynamische Daten an vorgegebenen Stellen in die entsprechende Vorlage einfügt und dann die formatierte Antwort an den Client sendet.
+
+Webanwendungen verbrauchen oft sowohl statische als auch dynamische Ressourcen. Ein HTML-Dokument kann, auch wenn es dynamisch generiert wurde, Verweise auf statische Ressourcen wie CSS-Dateien und Bilder enthalten. Um zu demonstrieren, wie Express bei solchen Anforderungen hilft, richten wir zunächst einen Beispielserver ein, der statische Dateien liefert, und implementieren dann Routen, die strukturierte, vorlagenbasierte Antworten erzeugen.
+
+Statische Dateien
+Der erste Schritt besteht darin, die JavaScript-Datei zu erstellen, die als Server ausgeführt werden soll. Folgen wir dem Muster der vorangegangenen Lektion, um eine einfache Express-Anwendung zu erstellen: Legen Sie zunächst ein Verzeichnis namens server an und installieren Sie dann die Basiskomponenten mit dem Befehl npm:
+
+$ mkdir server
+$ cd server/
+$ npm init
+$ npm install express
+Als Einstiegspunkt kann ein beliebiger Dateiname dienen — hier nutzen wir den Standarddateinamen index.js. Die folgende Auflistung zeigt eine einfache Datei index.js als Startpunkt für unseren Server:
+
+const express = require('express')
+const app = express()
+const host = "myserver"
+const port = 8080
+
+app.listen(port, host, () => {
+  console.log(`Server ready at http://${host}:${port}`)
+})
+Sie müssen keinen expliziten Code schreiben, um eine statische Datei zu senden. Express hat dafür eine Middleware namens express.static. Muss Ihr Server statische Dateien an den Client senden, laden Sie einfach die Middleware express.static am Anfang des Skripts:
+
+app.use(express.static('public'))
+Der Parameter public gibt das Verzeichnis an, in dem Dateien gespeichert sind, die der Client anfordern kann. Pfade, die von Clients angefordert werden, dürfen nicht das Verzeichnis public enthalten, sondern nur den Dateinamen oder den Pfad zur Datei relativ zum Verzeichnis public. Um zum Beispiel die Datei public/layout.css anzufordern, stellt der Client eine Anfrage nach /layout.css.
+
+Formatierte Ausgabe
+Während das Senden statischer Inhalte einfach ist, können dynamisch generierte Inhalte stark variieren. Die Erstellung dynamischer Antworten mit kurzen Nachrichten erleichtert das Testen von Anwendungen im Anfangsstadium ihrer Entwicklung. Das folgende Beispiel ist eine Testroute, die lediglich eine Nachricht, die mit der HTTP-Methode POST gesendet wurde, an den Client zurücksendet. Die Antwort kann einfach den Inhalt der Nachricht im Klartext wiedergeben, ohne jegliche Formatierung:
+
+app.post('/echo', (req, res) => {
+  res.send(req.body.message)
+})
+Eine Route wie diese ist ein gutes Beispiel für das Erlernen von Express und für Diagnosezwecke, bei denen eine unformatierte Antwort, die mit res.send() gesendet wird, ausreicht. Aber ein nützlicher Server muss in der Lage sein, komplexere Antworten zu erzeugen. Wir werden darum nun eine komplexere Route entwickeln.
+
+Unsere neue Anwendung sendet nicht nur den Inhalt der aktuellen Anfrage zurück, sondern verwaltet eine vollständige Liste der Nachrichten, die in früheren Anfragen von jedem Client gesendet wurden, und sendet die Liste jedes Clients auf Anfrage zurück. Eine Antwort, die alle Nachrichten zusammenfasst, ist eine Option, aber andere formatierte Ausgabemodi sind besser geeignet, insbesondere wenn die Antworten umfangreicher werden.
+
+Um die während der aktuellen Sitzung gesendeten Client-Nachrichten zu empfangen und zu speichern, müssen wir zunächst zusätzliche Module für die Behandlung von Cookies und Daten, die über die HTTP-Methode POST gesendet werden, einfügen. Der einzige Zweck des folgenden Beispielservers besteht darin, per POST gesendete Nachrichten zu protokollieren und zuvor gesendete Nachrichten anzuzeigen, wenn der Client eine GET-Anfrage stellt. Es gibt also zwei Routen für den /-Pfad. Die erste Route erfüllt Anfragen, die mit der HTTP-Methode POST gestellt werden, die zweite erfüllt Anfragen, die mit der HTTP-Methode GET gestellt werden:
+
+const express = require('express')
+const app = express()
+const host = "myserver"
+const port = 8080
+
+app.use(express.static('public'))
+
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
+const { v4: uuidv4 } = require('uuid')
+
+app.use(express.urlencoded({ extended: true }))
+
+// Array to store messages
+let messages = []
+
+app.post('/', (req, res) => {
+
+  // Only JSON enabled requests
+  if ( req.headers.accept != "application/json" )
+  {
+    res.sendStatus(404)
+    return
+  }
+
+  // Locate cookie in the request
+  let uuid = req.cookies.uuid
+
+  // If there is no uuid cookie, create a new one
+  if ( uuid === undefined )
+    uuid = uuidv4()
+
+  // Add message first in the messages array
+  messages.unshift({uuid: uuid, message: req.body.message})
+
+  // Collect all previous messages for uuid
+  let user_entries = []
+  messages.forEach( (entry) => {
+    if ( entry.uuid == req.cookies.uuid )
+      user_entries.push(entry.message)
+  })
+
+  // Update cookie expiration date
+  let expires = new Date(Date.now());
+  expires.setDate(expires.getDate() + 30);
+  res.cookie('uuid', uuid, { expires: expires })
+
+  // Send back JSON response
+  res.json(user_entries)
+
+})
+
+app.get('/', (req, res) => {
+
+  // Only JSON enabled requests
+  if ( req.headers.accept != "application/json" )
+  {
+    res.sendStatus(404)
+    return
+  }
+
+  // Locate cookie in the request
+  let uuid = req.cookies.uuid
+
+  // Client's own messages
+  let user_entries = []
+
+  // If there is no uuid cookie, create a new one
+  if ( uuid === undefined ){
+    uuid = uuidv4()
+  }
+  else {
+    // Collect messages for uuid
+    messages.forEach( (entry) => {
+      if ( entry.uuid == req.cookies.uuid )
+        user_entries.push(entry.message)
+    })
+  }
+
+  // Update cookie expiration date
+  let expires = new Date(Date.now());
+  expires.setDate(expires.getDate() + 30);
+  res.cookie('uuid', uuid, { expires: expires })
+
+  // Send back JSON response
+  res.json(user_entries)
+
+})
+
+app.listen(port, host, () => {
+  console.log(`Server ready at http://${host}:${port}`)
+})
+Wir haben die Konfiguration der statischen Dateien an den Anfang gestellt, weil wir gleich statische Dateien wie layout.css benötigen. Neben der Middleware cookie-parser, die bereits vorgestellt wurde, enthält das Beispiel auch die uuid-Middleware, um eine eindeutige Identifikationsnummer zu erzeugen, die als Cookie an jeden Client weitergegeben wird, der eine Nachricht sendet. Falls nicht bereits im Verzeichnis des Beispielservers installiert, sollten Sie diese Module mit dem Befehl npm install cookie-parser uuid installieren.
+
+Das globale Array namens messages speichert die von allen Clients gesendeten Nachrichten. Jedes Element in diesem Array besteht aus einem Objekt mit den Eigenschaften uuid und message.
+
+Das wirklich Neue in diesem Skript ist die Methode res.json(), die beide Routen am Ende nutzen, um eine Antwort im JSON-Format mit dem Array zu erzeugen, das die bereits vom Client gesendeten Nachrichten enthält:
+
+// Send back JSON response
+res.json(user_entries)
+JSON ist ein einfaches Textformat, mit dem Sie eine Reihe von Daten in einer einzigen, assoziativen Struktur gruppieren, d.h. als Schlüssel-Werte-Paare. JSON ist besonders nützlich, wenn die Antworten vom Client verarbeitet werden sollen. Mit diesem Format kann ein JavaScript-Objekt oder Array auf Client-Seite leicht mit allen Eigenschaften und Indizes des ursprünglichen Objekts auf dem Server rekonstruiert werden.
+
+Da wir jede Nachricht in JSON strukturieren, lehnen wir Anfragen ab, die in ihrem accept-Header nicht application/json enthalten:
+
+// Only JSON enabled requests
+if ( req.headers.accept != "application/json" )
+{
+  res.sendStatus(404)
+  return
+}
+Eine Anfrage über einen einfachen curl-Befehl, um eine neue Nachricht einzufügen, wird nicht akzeptiert, da curl standardmäßig nicht application/json im accept-Header angibt:
+
+$ curl http://myserver:8080/ --data message="My first message" -c cookies.txt -b cookies.txt
+Not Found
+Die Option -H "accept: application/json" ändert den Request-Header, um das Format der Antwort anzugeben, die diesmal akzeptiert und im angegebenen Format beantwortet wird:
+
+$ curl http://myserver:8080/ --data message="My first message" -c cookies.txt -b cookies.txt -H "accept: application/json"
+["My first message"]
+Das Abrufen von Nachrichten über die andere Route erfolgt auf ähnliche Weise, diesmal jedoch mit der HTTP-Methode GET:
+
+$ curl http://myserver:8080/ -c cookies.txt -b cookies.txt -H "accept: application/json"
+["Another message","My first message"]
+Templates
+Antworten in Formaten wie JSON sind praktisch für die Kommunikation zwischen Programmen, aber der Hauptzweck der meisten Webanwendungsserver besteht darin, HTML-Inhalte für die Benutzer zu erzeugen. Die Einbettung von HTML-Code in JavaScript-Code ist keine gute Idee, da die Vermischung von Sprachen in derselben Datei das Programm anfälliger für Fehler macht und die Wartung des Codes erschwert.
+
+Express kann mit verschiedenen Template Engines arbeiten, die den HTML-Code für dynamische Inhalte separieren — eine vollständige Liste finden Sie auf der Seite Express Template Engines. Eine der beliebtesten Template Engines ist Embedded JavaScript (EJS), mit der Sie HTML-Dateien mit spezifischen Tags für das Einfügen dynamischer Inhalte erstellen.
+
+Wie andere Express-Komponenten muss auch EJS in dem Verzeichnis installiert werden, in dem der Server ausgeführt wird:
+
+$ npm install ejs
+Danach definieren Sie die EJS-Engine als Standard-Renderer im Serverskript (am Anfang der Datei index.js, vor den Routen-Definitionen):
+
+app.set('view engine', 'ejs')
+Die mit der Vorlage erzeugte Antwort wird mit der Funktion res.render() an den Client gesendet, die als Parameter den Namen der Vorlagendatei und ein Objekt mit Werten erhält, auf die innerhalb der Vorlage zugegriffen werden kann. Die im vorherigen Beispiel verwendeten Routen können umgeschrieben werden, um sowohl HTML-Antworten als auch JSON zu erzeugen:
+
+app.post('/', (req, res) => {
+
+  let uuid = req.cookies.uuid
+
+  if ( uuid === undefined )
+    uuid = uuidv4()
+
+  messages.unshift({uuid: uuid, message: req.body.message})
+
+  let user_entries = []
+  messages.forEach( (entry) => {
+    if ( entry.uuid == req.cookies.uuid )
+      user_entries.push(entry.message)
+  })
+
+  let expires = new Date(Date.now());
+  expires.setDate(expires.getDate() + 30);
+  res.cookie('uuid', uuid, { expires: expires })
+
+  if ( req.headers.accept == "application/json" )
+    res.json(user_entries)
+  else
+    res.render('index', {title: "My messages", messages: user_entries})
+
+})
+
+app.get('/', (req, res) => {
+
+  let uuid = req.cookies.uuid
+
+  let user_entries = []
+
+  if ( uuid === undefined ){
+    uuid = uuidv4()
+  }
+  else {
+    messages.forEach( (entry) => {
+      if ( entry.uuid == req.cookies.uuid )
+        user_entries.push(entry.message)
+    })
+  }
+
+  let expires = new Date(Date.now());
+  expires.setDate(expires.getDate() + 30);
+  res.cookie('uuid', uuid, { expires: expires })
+
+  if ( req.headers.accept == "application/json" )
+    res.json(user_entries)
+  else
+    res.render('index', {title: "My messages", messages: user_entries})
+
+})
+Beachten Sie, dass das Format der Antwort von dem in der Anfrage gefundenen accept-Header abhängt:
+
+if ( req.headers.accept == "application/json" )
+  res.json(user_entries)
+else
+  res.render('index', {title: "My messages", messages: user_entries})
+Eine Antwort im JSON-Format wird nur gesendet, wenn der Client sie ausdrücklich anfordert. Andernfalls wird die Antwort aus dem Template index generiert. Das gleiche Array user_entries füllt sowohl die JSON-Ausgabe als auch das Template, aber das Objekt, das als Parameter für das Template verwendet wird, hat darüber hinaus die Eigenschaft title: "My messages", die als Titel in der Vorlage verwendet wird.
+
+HTML-Templates
+Wie statische Dateien befinden sich auch die HTML-Templates in einem eigenen Verzeichnis. Standardmäßig nimmt EJS an, dass sich die Vorlagendateien im Verzeichnis views/ befinden. Im Beispiel nutzen wir ein Template namens index, also sucht EJS nach der Datei views/index.ejs. Hier der Inhalt eines einfachen Templates views/index.ejs, das mit dem Beispielcode verwendet werden kann:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/layout.css">
+</head>
+<body>
+
+<div id="interface">
+
+<form action="/" method="post">
+<p>
+  <input type="text" name="message">
+  <input type="submit" value="Submit">
+</p>
+</form>
+
+<ul>
+<% messages.forEach( (message) => { %>
+<li><%= message %></li>
+<% }) %>
+</ul>
+
+</div>
+
+</body>
+</html>
+Der erste spezielle EJS-Tag ist das Element <title> im Abschnitt <head>:
+
+<%= title %>
+Während des Rendering-Prozesses wird dieses spezielle Tag durch den Wert der Eigenschaft title des Objekts ersetzt, das als Parameter an die Funktion res.render() übergeben wird.
+
+Der größte Teil des Templates besteht aus konventionellem HTML-Code — das HTML-Formular zum Senden neuer Nachrichten. Der Testserver antwortet auf die HTTP-Methoden GET und POST für denselben Pfad /, daher die Attribute action="/" und method="post" im Formular-Tag.
+
+Andere Teile der Vorlage sind eine Mischung aus HTML-Code und EJS-Tags. EJS hat Tags für bestimmte Zwecke innerhalb des Templates:
+
+<% … %>
+Fügt eine Flusskontrolle ein. Mit diesem Tag wird kein Inhalt direkt eingefügt, aber er kann mit JavaScript-Strukturen verwendet werden, um Abschnitte von HTML auszuwählen, zu wiederholen oder zu unterdrücken. Beispiel für das Starten einer Schleife: <% messages.forEach( (message) => { %>
+
+<%# … %>
+Definiert einen Kommentar, dessen Inhalt vom Parser ignoriert wird. Anders als in HTML geschriebene Kommentare sind diese Kommentare für den Client nicht sichtbar.
+
+<%= … %>
+Fügt den escapeten Inhalt der Variablen ein. Es ist wichtig, unbekannte Inhalte zu escapen, um die Ausführung von JavaScript-Code zu vermeiden, der Schlupflöcher für Angriffe per Cross Site Scripting (XSS) öffnen kann. Beispiel: <%= title %>
+
+<%- … %>
+Fügt den Inhalt der Variablen ohne Escaping ein.
+
+Die Mischung aus HTML-Code und EJS-Tags wird in dem Ausschnitt deutlich, in dem die Client-Nachrichten als HTML-Liste dargestellt werden:
+
+<ul>
+<% messages.forEach( (message) => { %>
+<li><%= message %></li>
+<% }) %>
+</ul>
+In diesem Ausschnitt beginnt das erste <% …​ %>-Tag eine forEach-Anweisung, die alle Elemente des message-Arrays durchläuft. Mit den Begrenzungszeichen <% und %> können Sie die HTML-Schnipsel kontrollieren. Ein neues HTML-Listenelement, <li><%= message %></li>, wird für jedes Element von messages erzeugt. Mit diesen Änderungen wird der Server die Antwort in HTML senden, wenn er eine Anfrage wie die folgende empfängt:
+
+$ curl http://myserver:8080/ --data message="This time" -c cookies.txt -b cookies.txt
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My messages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/layout.css">
+</head>
+<body>
+
+<div id="interface">
+
+<form action="/" method="post">
+<p>
+  <input type="text" name="message">
+  <input type="submit" value="Submit">
+</p>
+</form>
+
+<ul>
+
+<li>This time</li>
+
+<li>in HTML</li>
+
+</ul>
+
+</div>
+
+</body>
+</html>
+Die Trennung von dem Code für die Verarbeitung der Anfragen und dem Code für die Darstellung der Antwort macht den Code sauberer und ermöglicht es einem Team, die Anwendungsentwicklung auf Personen mit unterschiedlichen Spezialgebieten aufzuteilen. Webdesigner können sich zum Beispiel auf die Vorlagendateien in views/ und die zugehörigen Stylesheets konzentrieren, die als statische Dateien im Verzeichnis public/ auf dem Beispielserver gespeichert sind.
+
+Geführte Übungen
+Wie konfigurieren Sie express.static, damit Clients Dateien im Verzeichnis assets anfordern können?
+
+Wie kann der Typ der Antwort, der im Header der Anfrage angegeben ist, innerhalb einer Express-Route identifiziert werden?
+
+Welche Methode des Routen-Parameters res (response) erzeugt eine Antwort im JSON-Format aus einem JavaScript-Array namens content?
+
+Offene Übungen
+Standardmäßig befinden sich die Express-Templates im Verzeichnis views. Wie ändern Sie diese Einstellung, so dass die Vorlagendateien im Verzeichnis templates gespeichert werden?
+
+Ein Client erhält eine HTML-Antwort ohne Titel (d.h. <title></title>). Nach der Überprüfung der EJS-Vorlage finden Sie das Tag <title><% title %></title> im Abschnitt head der Datei. Was ist die wahrscheinliche Ursache für dieses Problem?
+
+Verwenden Sie EJS-Template-Tags, um ein HTML-Tag <h2></h2> mit dem Inhalt der JavaScript-Variablen h2 zu schreiben. Dieses Tag sollte nur gerendert werden, wenn die Variable h2 nicht leer ist.
+
+Zusammenfassung
+Diese Lektion behandelt die grundlegenden Methoden, die Express.js für die Erzeugung statischer und formatierter, dynamischer Antworten bereitstellt. Mit geringem Aufwand lässt sich ein HTTP-Server für statische Dateien einrichten, und das EJS-Templating-System bietet eine einfache Möglichkeit zur Erzeugung dynamischer Inhalte aus HTML-Dateien. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Verwendung von express.static für Antworten mit statischen Dateien.
+
+Wie man eine Antwort erstellt, die dem Feld für den Inhaltstyp im Header der Anfrage entspricht.
+
+JSON-strukturierte Antworten.
+
+Verwendung von EJS-Tags in HTML-basierten Vorlagen.
+
+Lösungen zu den geführten Übungen
+Wie konfigurieren Sie express.static, damit Clients Dateien im Verzeichnis assets anfordern können?
+
+Sie nehmen den Aufruf von app.use(express.static('assets')) in das Serverskript auf.
+
+Wie kann der Typ der Antwort, der im Header der Anfrage angegeben ist, innerhalb einer Express-Route identifiziert werden?
+
+Der Client legt die zulässigen Typen im Header-Feld accept fest, das auf die Eigenschaft req.headers.accept abgebildet wird.
+
+Welche Methode des Routen-Parameters res (response) erzeugt eine Antwort im JSON-Format aus einem JavaScript-Array namens content?
+
+Die res.json()-Methode res.json(content).
+
+Lösungen zu den offenen Übungen
+Standardmäßig befinden sich die Express-Templates im Verzeichnis views. Wie ändern Sie diese Einstellung, so dass die Vorlagendateien im Verzeichnis templates gespeichert werden?
+
+Das Verzeichnis kann zu Beginn in den Skripteinstellungen mit app.set('views', './templates') definiert werden.
+
+Ein Client erhält eine HTML-Antwort ohne Titel (d.h. <title></title>). Nach der Überprüfung der EJS-Vorlage finden Sie das Tag <title><% title %></title> im Abschnitt head der Datei. Was ist die wahrscheinliche Ursache für dieses Problem?
+
+Das <%= %>-Tag sollte verwendet werden, um den Inhalt einer Variablen einzuschließen, wie in <%= title %>.
+
+Verwenden Sie EJS-Template-Tags, um ein HTML-Tag <h2></h2> mit dem Inhalt der JavaScript-Variablen h2 zu schreiben. Dieses Tag sollte nur gerendert werden, wenn die Variable h2 nicht leer ist.
+
+<% if ( h2 != "" ) { %>
+<h2><%= h2 %></h2>
+<% } %>
+
+035.3
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+035 NodeJS Server-Programmierung
+
+Lernziel:	
+035.3 SQL Grundlagen
+
+
+Einführung
+Obwohl Sie eigene Funktionen schreiben können, um eine dauerhafte Speicherung zu implementieren, kann ein Datenbankmanagementsystem helfen, die Entwicklung zu beschleunigen sowie höhere Sicherheit und Stabilität für tabellenformatierte Daten zu gewährleisten. Die beliebteste Strategie für die Speicherung von Daten, die in miteinander verbundenen Tabellen organisiert sind – insbesondere wenn diese Tabellen häufig abgefragt und aktualisiert werden –, ist die Installation einer relationalen Datenbank, die die Structured Query Language (SQL) unterstützt, eine Sprache, die auf relationale Datenbanken ausgerichtet ist. Node.js unterstützt verschiedene SQL-Datenbankmanagementsysteme. Gemäß den Prinzipien der Portabilität und der Ausführung im Userspace, die von Node.js Express übernommen wurden, ist SQLite eine geeignete Wahl für die dauerhafte Speicherung von Daten, die von dieser Art von HTTP-Server verwendet werden.
+
+SQL
+Die Structured Query Language ist spezifisch für Datenbanken. Schreib- und Leseoperationen werden in Sätzen ausgedrückt, die Statements (Anweisungen) und Queries (Abfragen) genannt werden. Sowohl Anweisungen als auch Abfragen bestehen aus Clauses (Klauseln), die die Bedingungen für die Ausführung der Operation festlegen.
+
+Namen und E-Mail-Adressen können zum Beispiel in einer Datenbanktabelle gespeichert werden, die die Felder name und email enthält. Eine Datenbank kann mehrere Tabellen enthalten, so dass jede Tabelle einen eindeutigen Namen haben muss. Wenn wir den Namen contacts für die Tabelle der Namen und E-Mail-Adressen verwenden, kann ein neuer Datensatz mit dem folgenden Statement eingefügt werden:
+
+INSERT INTO contacts (name, email) VALUES ("Carol", "carol@example.com");
+Diese Einfügeanweisung besteht aus der Klausel INSERT INTO, die die Tabelle und die Felder definiert, in die die Daten eingefügt werden sollen. Die zweite Klausel, VALUES, legt die Werte fest, die eingefügt werden. Es ist nicht notwendig, Klauseln mit Großbuchstaben zu schreiben, aber es ist gängige Praxis, um SQL-Schlüsselwörter innerhalb einer Anweisung oder Abfrage besser zu erkennen.
+
+Eine Abfrage der Tabelle contacts erfolgt auf ähnliche Weise, jedoch unter Verwendung der Klausel SELECT:
+
+SELECT email FROM contacts;
+dave@example.com
+carol@example.com
+In diesem Fall wählt die Klausel SELECT email ein Feld aus den Einträgen in der Tabelle contacts aus. Die WHERE-Klausel schränkt die Abfrage auf bestimmte Zeilen ein:
+
+SELECT email FROM contacts WHERE name = "Dave";
+dave@example.com
+SQL verfügt über viele weitere Klauseln, von denen wir einige in späteren Abschnitten betrachten werden. Aber zuerst müssen wir die SQL-Datenbank in Node.js integrieren.
+
+SQLite
+SQLite ist wahrscheinlich die einfachste Lösung für die Einbindung von SQL-Datenbankfunktionen in eine Anwendung. Im Gegensatz zu anderen gängigen Datenbankmanagementsystemen ist SQLite kein Datenbankserver, mit dem sich ein Client verbindet. Stattdessen bietet SQLite eine Reihe von Funktionen, mit denen der Entwickler eine Datenbank wie eine herkömmliche Datei erstellt. Im Falle eines mit Node.js Express implementierten HTTP-Servers befindet sich diese Datei normalerweise im selben Verzeichnis wie das Serverskript.
+
+Bevor Sie SQLite in Node.js verwenden, müssen Sie das Modul sqlite3 installieren. Führen Sie den folgenden Befehl im Installationsverzeichnis des Servers aus, d.h. in dem Verzeichnis, in dem sich das Node.js-Skript befindet, das Sie ausführen werden:
+
+$ npm install sqlite3
+Beachten Sie, dass es mehrere Module gibt, die SQLite unterstützen, wie z.B. better-sqlite3, deren Verwendung sich geringfügig von sqlite3 unterscheidet. Die Beispiele in dieser Lektion gelten für das Modul sqlite3, daher könnten sie nicht wie erwartet funktionieren, wenn Sie ein anderes Modul wählen.
+
+Datenbank öffnen
+Um zu demonstrieren, wie ein Node.js-Express-Server mit einer SQL-Datenbank arbeitet, schreiben wir ein Skript, das Nachrichten speichert und anzeigt, die von einem durch ein Cookie identifizierten Client gesendet werden. Der Client sendet die Nachrichten über die HTTP-POST-Methode, und die Serverantwort kann als JSON oder HTML (aus einem Template) formatiert werden, je nach dem vom Client gewünschten Format. In dieser Lektion wird nicht im Detail auf die Verwendung von HTTP-Methoden, Cookies und Vorlagen eingegangen. Die hier gezeigten Code-Ausschnitte gehen davon aus, dass Sie bereits einen Node.js-Express-Server haben, auf dem diese Funktionen konfiguriert und verfügbar sind.
+
+Am einfachsten lassen sich die vom Client gesendeten Nachrichten in einem globalen Array speichern, in dem jede zuvor gesendete Nachricht mit einem eindeutigen Identifikationsschlüssel für jeden Client verknüpft ist. Dieser Schlüssel wird dem Client als Cookie übermittelt, das dem Server bei künftigen Anfragen zum Abrufen früherer Nachrichten vorgelegt wird.
+
+Dieser Ansatz hat jedoch einen Schwachpunkt: Da die Nachrichten nur in einem globalen Array gespeichert werden, gehen alle Nachrichten verloren, sobald die aktuelle Serversitzung beendet wird. Einer der Vorteile der Arbeit mit Datenbanken besteht darin, dass die Daten dauerhaft gespeichert werden und nicht verloren gehen, wenn der Server neu gestartet wird.
+
+Mit der Datei index.js als Hauptskript des Servers binden wir das Modul sqlite3 ein und geben die Datei an, die als Datenbank dient:
+
+const sqlite3 = require('sqlite3')
+const db = new sqlite3.Database('messages.sqlite3');
+Falls noch nicht vorhanden, wird die Datei messages.sqlite3 im selben Verzeichnis wie die Datei index.js erstellt. In dieser einen Datei werden alle Strukturen und die entsprechenden Daten gespeichert. Alle Datenbankoperationen, die im Skript ausgeführt werden, werden durch die Konstante db vermittelt, die der Name des neuen sqlite3-Objekts ist, das die Datei messages.sqlite3 öffnet.
+
+Tabellenstruktur
+Es können keine Daten in die Datenbank eingefügt werden, bevor nicht mindestens eine Tabelle erstellt wurde. Tabellen werden mit der Anweisung CREATE TABLE erzeugt:
+
+db.run('CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY AUTOINCREMENT, uuid CHAR(36), message TEXT)')
+Die Methode db.run() dient dazu, SQL-Anweisungen in der Datenbank auszuführen. Die Anweisung selbst wird als Parameter für die Methode geschrieben. Obwohl SQL-Anweisungen mit einem Semikolon enden müssen, wenn sie in einem Befehlszeilenprozessor eingegeben werden, ist das Semikolon bei Anweisungen, die als Parameter in einem Programm übergeben werden, optional.
+
+Da die Methode run jedes Mal ausgeführt wird, wenn das Skript mit node index.js ausgeführt wird, enthält die SQL-Anweisung die Bedingungsklausel IF NOT EXISTS, um Fehler bei künftigen Ausführungen zu vermeiden, wenn die Tabelle messages bereits existiert.
+
+Die Felder, aus denen die Tabelle messages besteht, sind id, uuid und message. Das Feld id ist eine eindeutige Ganzzahl, die der Identifizierung jedes Eintrags in der Tabelle dient; daher wird es als PRIMARY KEY angelegt. Primärschlüssel können nicht ungültig sein, und es kann nicht zwei identische Primärschlüssel in derselben Tabelle geben. Daher hat fast jede SQL-Tabelle einen Primärschlüssel, um den Inhalt der Tabelle zu verfolgen. Obwohl es möglich ist, den Wert für den Primärschlüssel eines neuen Datensatzes explizit zu wählen (sofern er noch nicht in der Tabelle existiert), ist es praktisch, wenn der Schlüssel automatisch erzeugt wird. Das AUTOINCREMENT-Flag im id-Feld dient diesem Zweck.
+
+Note
+Das explizite Setzen von Primärschlüsseln in SQLite ist optional, da SQLite selbst automatisch einen Primärschlüssel erzeugt. Wie in der SQLite-Dokumentation angegeben: “In SQLite haben Tabellenzeilen normalerweise eine 64-bit vorzeichenbehaftete Ganzzahl ROWID, die unter allen Zeilen in derselben Tabelle eindeutig ist. Wenn eine Tabelle eine Spalte vom Typ INTEGER PRIMARY KEY enthält, dann wird diese Spalte ein Alias für die ROWID. Sie können dann auf die ROWID unter einem von vier verschiedenen Namen zugreifen, den drei oben beschriebenen ursprünglichen Namen oder dem Namen, der der Spalte INTEGER PRIMARY KEY gegeben wurde. Alle diese Namen sind Aliasnamen füreinander und funktionieren in jedem Kontext gleich gut.”
+
+Die Felder uuid und message speichern die Client-Identifikation bzw. den Inhalt der Nachricht. Ein Feld vom Typ CHAR(36) speichert eine feste Anzahl von 36 Zeichen, und ein Feld vom Typ TEXT speichert Texte beliebiger Länge.
+
+Dateneingabe
+Die Hauptfunktion unseres Beispielservers besteht darin, Nachrichten zu speichern, die mit dem Client verknüpft sind, der sie gesendet hat. Der Client sendet die Nachricht im Feld message im Body der mit der HTTP-POST-Methode gesendeten Anfrage. Die Identifikation des Clients befindet sich in einem Cookie namens uuid. Mit diesen Informationen können wir die Express-Route schreiben, um neue Nachrichten in die Datenbank einzufügen:
+
+app.post('/', (req, res) => {
+
+  let uuid = req.cookies.uuid
+
+  if ( uuid === undefined )
+    uuid = uuidv4()
+
+  // Insert new message into the database
+  db.run('INSERT INTO messages (uuid, message) VALUES (?, ?)', uuid, req.body.message)
+
+  // If an error occurrs, err object contains the error message.
+  db.all('SELECT id, message FROM messages WHERE uuid = ?', uuid, (err, rows) => {
+
+    let expires = new Date(Date.now());
+    expires.setDate(expires.getDate() + 30);
+    res.cookie('uuid', uuid, { expires: expires })
+
+    if ( req.headers.accept == "application/json" )
+      res.json(rows)
+    else
+      res.render('index', {title: "My messages", rows: rows})
+
+  })
+
+})
+Dieses Mal führt die Methode db.run() eine Einfügeanweisung aus, aber beachten Sie, dass uuid und req.body.message nicht direkt in die Anweisungszeile geschrieben werden. Stattdessen wurden die Werte durch Fragezeichen ersetzt. Jedes Fragezeichen entspricht einem Parameter, der der SQL-Anweisung in der Methode db.run() folgt.
+
+Die Fragezeichen als Platzhalter in der Anweisung, die in der Datenbank ausgeführt wird, erleichtert es SQLite, zwischen den statischen Elementen der Anweisung und den variablen Daten zu unterscheiden. Diese Strategie ermöglicht es SQLite, den Inhalt der Variablen, die Teil der Anweisung sind, zu übergehen (escape) oder zu entfernen (sanitize), was eine häufige Sicherheitslücke namens SQL Injection schließt. Bei diesem Angriff fügen böswillige Benutzer SQL-Anweisungen in die Variablendaten ein, in der Hoffnung, dass die Anweisungen versehentlich ausgeführt werden. Die Bereinigung vereitelt den Angriff, indem gefährliche Zeichen in den Daten deaktiviert werden.
+
+Abfragen (Queries)
+Wie im Beispielcode gezeigt, wollen wir mit derselben Route neue Nachrichten in die Datenbank einfügen und die Liste der zuvor gesendeten Nachrichten erstellen. Die Methode db.all() gibt die Sammlung aller Einträge in der Tabelle zurück, die den in der Abfrage definierten Kriterien entsprechen.
+
+Im Gegensatz zu den Anweisungen, die von db.run() ausgeführt werden, erzeugt db.all() eine Liste von Datensätzen, die von der im letzten Parameter angegebenen Pfeilfunktion verarbeitet werden:
+
+(err, rows) => {}
+Diese Funktion benötigt wiederum zwei Parameter: err und rows. Der Parameter err wird verwendet, wenn ein Fehler auftritt, der die Ausführung der Abfrage verhindert. Bei Erfolg sind alle Datensätze im Array rows verfügbar, wobei jedes Element ein Objekt ist, das einem einzelnen Datensatz der Tabelle entspricht. Die Eigenschaften dieses Objekts entsprechen den in der Abfrage angegebenen Feldnamen: uuid und message.
+
+Das Array rows ist eine JavaScript-Datenstruktur. Als solche kann es verwendet werden, um Antworten mit Methoden zu generieren, die von Express bereitgestellt werden, wie res.json() und res.render(). Wird es innerhalb eines EJS-Templates gerendert, kann eine herkömmliche Schleife alle Datensätze auflisten:
+
+<ul>
+<% rows.forEach( (row) => { %>
+<li><strong><%= row.id %></strong>: <%= row.message %></li>
+<% }) %>
+</ul>
+Anstatt das Array rows mit allen von der Abfrage zurückgegebenen Datensätzen zu füllen, kann es in manchen Fällen bequemer sein, jeden Datensatz einzeln mit der Methode db.each() zu behandeln. Die Syntax der Methode db.each() ist ähnlich wie die der Methode db.all(), aber der Parameter row in (err, row) => {} entspricht jeweils einem einzelnen Datensatz.
+
+Datenbankinhalte ändern
+Bislang kann unser Client nur Nachrichten auf dem Server hinzufügen und abfragen. Da der Client nun die id der zuvor gesendeten Nachrichten kennt, können wir eine Funktion zur Änderung eines bestimmten Datensatzes implementieren. Die geänderte Nachricht kann auch an eine HTTP-POST-Methoden-Route gesendet werden, aber diesmal mit einem Routen-Parameter, um die vom Client im Anforderungspfad angegebene id zu erfassen:
+
+app.post('/:id', (req, res) => {
+  let uuid = req.cookies.uuid
+
+  if ( uuid === undefined ){
+    uuid = uuidv4()
+    // 401 Unauthorized
+    res.sendStatus(401)
+  }
+  else {
+
+    // Update the stored message
+    // using named parameters
+    let param = {
+      $message: req.body.message,
+      $id: req.params.id,
+      $uuid: uuid
+    }
+
+    db.run('UPDATE messages SET message = $message WHERE id = $id AND uuid = $uuid', param, function(err){
+
+      if ( this.changes > 0 )
+      {
+        // A 204 (No Content) status code means the action has
+        // been enacted and no further information is to be supplied.
+        res.sendStatus(204)
+      }
+      else
+        res.sendStatus(404)
+
+    })
+  }
+})
+Diese Route zeigt, wie Sie mit den Klauseln UPDATE und WHERE einen bestehenden Datensatz ändern. Ein wichtiger Unterschied zu den vorherigen Beispielen sind benannte Parameter, bei denen die Werte in einem einzigen Objekt (param) gebündelt und an die Methode db.run() übergeben werden, anstatt jeden Wert einzeln anzugeben. In diesem Fall sind die Feldnamen (mit vorangestelltem $) die Eigenschaften des Objekts. Benannte Parameter erlauben die Verwendung von Feldnamen (mit vorangestelltem $) als Platzhalter anstelle von Fragezeichen.
+
+Eine Anweisung wie die im Beispiel führt zu keiner Änderung in der Datenbank, wenn die in der WHERE-Klausel genannte Bedingung nicht auf einen Datensatz in der Tabelle zutrifft. Um auszuwerten, ob irgendwelche Datensätze durch die Anweisung geändert wurden, hilft eine Callback-Funktion als letzter Parameter der Methode db.run(). Innerhalb der Funktion kann die Anzahl der geänderten Datensätze aus this.changes abgefragt werden. Beachten Sie, dass Pfeilfunktionen in diesem Fall nicht verwendet werden können, da nur reguläre Funktionen der Form function(){} das this-Objekt definieren.
+
+Das Löschen eines Datensatzes ist dem Ändern eines Datensatzes sehr ähnlich. Wir können zum Beispiel weiterhin den Routenparameter :id verwenden, um die zu löschende Nachricht zu identifizieren, aber dieses Mal in einer Route, die von der HTTP-DELETE-Methode des Clients aufgerufen wird:
+
+app.delete('/:id', (req, res) => {
+  let uuid = req.cookies.uuid
+
+  if ( uuid === undefined ){
+    uuid = uuidv4()
+    res.sendStatus(401)
+  }
+  else {
+    // Named parameters
+    let param = {
+    $id: req.params.id,
+    $uuid: uuid
+    }
+
+    db.run('DELETE FROM messages WHERE id = $id AND uuid = $uuid', param, function(err){
+      if ( this.changes > 0 )
+        res.sendStatus(204)
+      else
+        res.sendStatus(404)
+    })
+  }
+})
+Mit der Klausel DELETE FROM löschen Sie Datensätze aus einer Tabelle. Wir nutzen wieder die Callback-Funktion, um zu ermitteln, wie viele Einträge aus der Tabelle entfernt wurden.
+
+Datenbank schließen
+Sobald das Objekt db definiert ist, kann während der Skriptausführung jederzeit darauf verwiesen werden, da die Datenbankdatei während der aktuellen Sitzung geöffnet bleibt. Es ist nicht üblich, die Datenbank zu schließen, während das Skript läuft.
+
+Eine Funktion zum Schließen der Datenbank ist jedoch nützlich, um ein abruptes Schließen der Datenbank bei Beendigung des Serverprozesses zu vermeiden. Auch wenn es unwahrscheinlich ist, kann ein abruptes Schließen der Datenbank zu Inkonsistenzen führen, wenn die Daten im Speicher noch nicht in die Datei übertragen wurden. Ein abruptes Herunterfahren der Datenbank mit Datenverlust kann z.B. auftreten, wenn das Skript vom Benutzer durch Drücken der Tastenkombination Strg+C beendet wird.
+
+In dem soeben beschriebenen Szenario Strg+C kann die Methode process.on() die vom Betriebssystem gesendeten Signale abfangen und ein geordnetes Herunterfahren sowohl der Datenbank als auch des Servers durchführen:
+
+process.on('SIGINT', () => {
+  db.close()
+  server.close()
+  console.log('HTTP server closed')
+})
+Die Tastenkombination Strg+C ruft das Betriebssystemsignal SIGINT auf, das ein Vordergrundprogramm im Terminal beendet. Bevor der Prozess beim Empfang des Signals SIGINT beendet wird, ruft das System die Callback-Funktion auf (der letzte Parameter in der Methode process.on()). In die Callback-Funktion kann beliebiger Aufräumcode eingefügt werden, insbesondere die Methode db.close() zum Schließen der Datenbank und server.close(), mit der die Express-Instanz selbst ordnungsgemäß geschlossen wird.
+
+Geführte Übungen
+Was ist der Zweck eines Primärschlüssels in einer SQL-Datenbanktabelle?
+
+Was ist der Unterschied zwischen der Abfrage mit db.all() und db.each()?
+
+Warum ist es wichtig, Platzhalter zu verwenden und vom Client gesendete Daten nicht direkt in eine SQL-Anweisung oder -Abfrage aufzunehmen?
+
+Offene Übungen
+Welche Methode im Modul sqlite3 dient dazu, nur einen Tabelleneintrag zurückzugeben, auch wenn die Abfrage auf mehrere Einträge passt?
+
+Das Array rows wurde als Parameter an eine Callback-Funktion übergeben und enthält das Ergebnis einer mit db.all() durchgeführten Abfrage. Wie referenzieren Sie ein Feld namens price, das sich an der ersten Position von rows befindet, innerhalb der Callback-Funktion?
+
+Die Methode db.run() führt Anweisungen zur Änderung der Datenbank aus, wie z.B. INSERT INTO. Wie rufen Sie nach dem Einfügen eines neuen Datensatzes in eine Tabelle den Primärschlüssel des neu eingefügten Datensatzes ab?
+
+Zusammenfassung
+Diese Lektion behandelt die grundlegende Verwendung von SQL-Datenbanken in Node.js Express-Anwendungen. Das Modul sqlite3 bietet eine einfache Möglichkeit, persistente Daten in einer SQLite-Datenbank zu speichern, wobei eine einzige Datei die gesamte Datenbank enthält und keinen speziellen Datenbankserver benötigt. In dieser Lektion werden die folgenden Konzepte und Verfahren behandelt:
+
+Wie man von Node.js aus eine Datenbankverbindung herstellt.
+
+Wie man eine einfache Tabelle erstellt und die Rolle von Primärschlüsseln.
+
+Verwendung der SQL-Anweisung INSERT INTO, um neue Daten aus dem Skript heraus hinzuzufügen.
+
+SQL-Abfragen mit Standard-SQLite-Methoden und Callback-Funktionen.
+
+Ändern von Daten in der Datenbank mit den SQL-Anweisungen UPDATE und DELETE.
+
+Lösungen zu den geführten Übungen
+Was ist der Zweck eines Primärschlüssels in einer SQL-Datenbanktabelle?
+
+Der Primärschlüssel ist das eindeutige Identifikationsfeld für jeden Datensatz in einer Datenbanktabelle.
+
+Was ist der Unterschied zwischen der Abfrage mit db.all() und db.each()?
+
+Die Methode db.all() ruft die Callback-Funktion mit einem einzigen Array auf, das alle der Abfrage entsprechenden Einträge enthält. Die Methode db.each() ruft die Callback-Funktion für jede Ergebniszeile auf.
+
+Warum ist es wichtig, Platzhalter zu verwenden und vom Client gesendete Daten nicht direkt in eine SQL-Anweisung oder -Abfrage aufzunehmen?
+
+Bei Platzhaltern werden die vom Benutzer eingegebenen Daten vor der Aufnahme in die Abfrage oder Anweisung mit einem Escape versehen. Dies erschwert Angriffe per SQL Injection, bei denen SQL-Anweisungen in variable Daten eingefügt werden, um beliebige Operationen in der Datenbank durchzuführen.
+
+Lösungen zu den offenen Übungen
+Welche Methode im Modul sqlite3 dient dazu, nur einen Tabelleneintrag zurückzugeben, auch wenn die Abfrage auf mehrere Einträge passt
+
+Die Methode db.get() hat die gleiche Syntax wie db.all(), gibt aber nur den ersten Eintrag zurück, der der Abfrage entspricht.
+
+Das Array rows wurde als Parameter an eine Callback-Funktion übergeben und enthält das Ergebnis einer mit db.all() durchgeführten Abfrage. Wie referenzieren Sie ein Feld namens price, das sich an der ersten Position von rows befindet, innerhalb der Callback-Funktion?
+
+Jedes Element in rows ist ein Objekt, dessen Eigenschaften den Namen von Datenbankfeldern entsprechen. Der Wert des Feldes price im ersten Ergebnis steht also in rows[0].price.
+
+Die Methode db.run() führt Anweisungen zur Änderung der Datenbank aus, wie z.B. INSERT INTO. Wie rufen Sie nach dem Einfügen eines neuen Datensatzes in eine Tabelle den Primärschlüssel des neu eingefügten Datensatzes ab?
+
+Eine reguläre Funktion der Form function(){} kann als Callback-Funktion der Methode db.run() verwendet werden. Darin enthält die Eigenschaft this.lastID den Primärschlüsselwert des zuletzt eingefügten Datensatzes.

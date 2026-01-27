@@ -1,0 +1,626 @@
+031.1 Modul 1
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+031 Softwareentwicklung und Webtechnologien
+
+Lernziel:	
+031.1 Grundlagen der Softwareentwicklung
+
+Einführung
+Die ersten Computer wurden durch das mühsame Einstecken von Kabeln in Buchsen programmiert. Schon bald begannen Informatiker mit der endlosen Suche nach einfachen Möglichkeiten, dem Computer zu sagen, was er zu tun hat. Diese Lektion stellt die Werkzeuge der Programmierung vor. Sie behandelt die wichtigsten Methoden, mit denen Textanweisungen (Programmiersprachen) die Aufgaben formulieren, die Programmierer erledigen wollen, und die Werkzeuge, die das Programm in eine Form (Maschinensprache) umwandeln, so dass ein Computer sie ausführen kann.
+
+Note
+Im Folgenden verwenden wir die Begriffe Programm und Anwendung synonym.
+
+Quellcode
+Programmierer entwickeln normalerweise eine Anwendung, indem sie eine textbasierte Beschreibung der gewünschten Aufgabe verfassen, die als Quellcode oder Source Code bezeichnet wird. Der Quellcode ist in einer sorgfältig definierten Programmiersprache geschrieben, die beschreibt, was der Computer auf einer für Menschen verständlichen höheren Abstraktionsebene tun kann. Es gibt auch Werkzeuge, mit denen Programmierer und sogar Nicht-Programmierer ihre Gedanken visuell ausdrücken können, aber das Schreiben von Quellcode ist immer noch die vorherrschende Art zu programmieren.
+
+So wie eine natürliche Sprache über Substantive, Verben, Konstruktionen etc. verfügt, um Gedanken strukturiert auszudrücken, sind die Wörter und Zeichen in einer Programmiersprache symbolische Darstellungen von Operationen, die die Maschine ausführt.
+
+In diesem Sinne unterscheidet sich Quellcode nicht wesentlich von anderen Texten, in denen ein Autor die bewährten Regeln einer natürlichen Sprache nutzt, um mit Lesern zu kommunizieren. Im Fall von Quellcode ist der “Leser” die Maschine, so dass der Text keine Zweideutigkeiten oder Unstimmigkeiten enthalten darf — nicht die geringsten.
+
+Und wie jeder Text, der ein Thema eingehend behandelt, muss auch der Quellcode bei der Entwicklung komplexer Anwendungen gut strukturiert und logisch aufgebaut sein. Sehr einfache Programme und didaktische Beispiele umfassen wenige Zeilen einer einzigen Textdatei, die den gesamten Quellcode des Programms enthält. Komplexere Programme können in Tausende von Dateien mit jeweils Tausenden von Zeilen aufgeteilt sein.
+
+Der Quellcode professioneller Anwendungen sollte in verschiedenen Verzeichnissen organisiert werden, die jeweils einem bestimmten Zweck zugeordnet sind. Ein Chat-Programm kann zum Beispiel in zwei Verzeichnissen organisiert werden: eines enthält die Codedateien, die das Senden und Empfangen von Nachrichten über das Netzwerk abwickeln, und ein anderes Verzeichnis die Dateien, die die Schnittstelle aufbauen und auf Benutzeraktionen reagieren. Tatsächlich sind viele Verzeichnisse und Unterverzeichnisse mit Quellcodedateien üblich, die ganz bestimmten Aufgaben innerhalb der Anwendung zugeordnet sind.
+
+Quellcode besteht nicht immer nur aus eigenen Dateien, und nicht alles ist in einer einzigen Sprache geschrieben. In Webanwendungen kann ein HTML-Dokument beispielsweise JavaScript-Code einbetten, um das Dokument um zusätzliche Funktionen zu ergänzen.
+
+Code-Editoren und IDE
+Die Vielfalt an Möglichkeiten, Quellcode zu schreiben, wirkt schnell einschüchternd. Daher greifen viele Entwickler auf Tools zurück, die das Schreiben und Testen des Programms unterstützen.
+
+Die Quellcodedatei ist eine einfache Textdatei und als solche lässt sie sich mit jedem noch so einfachen Texteditor bearbeiten. Zur einfacheren Unterscheidung zwischen Quellcode und einfachem Text hat jede Sprache eine selbsterklärende Dateinamenerweiterung: .c für die Sprache C, .py für Python, .js für JavaScript usw. Allzweck-Editoren verstehen den Quellcode beliebter Sprachen oft gut genug, um Kursivschrift, Farben und Einrückungen hinzuzufügen und den Code verständlich zu machen.
+
+Nicht jeder Entwickler entscheidet sich für die Bearbeitung des Quellcodes in einem Allzweck-Editor. Eine integrierte Entwicklungsumgebung (Integrated Development Environment, IDE) bietet einen Texteditor in Verbindung mit Werkzeugen, die syntaktische Fehler und offensichtliche Inkonsistenzen vermeiden helfen. Diese Umgebungen sind weniger erfahrenen Programmierern zu empfehlen, aber auch erfahrene Programmierer nutzen sie.
+
+Beliebte IDEs wie Visual Studio, Eclipse und Xcode verfolgen auf intelligente Weise, was der Programmierer eingibt, und schlagen daraufhin mögliche Ergänzungen vor (Autocompletion) und überprüfen den Code in Echtzeit. IDEs bieten sogar automatisches Debugging und Testen an, um Probleme bei jeder Änderung des Quellcodes zu erkennen.
+
+Erfahrenere Programmierer entscheiden sich häufig für weniger intuitive Editoren wie Vim, die mehr Flexibilität bieten und nicht die Installation zusätzlicher Pakete erfordern. Solche Programmierer nutzen externe, eigenständige Werkzeuge, um die Funktionen zu ergänzen, die eine IDE bereits mitbringt.
+
+Code warten
+Ob Sie auf eine IDE oder eigenständige Tools setzen — wichtig ist irgendeine Art von Versionskontrollsystem (VCS). Quellcode wird ständig weiterentwickelt, weil unvorhergesehene Fehler behoben und Verbesserungen eingepflegt werden müssen. Eine unvermeidliche Folge dieser Entwicklung ist, dass Korrekturen und Erweiterungen andere Teile der Anwendung mit einer großen Codebasis beeinträchtigen können. Versionskontrollwerkzeuge wie Git, Subversion und Mercurial zeichnen alle am Code vorgenommenen Änderungen auf und geben Aufschluss darüber, wer diese vorgenommen hat, so dass man eine unerwünschte Änderung zurückverfolgen und eventuell zurücknehmen kann.
+
+Außerdem ermöglichen Versionskontrollwerkzeuge jedem Entwickler im Team, an einer Kopie der Quellcodedateien zu arbeiten, ohne die Arbeit der anderen Programmierer zu beeinträchtigen. Sobald die neuen Versionen des Quellcodes fertig und getestet sind, können andere Teammitglieder die Korrekturen oder Verbesserungen, die an einer Kopie vorgenommen wurden, übernehmen.
+
+Git, das derzeit beliebteste Versionskontrollsystem, erlaubt es, dass viele unabhängige Kopien eines Repositorys von verschiedenen Personen verwaltet werden, die ihre Änderungen nach Belieben austauschen. Unabhängig davon, ob ein dezentrales oder ein zentrales Versionskontrollsystem im Einsatz ist, pflegen die meisten Teams ein einziges vertrauenswürdiges Repository, auf dessen Quellcode und Ressourcen sie sich verlassen. Mehrere Online-Dienste bieten Speicherplatz für Quellcode-Repositories an. Die bekanntesten sind GitHub und GitLab, aber auch das GNU-Projekt Savannah sei erwähnt.
+
+Programmiersprachen
+Es gibt eine Vielzahl von Programmiersprachen — und immer kommen neue hinzu. Jede Programmiersprache hat ihre eigenen Regeln und empfiehlt sich für bestimmte Zwecke. Obwohl die Sprachen oberflächliche Unterschiede in der Syntax und bei den Schlüsselwörtern aufweisen, unterscheiden sie sich vor allem in ihren zugrundeliegenden konzeptionellen Ansätzen, die als Paradigmen bezeichnet werden.
+
+Paradigmen
+Paradigmen sind die Prämissen, auf denen eine Programmiersprache basiert, insbesondere in Bezug auf die Struktur des Quellcodes.
+
+Entwickler gehen vom Sprachparadigma aus, um die Aufgaben zu formulieren, die die Maschine ausführen soll. Die Aufgaben werden wiederum mit den von der Sprache angebotenen Wörtern und syntaktischen Konstruktionen symbolisch ausgedrückt.
+
+Eine Programmiersprache ist prozedural, wenn die Anweisungen im Quellcode nacheinander ausgeführt werden — wie ein Drehbuch. Ist der Quellcode in Funktionen oder Unterprogramme unterteilt, sorgt eine Hauptroutine dafür, dass die Funktionen nacheinander aufgerufen werden.
+
+Der folgende Code ist ein Beispiel für eine prozedurale Sprache. Er ist in C geschrieben und definiert Variablen zur Darstellung der Kante, der Seitenfläche und des Volumens geometrischer Formen. Der Wert der Variable side wird in der Funktion main() zugewiesen, die bei der Ausführung des Programms aufgerufen wird. Die Variablen area und volume werden in den Unterprogrammen square() und cube() berechnet, die der Hauptfunktion vorausgehen:
+
+#include <stdio.h>
+
+float side;
+float area;
+float volume;
+
+void square(){ area = side * side; }
+
+void cube(){ volume = area * side; }
+
+int main(){
+  side = 2;
+  square();
+  cube();
+  printf("Volume: %f\n", volume);
+  return 0;
+}
+Die Reihenfolge der in main() definierten Aktionen bestimmt die Abfolge der Programmzustände, die durch den Wert der Variablen side, area und volume gekennzeichnet sind. Das Beispiel endet, nachdem der Wert von volume mit der Anweisung printf angezeigt wurde.
+
+Das Paradigma der objektorientierten Programmierung (OOP) hat demgegenüber als Hauptmerkmal die Aufteilung des Programmzustands in unabhängige Unterzustände. Diese Unterzustände und die zugehörigen Operationen sind die Objekte — so genannt, weil sie innerhalb des Programms mehr oder weniger unabhängig existieren und bestimmte Aufgaben erfüllen.
+
+Unterschiedliche Paradigmen schränken nicht unbedingt die Art der Aufgaben ein, die ein Programm ausführen kann. Der Code aus dem vorangegangenen Beispiel lässt sich gemäß dem OOP-Paradigma in der Sprache C++ wie folgt schreiben:
+
+#include <iostream>
+
+class Cube {
+  float side;
+  public:
+  Cube(float s){ side = s; }
+  float volume() { return side * side * side; }
+};
+
+int main(){
+  float side = 2;
+  Cube cube(side);
+  std::cout << "Volume: " << cube.volume() << std::endl;
+  return 0;
+}
+Die Funktion main() gibt es immer noch, aber auch ein neues Wort, class, das die Definition eines Objekts einleitet. Die definierte Klasse namens Cube enthält eigene Variablen und Subroutinen. In der OOP werden eine Variable auch als Attribut und ein Unterprogramm als Methode bezeichnet.
+
+Es geht über das Thema dieser Lektion hinaus, den gesamten C++-Code des Beispiels zu erklären. Wichtig für uns ist hier, dass Cube das Attribut side und zwei Methoden enthält. Die Methode volume() berechnet das Volumen des Würfels.
+
+Sie können mehrere unabhängige Objekte aus derselben Klasse erstellen und Klassen aus anderen Klassen zusammensetzen.
+
+Denken Sie daran, dass dieselben Funktionen auch anders geschrieben werden können und dass die Beispiele in dieser Lektion stark vereinfacht sind. C und C++ haben sehr viel ausgefeiltere Funktionen, die deutlich komplexere und praktischere Konstruktionen erlauben.
+
+Die meisten Programmiersprachen schreiben nicht strikt ein Paradigma vor, sondern erlauben es den Programmierern, verschiedene Aspekte des einen oder anderen Paradigmas zu wählen. JavaScript zum Beispiel enthält Elemente verschiedener Paradigmen. Sie können das gesamte Programm in Funktionen zerlegen, die keinen Zustand miteinander teilen:
+
+function cube(side){
+  return side*side*side;
+}
+
+console.log("Volume: " + cube(2));
+Obwohl dieses Beispiel der prozeduralen Programmierung ähnelt, ist zu beachten, dass die Funktion eine Kopie aller für ihre Ausführung notwendigen Informationen erhält und immer dasselbe Ergebnis für denselben Parameter liefert, unabhängig von Änderungen, die außerhalb des Funktionsbereichs stattfinden. Dieses Paradigma, das als funktional bezeichnet wird, ist stark vom mathematischen Formalismus beeinflusst, bei dem jede Operation autark ist.
+
+Ein anderes Paradigma umfasst deklarative Sprachen, die die Zustände beschreiben, in denen sich das System befinden soll. Eine deklarative Sprache findet heraus, wie man die angegebenen Zustände erreicht. SQL, die universelle Sprache zur Abfrage von Datenbanken, wird manchmal als deklarative Sprache bezeichnet, obwohl sie in Wirklichkeit eine einzigartige Nische im Pantheon der Programmierung einnimmt.
+
+Es gibt kein universelles Paradigma, das sich auf jeden Kontext übertragen lässt. Die Wahl der Sprache kann auch dadurch eingeschränkt sein, welche Sprachen die Plattform oder die Ausführungsumgebung, in der das Programm verwendet wird, unterstützt.
+
+Eine Webanwendung, die im Browser laufen soll, muss beispielsweise in JavaScript geschrieben werden, einer Sprache, die alle Browser unterstützen. (Einige andere Sprachen sind möglich, da sie Konverter für die Erstellung von JavaScript bereitstellen.) Für den Webbrowser — manchmal auch als Clientseite oder Frontend der Webanwendung bezeichnet — muss der Entwickler also den in JavaScript zulässigen Paradigmen folgen. Die Serverseite oder das Backend der Anwendung, das die Anfragen des Browsers bearbeitet, wird normalerweise in einer anderen Sprache programmiert — PHP ist hier am beliebtesten.
+
+Unabhängig vom Paradigma verfügt jede Sprache über vorgefertigte Bibliotheken (Libraries) von Funktionen, die in den Code integriert werden können. Mathematische Funktionen — wie die im Beispielcode dargestellten — müssen Sie nicht von Grund auf neu implementieren, da die Sprache die Funktion bereits zur Verfügung stellt. JavaScript zum Beispiel bietet das Math-Objekt mit den gängigsten mathematischen Operationen.
+
+Speziellere Funktionen sind in der Regel vom Anbieter der Sprache oder von Drittanbietern erhältlich. Diese zusätzlichen Ressourcenbibliotheken können in Form von Quellcode vorliegen, d.h. in zusätzlichen Dateien, die in die Datei eingebunden werden, in der sie gebraucht werden. In JavaScript erfolgt die Einbettung mit import from:
+
+import { OrbitControls } from 'modules/OrbitControls.js';
+Diese Art des Imports, bei der die eingebettete Ressource auch eine Quellcodedatei ist, wird meist in sogenannten interpretierten Sprachen verwendet. Kompilierte Sprachen erlauben unter anderem die Einbindung vorkompilierter Funktionen in Maschinensprache, also kompilierte Bibliotheken. Im nächsten Abschnitt geht es um die Unterschiede zwischen diesen Sprachentypen.
+
+Compiler und Interpreter
+Wie wir bereits wissen, ist der Quellcode eine symbolische Darstellung eines Programms, das in Maschinensprache übersetzt werden muss, um ausgeführt werden zu können.
+
+Grob gesagt gibt es zwei Möglichkeiten der Übersetzung: die Konvertierung des Quellcodes im Voraus für eine spätere Ausführung oder die Konvertierung des Codes zum Zeitpunkt seiner Ausführung. Sprachen des ersten Typs werden als kompilierte Sprachen und Sprachen des zweiten Typs als interpretierte Sprachen bezeichnet. Einige interpretierte Sprachen bieten die Kompilierung vorab als Option an, so dass das Programm schneller startet.
+
+Bei kompilierten Sprachen gibt es eine klare Unterscheidung zwischen dem Quellcode des Programms und dem Programm selbst, das vom Computer ausgeführt wird. Sobald das Programm kompiliert ist, funktioniert es in der Regel nur auf dem Betriebssystem und der Plattform, für die es kompiliert wurde.
+
+Bei einer interpretierten Sprache wird der Quellcode selbst als das Programm behandelt, und der Prozess der Umwandlung in Maschinensprache ist für den Programmierer transparent. Bei einer interpretierten Sprache bezeichnet man den Quellcode üblicherweise als Skript. Der Interpreter übersetzt das Skript in die Maschinensprache für das System, auf dem es läuft.
+
+Kompilierung und Compiler
+Die Programmiersprache C ist eines der bekanntesten Beispiele für eine kompilierte Sprache. Die größten Stärken der Sprache C sind ihre Flexibilität und Leistungsfähigkeit. Sowohl Hochleistungssupercomputer als auch Mikrocontroller in Haushaltsgeräten können in der Sprache C programmiert werden. Weitere Beispiele für beliebte kompilierte Sprachen sind C++ und C# (“C sharp”). Wie ihre Namen vermuten lassen, sind diese Sprachen von C inspiriert, enthalten aber Funktionen, die das objektorientierte Paradigma unterstützen.
+
+Dasselbe in C oder C++ geschriebene Programm kann für verschiedene Plattformen kompiliert werden, wobei der Quellcode wenig oder gar nicht geändert werden muss. Es ist der Compiler, der die Zielplattform des Programms bestimmt. Es gibt sowohl plattformspezifische als auch plattformübergreifende Compiler wie GCC (GNU Compiler Collection), die Binärprogramme für viele verschiedene Architekturen erzeugen können.
+
+Note
+Es gibt auch Tools, die den Kompilierungsprozess automatisieren. Statt den Compiler direkt aufzurufen, erstellen Sie eine Datei, die die verschiedenen Kompilierungsschritte angibt, die automatisch ausgeführt werden. Das traditionelle Werkzeug für diesen Zweck ist make, aber eine Reihe neuerer Werkzeuge wie Maven und Gradle sind ebenfalls weit verbreitet. In einer IDE wird der gesamte Build-Prozess automatisiert.
+
+Der Kompilierungsprozess erzeugt nicht immer ein Binärprogramm in Maschinensprache. Es gibt kompilierte Sprachen, die ein Programm im sogenannten Bytecode erzeugen. Wie ein Skript ist auch Bytecode nicht in einer plattformspezifischen Sprache verfasst und benötigt daher ein Interpreterprogramm, das ihn in Maschinensprache übersetzt. In diesem Fall nennt man das Interpreterprogramm einfach Laufzeit.
+
+Die Sprache Java verfolgt diesen Ansatz, so dass kompilierte Programme, die in Java geschrieben sind, auf verschiedenen Betriebssystemen verwendet werden können. Trotz des Namens ist Java nicht mit JavaScript verwandt.
+
+Bytecode ist der Maschinensprache näher als der Quellcode, so dass seine Ausführung in der Regel vergleichsweise schneller ist. Da bei der Ausführung von Bytecode noch ein Konvertierungsprozess stattfindet, ist es schwierig, die gleiche Leistung wie bei einem entsprechenden in Maschinensprache kompilierten Programm zu erzielen.
+
+Interpretation and Interpreter
+In interpretierten Sprachen wie JavaScript, Python und PHP muss das Programm nicht vorkompiliert werden, was Entwicklung und Änderung des Programms erleichtert. Statt es zu kompilieren, wird das Skript von einem anderen Programm, dem Interpreter, ausgeführt. Üblicherweise heißt der Interpreter einer Sprache wie die Sprache selbst. Der Interpreter eines Python-Skripts ist zum Beispiel ein Programm namens python. Der JavaScript-Interpreter ist meist der Webbrowser, aber das Programm node kann Skripte auch außerhalb eines Browsers ausführen. Da ein interpretiertes Programm bei jeder Ausführung in binäre Anweisungen umgewandelt wird, ist es tendenziell langsamer als ein entsprechendes kompiliertes Programm.
+
+Es spricht nichts dagegen, dass eine Anwendung aus Komponenten in verschiedenen Sprachen besteht. Falls erforderlich kommunizieren diese Komponenten über eine wechselseitig verstandene Programmierschnittstelle, ein Application Programming Interface (API).
+
+Die Sprache Python verfügt beispielsweise über sehr ausgefeilte Fähigkeiten zur Datengewinnung und Datentabellierung. Der Entwickler wählt Python, um die Teile des Programms zu schreiben, die sich mit diesen Aspekten befassen, und eine andere Sprache, wie z.B. C++, um die aufwendigere numerische Verarbeitung durchzuführen. Diese Strategie ist auch dann möglich, wenn es keine API für eine direkte Kommunikation zwischen den beiden Komponenten gibt. In Python geschriebener Code kann beispielsweise eine Datei in einem Format erzeugen, die ein in C++ geschriebenes Programm nutzen kann.
+
+Obwohl sich fast jedes Programm in jeder Sprache schreiben lässt, sollten Sie diejenige wählen, die dem Zweck der Anwendung am besten entspricht. Auf diese Weise profitieren Sie von der Wiederverwendung bereits getesteter und gut dokumentierter Komponenten.
+
+Geführte Übungen
+Welche Art von Programm können Sie zur Bearbeitung von Quellcode verwenden?
+
+Welche Art von Werkzeug hilft bei der Integration der Arbeit verschiedener Entwickler in dieselbe Codebasis?
+
+Offene Übungen
+Angenommen Sie wollen ein 3D-Spiel schreiben, das im Browser gespielt werden soll. Webanwendungen und Spiele werden in JavaScript programmiert. Obwohl es möglich ist, alle Grafikfunktionen von Grund auf neu zu schreiben, ist es produktiver, eine fertige Bibliothek für diesen Zweck zu verwenden. Welche Bibliotheken von Drittanbietern bieten Möglichkeiten für 3D-Animationen in JavaScript?
+
+Welche anderen Sprachen neben PHP bieten sich auf der Serverseite einer Webanwendung an?
+
+Zusammenfassung
+Diese Lektion behandelt die wichtigsten Konzepte der Softwareentwicklung. Der Entwickler muss die wichtigsten Programmiersprachen und das passende Anwendungsszenario für jede Sprache kennen. Diese Lektion umreißt die folgenden Konzepte und Verfahren:
+
+Was Quellcode ist.
+
+Quellcode-Editoren und verwandte Werkzeuge.
+
+Prozedurale, objektorientierte, funktionale und deklarative Programmierparadigmen.
+
+Merkmale kompilierter und interpretierter Sprachen.
+
+Lösungen zu den geführten Übungen
+Welche Art von Programm können Sie zur Bearbeitung von Quellcode verwenden?
+
+Grundsätzlich jedes Programm, das einfachen Text bearbeiten kann.
+
+Welche Art von Werkzeug hilft bei der Integration der Arbeit verschiedener Entwickler in dieselbe Codebasis?
+
+Ein Quellcode- oder Versionskontrollsystem, wie z.B. Git.
+
+Lösungen zu den offenen Übungen
+Angenommen Sie wollen ein 3D-Spiel schreiben, das im Browser gespielt werden soll. Webanwendungen und Spiele werden in JavaScript programmiert. Obwohl es möglich ist, alle Grafikfunktionen von Grund auf neu zu schreiben, ist es produktiver, eine fertige Bibliothek für diesen Zweck zu verwenden. Welche Bibliotheken von Drittanbietern bieten Möglichkeiten für 3D-Animationen in JavaScript?
+
+Es gibt zahlreiche Optionen für 3D-Grafikbibliotheken für JavaScript, z.B. threejs und BabylonJS.
+
+Welche anderen Sprachen neben PHP bieten sich auf der Serverseite einer Webanwendung an?
+
+Jede Sprache, die von der auf dem Server-Host verwendeten HTTP-Server-Anwendung unterstützt wird. Einige Beispiele sind Python, Ruby, Perl und JavaScript selbst.
+
+031.2
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+031 Softwareentwicklung und Webtechnologien
+
+Lernziel:	
+031.2 Architektur von Webanwendungen
+
+
+Einführung
+Das Wort Anwendung (Application) hat im technischen Jargon eine breite Bedeutung. Handelt es sich bei der Anwendung um ein traditionelles Programm, das lokal ausgeführt wird und seinem Zweck nach autark ist, sind sowohl die Bedienoberfläche der Anwendung als auch die Datenverarbeitungskomponenten in einem einzigen “Paket” integriert. Eine Webanwendung unterscheidet sich insofern, als sie das Client/Server-Modell übernimmt und ihr Client-Teil auf HTML basiert, das vom Server bezogen und üblicherweise von einem Browser gerendert wird.
+
+Client und Server
+Beim Client/Server-Modell wird ein Teil der Arbeit lokal, auf der Clientseite, und ein Teil der Arbeit entfernt, auf der Serverseite, erledigt. Welche Aufgaben die jeweiligen Parteien übernehmen, hängt vom Zweck der Anwendung ab. Im Allgemeinen ist es Aufgabe des Clients, dem Benutzer eine Schnittstelle zur Verfügung zu stellen und den Inhalt in ansprechender Weise zu gestalten. Der Server ist für den geschäftlichen Teil der Anwendung zuständig, d.h. für die Verarbeitung und Beantwortung der vom Client gestellten Anfragen. Bei einer Shopping-Anwendung beispielsweise zeigt die Client-Anwendung eine Schnittstelle an, über die der Benutzer die Produkte auswählt und bezahlt, aber die Datenquelle und die Transaktionsdatensätze befinden sich auf dem entfernten Server, auf den über das Netzwerk zugegriffen wird. Webanwendungen führen diese Kommunikation über das Internet durch, normalerweise über das Hypertext Transfer Protocol (HTTP).
+
+Nach dem Laden durch den Browser initiiert die Clientseite der Anwendung eine Interaktion mit dem Server, wann immer dies notwendig oder sinnvoll ist. Webapplikationsserver bieten eine Programmierschnittstelle (API), die die verfügbaren Anfragen und die Art und Weise, wie diese Anfragen gestellt werden sollen, definiert. Der Client erstellt also eine Anfrage in dem von der API definierten Format und sendet sie an den Server, der alle Voraussetzungen für die Anfrage prüft und die entsprechende Antwort zurückschickt.
+
+Während der Client als mobile Anwendung oder Desktop-Browser in Bezug auf die Benutzeroberfläche und die Anweisungen für die Kommunikation mit dem Server ein eigenständiges Programm ist, muss der Browser die HTML-Seite und die zugehörigen Komponenten — wie Bilder, CSS und JavaScript — beziehen, die die Oberfläche und die Anweisungen für die Kommunikation mit dem Server definieren.
+
+Die von Client und Server verwendeten Programmiersprachen und Plattformen sind voneinander unabhängig, verwenden aber ein wechselseitig verstandenes Kommunikationsprotokoll. Der Serverteil wird fast immer von einem Programm ohne grafische Oberfläche ausgeführt, das in hochverfügbaren Computerumgebungen läuft, so dass es immer bereit ist, auf Anfragen zu reagieren. Im Gegensatz dazu läuft der Clientteil auf jedem Gerät, das in der Lage ist, eine HTML-Oberfläche darzustellen, wie z.B. Smartphones.
+
+Das Client/Server-Modell ist nicht nur für bestimmte Zwecke unverzichtbar, sondern ermöglicht auch die Optimierung der Entwicklung und Wartung einer Anwendung, da jeder Teil für seinen spezifischen Zweck konzipiert werden kann. Eine Anwendung, die Karten und Routen anzeigt, muss zum Beispiel nicht alle Karten lokal speichern. Es werden nur die Karten benötigt, die sich auf den Ort beziehen, der für den Benutzer von Interesse ist, so dass nur diese Karten vom zentralen Server angefordert werden.
+
+Da die Entwickler direkte Kontrolle über den Server haben, können sie auch den von ihm bereitgestellten Client verändern. So können sie die Anwendung mehr oder weniger umfangreich verbessern, ohne dass der Benutzer explizit neue Versionen installieren muss.
+
+Die Clientseite
+Eine Webanwendung sollte auf allen gängigen Browsern auf die gleiche Weise funktionieren, solange der Browser auf dem neuesten Stand ist. Einige Browser können mit aktuellen Innovationen inkompatibel sein, aber nur experimentelle Anwendungen verwenden Funktionen, die noch nicht weit verbreitet sind.
+
+Inkompatibilitätsprobleme traten in der Vergangenheit häufiger auf, als die verschiedenen Browser ihre eigene Rendering Engine hatten und es weniger Zusammenarbeit bei der Formulierung und Annahme von Standards gab. Die Rendering Engine ist die wichtigste Komponente des Browsers, da sie für die Umwandlung von HTML und anderen Komponenten in die visuellen und interaktiven Elemente der Benutzeroberfläche verantwortlich ist. Bei einigen Browsern, insbesondere beim Internet Explorer, war eine besondere Behandlung des Codes erforderlich, um die erwartete Funktion der Seiten nicht zu beeinträchtigen.
+
+Heute gibt es nur noch minimale Unterschiede zwischen den wichtigsten Browsern, und Inkompatibilitäten sind selten. Die Browser Chrome und Edge verwenden dieselbe Rendering Engine (Blink). Der Safari-Browser und andere Browser, die im iOS App Store angeboten werden, verwenden die WebKit Engine. Firefox nutzt eine Engine namens Gecko. Diese drei Engines sind für praktisch alle heute verwendeten Browser verantwortlich. Obwohl die drei Engines getrennt voneinander entwickelt wurden, handelt es sich um Open-Source-Projekte, und ihre Entwickler arbeiten zusammen, was Kompatibilität, Pflege und Übernahme von Standards erleichtert.
+
+Da sich die Browser-Entwickler sehr um Kompatibilität bemühen, ist der Server normalerweise nicht an einen einzigen Client-Typ gebunden. Im Prinzip kann ein HTTP-Server mit jedem Client kommunizieren, der ebenfalls in der Lage ist, über HTTP zu kommunizieren. Bei einer Kartenanwendung kann der Client zum Beispiel eine mobile Anwendung oder ein Browser sein, der die HTML-Oberfläche vom Server lädt.
+
+Verschiedene Arten von Webclients
+Es gibt mobile und Desktop-Anwendungen, deren Oberfläche aus HTML gerendert wird und die, wie die Browser, JavaScript als Programmiersprache nutzen. Im Gegensatz zu dem im Browser geladenen Client sind jedoch das HTML und die für das Funktionieren des nativen Clients erforderlichen Komponenten mit der Installation der Anwendung lokal vorhanden. Eine Anwendung, die auf diese Weise funktioniert, ist praktisch identisch mit einer HTML-Seite (beide werden wahrscheinlich sogar von der gleichen Engine gerendert). Es gibt auch Progressive Web Apps (PWA), ein Mechanismus, über den Clients für Webanwendungen für die Offline-Nutzung gepackt werden — beschränkt auf Funktionen, die keine unmittelbare Kommunikation mit dem Server erfordern. In Bezug auf die Möglichkeiten der Anwendung gibt es keinen Unterschied zwischen der Ausführung im Browser und der Kapselung in einer PWA, außer dass der Entwickler bei letzterer mehr Kontrolle darüber hat, was lokal gespeichert wird.
+
+Das Rendern von Schnittstellen aus HTML ist eine so häufig wiederkehrende Tätigkeit, dass die Engine in der Regel eine eigene Softwarekomponente im Betriebssystem ist. Darum kann sie in verschiedene Anwendungen integriert werden, ohne dass sie in das jeweilige Anwendungspaket eingebettet werden muss. In diesem Modell wird auch die Wartung der Rendering Engine an das Betriebssystem delegiert, was Aktualisierungen erleichtert. Es ist sehr wichtig, eine so zentrale Komponente auf dem neuesten Stand zu halten, um mögliche Ausfälle zu vermeiden.
+
+Unabhängig von der Übertragungsmethode laufen in HTML geschriebene Anwendungen auf einer von der Engine geschaffenen Abstraktionsschicht, die als isolierte Ausführungsumgebung fungiert. Insbesondere bei einem Client, der im Browser läuft, stehen der Anwendung nur die vom Browser angebotenen Ressourcen zur Verfügung. Grundlegende Funktionen, wie die Interaktion mit Seitenelementen und die Anforderung von Dateien über HTTP, sind stets verfügbar. Ressourcen, die sensible Informationen enthalten können – wie der Zugriff auf lokale Dateien, den geografischen Standort, die Kamera und das Mikrofon –, erfordern eine ausdrückliche Benutzerautorisierung, bevor die Anwendung sie nutzen kann.
+
+Sprachen eines Webclients
+Das zentrale Element eines Webanwendungsclients, der auf dem Server läuft, ist das HTML-Dokument. Neben der strukturierten Darstellung der Oberflächenelemente, die der Browser anzeigt, enthält das HTML-Dokument die Adressen für alle Dateien, die für die korrekte Darstellung und den Betrieb des Clients erforderlich sind.
+
+HTML allein ist nicht vielseitig genug, um komplexere Schnittstellen zu erstellen, und verfügt nicht über allgemeine Programmierfunktionen. Aus diesem Grund wird ein HTML-Dokument, das als Client-Anwendung funktionieren soll, immer von einem oder mehreren CSS- und JavaScript-Sets begleitet.
+
+Das CSS kann als separate Datei oder direkt in der HTML-Datei selbst bereitgestellt werden. Der Hauptzweck von CSS besteht darin, das Aussehen und das Layout der Elemente der HTML-Schnittstelle anzupassen. Obwohl dies nicht unbedingt erforderlich ist, verlangen anspruchsvollere Schnittstellen in der Regel Änderungen der CSS-Eigenschaften der Elemente, um ihren Anforderungen gerecht zu werden.
+
+JavaScript ist eine praktisch unverzichtbare Komponente. In JavaScript geschriebene Prozeduren reagieren auf Ereignisse im Browser. Diese Ereignisse können durch den Benutzer ausgelöst werden oder nicht interaktiv sein. Ohne JavaScript ist ein HTML-Dokument praktisch auf Text und Bilder beschränkt. Die Verwendung von JavaScript in HTML-Dokumenten macht es möglich, die Interaktivität über Hyperlinks und Formulare hinaus zu erweitern, so dass die vom Browser angezeigte Seite wie eine herkömmliche Anwendungsschnittstelle wirkt.
+
+JavaScript ist eine Allzweckprogrammiersprache, die jedoch hauptsächlich in Webanwendungen zum Einsatz kommt. Die Funktionen der Browser-Ausführungsumgebung sind über JavaScript-Schlüsselwörter zugänglich, die in einem Skript verwendet werden, um die gewünschte Operation auszuführen. Der Begriff document beispielsweise wird im JavaScript-Code verwendet, um sich auf das HTML-Dokument zu beziehen, das mit dem JavaScript-Code verbunden ist. Im Kontext der JavaScript-Sprache ist document ein globales Objekt mit Eigenschaften und Methoden, über das man Informationen von jedem Element des HTML-Dokuments erhält. Noch wichtiger ist, dass man über das Objekt document dessen Elemente ändern und sie mit benutzerdefinierten, in JavaScript geschriebenen Aktionen verknüpfen kann.
+
+Eine auf Webtechnologien basierende Client-Anwendung ist plattformunabhängig, da sie auf jedem Gerät mit einem kompatiblen Webbrowser ausgeführt werden kann.
+
+Die Beschränkung auf den Browser bringt jedoch Einschränkungen für Webanwendungen im Vergleich zu nativen Anwendungen mit sich. Die Vermittlung durch den Browser ermöglicht eine Programmierung auf höherer Ebene und erhöht die Sicherheit, aber auch die Verarbeitung und den Speicherverbrauch.
+
+Browser werden permanent weiterentwickelt, um mehr Funktionen bereitzustellen und die Leistung von JavaScript-Anwendungen zu verbessern, aber es gibt inhärente Aspekte bei der Ausführung von Skripten wie JavaScript, die sie im Vergleich zu nativen Programmen für dieselbe Hardware benachteiligen.
+
+Eine Funktion, die die Leistung von im Browser ausgeführten JavaScript-Anwendungen erheblich verbessert, ist WebAssembly. WebAssembly ist eine Art kompiliertes JavaScript, das Quellcode in einer effizienteren, niedrigeren Sprache wie C erzeugt. WebAssembly kann vor allem prozessorintensive Aktivitäten beschleunigen, da es einen Großteil der Übersetzung vermeidet, die der Browser bei der Ausführung eines in herkömmlichem JavaScript geschriebenen Programms vornimmt.
+
+Unabhängig von den Implementierungsdetails der Anwendung müssen der gesamte HTML-Code, CSS-, JavaScript- und Multimediadateien zunächst vom Server abgerufen werden. Der Browser bezieht diese Dateien wie eine Internetseite, d.h. über einer Adresse, auf die er zugreift.
+
+Eine Webseite als Schnittstelle zu einer Webanwendung ist wie ein einfaches HTML-Dokument, fügt aber zusätzliche Interaktionsmöglichkeiten hinzu. Auf herkömmlichen Seiten wird der Benutzer nach dem Anklicken eines Links auf eine andere Seite weitergeleitet. Webanwendungen präsentieren ihre Oberfläche und reagieren auf Benutzerereignisse, ohne neue Seiten im Browserfenster zu laden. Die Änderung dieses Standardverhaltens in HTML-Seiten erfolgt durch JavaScript-Programmierung.
+
+Ein Webmail-Client zeigt zum Beispiel Nachrichten an und wechselt zwischen Nachrichtenordnern, ohne die Seite zu verlassen. Dies ist möglich, weil der Client JavaScript verwendet, um auf Benutzeraktionen zu reagieren und entsprechende Anfragen an den Server zu stellen. Wenn der Benutzer auf den Betreff einer Nachricht im Posteingang klickt, fordert ein mit diesem Ereignis verbundener JavaScript-Code den Inhalt dieser Nachricht vom Server an (über einen entsprechenden API-Aufruf). Sobald der Client die Antwort erhält, zeigt der Browser die Nachricht im entsprechenden Teil der gleichen Seite an. Verschiedene Webmail-Clients haben unterschiedliche Strategien, aber sie nutzen alle dasselbe Prinzip.
+
+Daher muss der Server nicht nur die Dateien, aus denen der Client besteht, dem Browser zur Verfügung stellen, sondern auch in der Lage sein, Anfragen wie die des Webmail-Clients zu bearbeiten, wenn dieser nach dem Inhalt einer bestimmten Nachricht fragt. Für jede Anfrage, die der Client stellen kann, gibt es eine definierte Prozedur auf dem Server, dessen API verschiedene Methoden definieren kann, um festzustellen, auf welche Prozedur sich die Anfrage bezieht. Die gebräuchlichsten Methoden sind:
+
+Adressen, über einen Uniform Resource Locator (URL)
+
+Felder im HTTP-Header
+
+GET/POST-Methoden
+
+WebSockets
+
+Je nach Zweck der Anfrage und anderen vom Entwickler berücksichtigten Kriterien kann eine Methode besser geeignet sein als eine andere. In der Regel setzen Webanwendungen auf eine Kombination von Methoden, die jeweils für einen bestimmten Zweck geeignet sind.
+
+Das Representational State Transfer (REST) Paradigma ist für die Kommunikation in Webanwendungen weit verbreitet, da es auf den in HTTP verfügbaren grundlegenden Methoden basiert. Der Header einer HTTP-Anfrage beginnt mit einem Schlüsselwort, das den auszuführenden Grundvorgang definiert: GET, POST, PUT, DELETE etc., begleitet von einer entsprechenden URL, auf die die Aktion angewendet wird. Wenn die Anwendung spezifischere Vorgänge mit einer detaillierteren Beschreibung des angeforderten Vorgangs erfordert, ist das GraphQL-Protokoll möglicherweise die bessere Wahl.
+
+Anwendungen, die auf dem Client/Server-Modell basieren, unterliegen Instabilitäten bei der Kommunikation. Aus diesem Grund muss die Client-Anwendung stets effiziente Datenübertragungsstrategien nutzen, um ihre Konsistenz zu gewährleisten und die Benutzerfreundlichkeit nicht zu beeinträchtigen.
+
+Die Serverseite
+Obwohl er der Hauptakteur in einer Webanwendung ist, ist der Server die passive Seite der Kommunikation — er antwortet nur auf die Anfragen des Clients. Im Webjargon kann sich Server auf den Rechner beziehen, der die Anfragen empfängt, auf das Programm, das speziell HTTP-Anfragen bearbeitet, oder auf das Empfängerskript, das eine Antwort auf die Anfrage erzeugt. Die letztgenannte Definition ist im Zusammenhang mit der Architektur von Webanwendungen die relevanteste, aber sie sind alle eng miteinander verbunden. Obwohl sie nur teilweise in den Aufgabenbereich des Entwicklers eines Anwendungsservers fallen, dürfen Maschine, das Betriebssystem und der HTTP-Server nicht ignoriert werden, da sie für den Betrieb des Anwendungsservers von grundlegender Bedeutung sind und sich häufig überschneiden.
+
+Bearbeitung von Pfaden aus Anfragen
+HTTP-Server wie Apache und NGINX erfordern in der Regel spezifische Konfigurationsänderungen, um den Anforderungen der Anwendung gerecht zu werden. Herkömmliche HTTP-Server verknüpfen den in der Anfrage angegebenen Pfad standardmäßig direkt mit einer Datei im lokalen Dateisystem. Wenn der HTTP-Server einer Website seine HTML-Dateien beispielsweise im Verzeichnis /srv/www aufbewahrt, erhält eine Anfrage mit dem Pfad /de/about.html den Inhalt der Datei /srv/www/de/about.html als Antwort, sofern die Datei existiert. Anspruchsvollere Websites und insbesondere Webanwendungen erfordern eine individuelle Behandlung für verschiedene Arten von Anfragen. In diesem Szenario besteht ein Teil der Anwendungsimplementierung darin, die Einstellungen des HTTP-Servers zu ändern, um die Anforderungen der Anwendung zu erfüllen.
+
+Alternativ gibt es Frameworks, die es ermöglichen, die Verwaltung von HTTP-Anfragen und die Implementierung des Anwendungscodes an einem Ort zu integrieren, so dass sich der Entwickler mehr auf den Zweck der Anwendung als auf Plattformdetails konzentrieren kann. In Node.js Express beispielsweise werden das gesamte Request Mapping und die entsprechende Programmierung mit JavaScript realisiert. Da die Programmierung der Clients in der Regel in JavaScript erfolgt, halten es viele Entwickler aus Sicht der Codepflege für eine gute Idee, für Client und Server dieselbe Sprache zu verwenden. Andere Sprachen, die häufig zur Implementierung der Serverseite verwendet werden — entweder in Frameworks oder in traditionellen HTTP-Servern — sind PHP, Python, Ruby, Java und C#.
+
+Datenbankmanagementsysteme
+Es liegt im Ermessen des Entwicklungsteams, wie die vom Client empfangenen oder angeforderten Daten auf dem Server gespeichert werden, aber es gibt allgemeine Richtlinien, die für die meisten Fälle gelten. Es ist zweckmäßig, statische Inhalte — Bilder, JavaScript- und CSS-Code, die sich kurzfristig nicht ändern — als herkömmliche Dateien zu speichern, entweder im eigenen Dateisystem des Servers oder verteilt über ein Content Delivery Network (CDN). Andere Arten von Inhalten, wie E-Mail-Nachrichten in einer Webmail-Anwendung, Produktdetails in einer Shopping-Anwendung und Transaktionsprotokolle, werden besser in einem Datenbankmanagementsystem (DBMS) gespeichert.
+
+Der traditionelle Typ von Datenbankmanagementsystemen ist die relationale Datenbank. In ihr definiert der Anwendungsentwickler Datentabellen und das von jeder Tabelle akzeptierte Eingabeformat. Der Satz von Tabellen in der Datenbank enthält alle dynamischen Daten, die von der Anwendung verarbeitet und erzeugt werden. Eine Shopping-App kann zum Beispiel eine Tabelle haben, die einen Eintrag mit den Details zu jedem Produkt im Laden enthält, und eine Tabelle, die die von einem Benutzer gekauften Artikel aufzeichnet. Die Tabelle der gekauften Artikel enthält Verweise auf Einträge in der Produkttabelle, wodurch Beziehungen zwischen den Tabellen entstehen. Dieser Ansatz kann die Speicherung und den Zugriff auf die Daten optimieren und ermöglicht Abfragen in kombinierten Tabellen mit der vom Datenbankmanagementsystem verwendeten Sprache. Die beliebteste relationale Datenbanksprache ist die Structured Query Language (SQL, ausgesprochen: “sequel”), die von den Open-Source-Datenbanken SQLite, MySQL, MariaDB und PostgreSQL verwendet wird.
+
+Eine Alternative zu relationalen Datenbanken ist eine Form der Datenbank, die keine starre Struktur für die Daten erfordert. Diese Datenbanken werden nicht-relationale Datenbanken oder einfach NoSQL genannt. Obwohl sie einige ähnliche Funktionen wie relationale Datenbanken aufweisen können, liegt der Schwerpunkt auf einer höheren Flexibilität bei der Speicherung und dem Zugriff auf gespeicherte Daten, wobei die Aufgabe der Datenverarbeitung der Anwendung selbst obliegt. MongoDB, CouchDB und Redis sind gängige nicht-relationale Datenbankmanagementsysteme.
+
+Pflege der Inhalte
+Unabhängig vom gewählten Datenbankmodell müssen die Anwendungen Daten hinzufügen und sie wahrscheinlich während ihrer Lebensdauer aktualisieren. In einigen Anwendungen, wie z.B. Webmail, geben die Benutzer selbst Daten in die Datenbank ein, wenn sie den Client zum Senden und Empfangen von Nachrichten verwenden. In anderen Fällen, wie z.B. bei der Shopping-Anwendung, ist es wichtig, dass die Betreuer der Anwendung die Datenbank ändern können, ohne auf die Programmierung zurückgreifen zu müssen. Viele Unternehmen setzen daher ein Content Management System (CMS) ein, das es auch nicht-technischen Benutzern ermöglicht, die Anwendung zu verwalten. Daher müssen für die meisten Webanwendungen mindestens zwei Arten von Clients implementiert werden: ein nicht privilegierter Client, der von normalen Benutzern verwendet wird, und privilegierte Clients, die speziellen Benutzern zur Pflege und Aktualisierung der von der Anwendung dargestellten Informationen dienen.
+
+Geführte Übungen
+Welche Programmiersprache wird zusammen mit HTML verwendet, um Clients für Webanwendungen zu erstellen?
+
+Wie unterscheidet sich der Aufruf einer Webanwendung von dem einer nativen Anwendung?
+
+Wie unterscheidet sich eine Webanwendung von einer nativen Anwendung beim Zugriff auf die lokale Hardware?
+
+Nennen Sie eine Eigenschaft eines Webanwendungsclients, die ihn von einer gewöhnlichen Webseite unterscheidet.
+
+Offene Übungen
+Welche Funktion bieten moderne Browser, um die schlechte Leistung von CPU-intensiven Webanwendungsclients auszugleichen?
+
+Wenn eine Webanwendung das REST-Paradigma für die Client/Server-Kommunikation verwendet, welche HTTP-Methode sollte verwendet werden, wenn der Client den Server auffordert, eine bestimmte Ressource zu löschen?
+
+Nennen Sie fünf Server-Skriptsprachen, die der Apache-HTTP-Server unterstützt.
+
+Warum gelten nicht-relationale Datenbanken als einfacher zu warten und zu aktualisieren als relationale Datenbanken?
+
+Zusammenfassung
+In dieser Lektion werden die Konzepte und Standards der Webentwicklungstechnologie und -architektur behandelt. Das Prinzip ist einfach: Der Webbrowser führt die Client-Anwendung aus, die mit der Kernanwendung auf dem Server kommuniziert. Obwohl das Prinzip einfach ist, müssen Webanwendungen viele Technologien kombinieren, um das Prinzip des Client/Server-Computings über das Web zu übernehmen. In dieser Lektion werden die folgenden Konzepte behandelt:
+
+Die Rolle von Webbrowsern und Webservern.
+
+Gängige Webentwicklungstechnologien und -standards.
+
+Wie Webclients mit dem Server kommunizieren.
+
+Arten von Webservern und Serverdatenbanken.
+
+Lösungen zu den geführten Übungen
+Welche Programmiersprache wird zusammen mit HTML verwendet, um Clients für Webanwendungen zu erstellen?
+
+JavaScript
+
+Wie unterscheidet sich der Aufruf einer Webanwendung von dem einer nativen Anwendung?
+
+Eine Webanwendung wird nicht installiert. Stattdessen laufen Teile auf dem Server, und die Client-Schnittstelle läuft in einem gewöhnlichen Webbrowser.
+
+Wie unterscheidet sich eine Webanwendung von einer nativen Anwendung beim Zugriff auf die lokale Hardware?
+
+Alle Zugriffe auf lokale Ressourcen wie Speicher, Kameras oder Mikrofone werden über den Browser vermittelt und erfordern eine ausdrückliche Benutzerautorisierung.
+
+Nennen Sie eine Eigenschaft eines Webanwendungsclients, die ihn von einer gewöhnlichen Webseite unterscheidet.
+
+Die Interaktion mit herkömmlichen Webseiten beschränkt sich im Wesentlichen auf Hyperlinks und das Absenden von Formularen, während Webanwendungsclients eher einer herkömmlichen Anwendungsschnittstelle entsprechen.
+
+Lösungen zu den offenen Übungen
+Welche Funktion bieten moderne Browser, um die schlechte Leistung von CPU-intensiven Webanwendungsclients auszugleichen?
+
+Die Entwickler können WebAssembly verwenden, um die CPU-intensiven Teile der Client-Anwendung zu implementieren. WebAssembly-Code ist in der Regel leistungsfähiger als herkömmliches JavaScript, da er weniger Übersetzungen von Anweisungen erfordert.
+
+Wenn eine Webanwendung das REST-Paradigma für die Client/Server-Kommunikation verwendet, welche HTTP-Methode sollte verwendet werden, wenn der Client den Server auffordert, eine bestimmte Ressource zu löschen?
+
+REST stützt sich auf Standard-HTTP-Methoden und sollte daher in diesem Fall die Standardmethode DELETE verwenden.
+
+Nennen Sie fünf Server-Skriptsprachen, die der Apache-HTTP-Server unterstützt.
+
+PHP, Go, Perl, Python und Ruby.
+
+Warum gelten nicht-relationale Datenbanken als einfacher zu warten und zu aktualisieren als relationale Datenbanken?
+
+Im Gegensatz zu relationalen Datenbanken müssen Daten bei nicht-relationalen Datenbanken nicht in starre, vordefinierte Strukturen passen, so dass es einfacher ist, Änderungen an den Datenstrukturen vorzunehmen, ohne dass sich dies auf bestehende Daten auswirkt.
+
+031.3
+Zertifikat:	
+Web Development Essentials
+
+Version:	
+1.0
+
+Thema:	
+031 Softwareentwicklung und Webtechnologien
+
+Lernziel:	
+031.3 HTTP Grundlagen
+
+
+Einführung
+Das HyperText Transfer Protocol (HTTP) legt fest, wie ein Client den Server nach einer bestimmten Ressource fragt. Das Funktionsprinzip ist recht einfach: Der Client erstellt eine Anforderungsnachricht, in der er die benötigte Ressource identifiziert, und leitet diese Nachricht über das Netz an den Server weiter. Der HTTP-Server wiederum prüft, wo die angeforderte Ressource zu finden ist, und sendet eine Antwortnachricht an den Client zurück. Die Antwort enthält Einzelheiten über die angeforderte Ressource, gefolgt von der Ressource selbst.
+
+Genauer gesagt handelt es sich bei HTTP um eine Reihe von Regeln, die festlegen, wie die Client-Anwendung die an den Server gesendeten Request-Nachrichten formatieren soll. Der Server folgt dann den HTTP-Regeln, um die Anfrage zu interpretieren und Reply- bzw. Response-Nachrichten zu formatieren. Neben der Anforderung oder Übertragung des angeforderten Inhalts enthalten HTTP-Nachrichten zusätzliche Informationen über den beteiligten Client und Server, über den Inhalt selbst und sogar über dessen Nichtverfügbarkeit. Kann eine Ressource nicht gesendet werden, erklärt ein Code in der Antwort den Grund für die Nichtverfügbarkeit und gibt, falls möglich, an, wohin die Ressource verschoben wurde.
+
+Der Teil der Nachricht, der die Ressourcendetails und andere Kontextinformationen definiert, wird als Kopf oder Header der Nachricht bezeichnet. Der auf den Header folgende Teil, der den Inhalt der entsprechenden Ressource enthält, wird als Payload der Nachricht bezeichnet. Sowohl Request- als auch Response-Messages können eine Payload haben, aber in den meisten Fällen hat nur die Response-Message eine.
+
+Die Anfrage des Clients
+Die erste Phase eines HTTP-Datenaustauschs zwischen Client und Server wird vom Client initiiert, indem er eine Request-Nachricht an den Server sendet. Nehmen wir als Beispiel eine Standardaufgabe eines Browsers: das Laden einer HTML-Seite von einem Server, auf dem eine Website wie https://learning.lpi.org/en/ gehostet wird. Die Adresse, oder URL, enthält mehrere relevante Informationen — in diesem Beispiel sind es die drei folgenden:
+
+Das Protokoll: HyperText Transfer Protocol Secure (https), eine verschlüsselte Version von HTTP.
+
+Der Netzwerkname des Webhosts (learning.lpi.org)
+
+Der Ort der angeforderten Ressource auf dem Server (das Verzeichnis /en/ — in diesem Fall die englische Version der Homepage).
+
+Note
+Ein Uniform Resource Locator (URL) ist eine Adresse, die auf eine Ressource im Internet verweist. Diese Ressource ist in der Regel eine Datei, die von einem entfernten Server kopiert werden kann, aber URLs können auch auf dynamisch generierte Inhalte und Datenströme verweisen.
+
+Wie der Client die URL verarbeitet
+Vor der Kontaktaufnahme mit dem Server muss der Client learning.lpi.org in die entsprechende IP-Adresse umwandeln. Der Client verwendet einen anderen Internetdienst, das Domain Name System (DNS), um die IP-Adresse eines Hostnamens von einem oder mehreren vordefinierten DNS-Servern anzufordern. DNS-Server werden in der Regel automatisch vom Internet Service Provider (ISP) definiert.
+
+Mit der IP-Adresse des Servers versucht der Client, sich mit dem HTTP- oder HTTPS-Port zu verbinden. Netzwerkports sind Identifikationsnummern, die das Transmission Control Protocol (TCP) definiert, um verschiedene Kommunikationskanäle innerhalb einer Client/Server-Verbindung miteinander zu verknüpfen und zu identifizieren. Standardmäßig empfangen HTTP-Server Anfragen an den TCP-Ports 80 (HTTP) und 443 (HTTPS).
+
+Note
+Es gibt andere Protokolle, die von Webanwendungen für die Client/Server-Kommunikation verwendet werden. Für Audio- und Videoaufrufe ist es beispielsweise sinnvoller, WebSockets zu verwenden, ein Protokoll auf niedrigerer Ebene, das für die Übertragung von Datenströmen in beide Richtungen effizienter ist als HTTP.
+
+Das Format der Anforderungsnachricht, die der Client an den Server sendet, ist bei HTTP und HTTPS identisch. HTTPS ist bereits weiter verbreitet als HTTP, da der gesamte Datenaustausch zwischen Client und Server verschlüsselt wird, was für die Förderung des Datenschutzes und der Sicherheit in öffentlichen Netzen unerlässlich ist. Die verschlüsselte Verbindung wird zwischen Client und Server hergestellt, noch bevor eine HTTP-Nachricht ausgetauscht wird, und zwar über das kryptografische Protokoll Transport Layer Security (TLS). Auf diese Weise wird die gesamte HTTPS-Kommunikation durch TLS gekapselt. Nach der Entschlüsselung unterscheidet sich die über HTTPS übermittelte Anfrage oder Antwort nicht mehr von einer ausschließlich über HTTP übermittelten Anfrage oder Antwort.
+
+Das dritte Element unserer URL, /en/, wird vom Server als Standort oder Pfad für die angeforderte Ressource interpretiert. Wenn der Pfad nicht in der URL angegeben wird, wird der Standardpfad / verwendet. Die einfachste Implementierung eines HTTP-Servers verknüpft Pfade in URLs mit Dateien auf dem Dateisystem, auf dem der Server läuft; aber dies ist nur eine der vielen Optionen, die bei komplexeren HTTP-Servern zur Verfügung stehen.
+
+Die Request-Nachricht
+HTTP funktioniert über eine bereits aufgebaute Verbindung zwischen Client und Server, die in der Regel in TCP implementiert und mit TLS verschlüsselt ist. Sobald eine Verbindung, die den Anforderungen des Servers entspricht, hergestellt ist, kann eine von Hand in Klartext eingegebene HTTP-Anfrage die Antwort des Servers erzeugen. In der Praxis müssen Programmierer jedoch nur selten Routinen zur Erstellung von HTTP-Nachrichten implementieren, da die meisten Programmiersprachen Mechanismen zur Verfügung stellen, die die Erstellung von HTTP-Nachrichten automatisieren. Im Fall der Beispiel-URL https://learning.lpi.org/en/ hätte die einfachste mögliche Anforderungsnachricht folgenden Inhalt:
+
+GET /en/ HTTP/1.1
+Host: learning.lpi.org
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0
+Accept: text/html
+Das erste Wort der ersten Zeile bezeichnet die HTTP-Methode. Es legt fest, welche Operation der Client auf dem Server durchführen möchte. Die GET-Methode teilt dem Server mit, dass der Client die nachfolgende Ressource anfordert: /en/. Da sowohl der Client als auch der Server mehr als eine Version des HTTP-Protokolls unterstützen können, wird in der ersten Zeile auch die Version angegeben, die für den Datenaustausch verwendet werden soll: HTTP/1.1.
+
+Note
+Die neueste Version des HTTP-Protokolls ist HTTP/2. Neben anderen Unterschieden werden die in HTTP/2 geschriebenen Nachrichten in einer binären Struktur kodiert, während die in HTTP/1.1 geschriebenen Nachrichten im Klartext gesendet werden. Durch diese Änderung werden die Datenübertragungsraten optimiert, aber der Inhalt der Nachrichten ist im Grunde derselbe.
+
+Der Header kann nach der ersten Zeile weitere Zeilen enthalten, um die Anfrage an den Server zu kontextualisieren und zu identifizieren. Das Header-Feld Host zum Beispiel mag überflüssig erscheinen, da der Host des Servers offensichtlich vom Client identifiziert wurde, um die Verbindung herzustellen, und man davon ausgehen kann, dass der Server seine eigene Identität kennt. Dennoch ist es wichtig, den Host über den erwarteten Hostnamen im Request-Header zu informieren, da es üblich ist, denselben HTTP-Server für mehr als eine Website zu verwenden. (In diesem Szenario wird jeder spezifische Host als virtueller Host bezeichnet.) Daher wird das Feld Host vom HTTP-Server verwendet, um festzustellen, auf welchen Server sich die Anfrage bezieht.
+
+Das Header-Feld User-Agent enthält Einzelheiten über das Client-Programm, das die Anfrage stellt. Dieses Feld kann vom Server verwendet werden, um die Antwort an die Bedürfnisse eines bestimmten Clients anzupassen, es wird jedoch häufiger verwendet, um Statistiken über die Clients zu erstellen, die den Server benutzen.
+
+Das Feld Accept ist von unmittelbarem Nutzen, da es den Server über das Format der angeforderten Ressource informiert. Ist dem Client das Format der Ressource gleichgültig, kann im Feld Accept das Format */* stehen.
+
+Es gibt viele weitere Header-Felder, die in einer HTTP-Nachricht verwendet werden können, aber die im Beispiel gezeigten Felder reichen aus, um eine Ressource vom Server anzufordern.
+
+Neben den Feldern im Request-Header kann der Client ergänzende Daten in die HTTP-Anfrage aufnehmen, die an den Server gesendet wird. Wenn diese Daten nur aus einfachen Textparametern im Format Name=Wert bestehen, können sie dem Pfad der GET-Methode hinzugefügt werden. Die Parameter werden nach einem Fragezeichen in den Pfad eingebettet und durch ein kaufmännisches Und-Zeichen (&) getrennt:
+
+GET /cgi-bin/receive.cgi?name=LPI&email=info@lpi.org HTTP/1.1
+In diesem Beispiel ist /cgi-bin/receive.cgi der Pfad zu dem Skript auf dem Server, das die Parameter name und email, die aus dem Anfragepfad stammen, verarbeitet und möglicherweise verwendet. Die Zeichenkette, die den Feldern im Format name=LPI&email=info@lpi.org entspricht, wird Query String genannt und dem Skript receive.cgi vom HTTP-Server, der die Anfrage erhält, übergeben.
+
+Wenn die Daten aus mehr als kurzen Textfeldern bestehen, ist es sinnvoller, sie in der Payload der Nachricht zu senden. In diesem Fall ist die HTTP-POST-Methode zu verwenden, damit der Server die Nutzdaten der Nachricht gemäß den im Request-Header angegebenen Spezifikationen erhält und verarbeitet. Bei der POST-Methode muss der Request-Header die Größe der Payload angeben, die als nächste gesendet wird, und wie der Body formatiert ist:
+
+POST /cgi-bin/receive.cgi HTTP/1.1
+Host: learning.lpi.org
+Content-Length: 1503
+Content-Type: multipart/form-data; boundary=------------------------405f7edfd646a37d
+Das Feld Content-Length gibt die Größe der Nutzdaten in Bytes an und das Feld Content-Type das Format. Das Format multipart/form-data wird am häufigsten in traditionellen HTML-Formularen verwendet, die die POST-Methode nutzen. In diesem Format wird jedes Feld, das in die Nutzdaten der Anfrage eingefügt wird, durch den Code getrennt, der durch das Schlüsselwort boundary angegeben wird. Die POST-Methode sollte nur dann verwendet werden, wenn es angebracht ist, da sie eine etwas größere Datenmenge verwendet als eine entsprechende Anfrage, die mit der GET-Methode gestellt wird. Da die GET-Methode die Parameter direkt in der Kopfzeile der Anfrage sendet, hat der gesamte Datenaustausch eine geringere Latenzzeit, da kein zusätzlicher Verbindungsschritt zur Übertragung des Nachrichtentextes erforderlich ist.
+
+Der Response-Header
+Hat der HTTP-Server die Kopfzeile der Request-Nachricht erhalten, sendet er eine Antwortnachricht an den Client zurück. Eine HTML-Datei-Anfrage hat normalerweise einen Antwort-Header wie diesen:
+
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Content-Length: 18170
+Content-Type: text/html
+Date: Mon, 05 Apr 2021 13:44:25 GMT
+Etag: "606adcd4-46fa"
+Last-Modified: Mon, 05 Apr 2021 09:48:04 GMT
+Server: nginx/1.17.10
+In der ersten Zeile steht die Version des HTTP-Protokolls, die in der Antwortnachricht verwendet wird und die der Version im Request-Header entsprechen muss. Dann, ebenfalls in der ersten Zeile, erscheint der Statuscode der Antwort, der angibt, wie der Server die Antwort auf die Anfrage interpretiert und erzeugt hat.
+
+Der Statuscode ist eine dreistellige Zahl, wobei die äußerste linke Ziffer die Antwortklasse angibt. Es gibt fünf Klassen von Statuscodes, die von 1 bis 5 nummeriert sind und jeweils eine Art der vom Server durchgeführten Aktion angeben:
+
+1xx (Informativ)
+Die Anfrage wurde empfangen, der Prozess wird fortgesetzt.
+
+2xx (Erfolgreich)
+Die Anfrage wurde erfolgreich empfangen, verstanden und akzeptiert.
+
+3xx (Weiterleitung)
+Es müssen weitere Maßnahmen ergriffen werden, um die Anfrage abzuschließen.
+
+4xx (Client-Fehler)
+Die Anfrage enthält eine fehlerhafte Syntax oder kann nicht erfüllt werden.
+
+5xx (Server-Fehler)
+Der Server konnte eine scheinbar gültige Anfrage nicht beantworten.
+
+Die zweite und dritte Ziffer werden verwendet, um zusätzliche Details anzugeben. Der Code 200 bedeutet beispielsweise, dass die Anfrage ohne Probleme beantwortet werden konnte. Wie im Beispiel gezeigt, kann auch eine kurze Textbeschreibung auf den Antwortcode (OK) folgen. Einige spezifische Codes sind von besonderem Interesse, um sicherzustellen, dass der HTTP-Client in ungünstigen Situationen auf die Ressource zugreifen kann, oder um im Falle einer erfolglosen Anfrage den Grund für das Scheitern zu ermitteln:
+
+301 Moved Permanently
+Der Zielressource wurde eine neue permanente URL zugewiesen, die das Header-Feld Location in der Antwort bereitstellt.
+
+302 Found
+Die Zielressource findet sich vorübergehend unter einer anderen URL.
+
+401 Unauthorized
+Die Anfrage wurde nicht bearbeitet, da keine gültigen Authentifizierungsdaten für die Zielressource vorliegen.
+
+403 Forbidden
+Die Antwort Forbidden zeigt an, dass die Anfrage zwar gültig ist, der Server aber so konfiguriert ist, dass er sie nicht bereitstellt.
+
+404 Not Found
+Der Ursprungsserver hat keine aktuelle Darstellung für die Zielressource gefunden oder ist nicht bereit, die Existenz einer solchen offenzulegen.
+
+500 Internal Server Error
+Der Server ist auf eine unerwartete Bedingung gestoßen, die ihn daran hindert, die Anfrage zu beantworten.
+
+502 Bad Gateway
+Der Server, der als Gateway oder Proxy fungiert, hat eine ungültige Antwort von einem eingehenden Server erhalten, auf den er beim Versuch, die Anfrage zu erfüllen, zugegriffen hat.
+
+Obwohl sie aussagen, dass die Anfrage nicht bearbeitet werden konnte, zeigen die Statuscodes 4xx und 5xx zumindest an, dass der HTTP-Server läuft und in der Lage ist, Anfragen zu empfangen. Die 4xx-Codes erfordern eine Aktion auf dem Client, weil seine URL oder seine Anmeldedaten falsch sind. Im Gegensatz dazu deuten die 5xx-Codes auf einen Fehler auf der Serverseite hin. Im Zusammenhang mit Webanwendungen zeigen diese beiden Klassen von Statuscodes daher an, dass die Fehlerquelle in der Anwendung selbst liegt, entweder im Client oder im Server, und nicht in der zugrunde liegenden Infrastruktur.
+
+Statische und dynamische Inhalte
+HTTP-Server verwenden zwei grundlegende Mechanismen, um den vom Client angeforderten Inhalt zu liefern. Der erste Mechanismus liefert statische Inhalte, d.h. der in der Request-Nachricht angegebene Pfad entspricht einer Datei im lokalen Dateisystem des Servers. Der zweite Mechanismus liefert dynamische Inhalte: Der HTTP-Server leitet die Anfrage an ein anderes Programm weiter – wahrscheinlich ein Skript –, das die Antwort aus verschiedenen Quellen, wie Datenbanken und anderen Dateien, zusammenstellt.
+
+Obwohl es verschiedene HTTP-Server gibt, verwenden sie alle dasselbe HTTP-Kommunikationsprotokoll und übernehmen mehr oder weniger dieselben Konventionen. Eine Anwendung, die keine besonderen Anforderungen stellt, kann mit jedem herkömmlichen Server wie Apache oder NGINX implementiert werden. Beide sind in der Lage, dynamische Inhalte zu generieren und statische Inhalte bereitzustellen, aber es gibt feine Unterschiede in der Konfiguration der einzelnen Server.
+
+Der Speicherort statischer Dateien, die ausgeliefert werden sollen, ist in Apache und NGINX unterschiedlich definiert. Üblicherweise liegen diese Dateien in einem speziellen Verzeichnis, dessen Name mit dem Host verknüpft ist, zum Beispiel /var/www/learning.lpi.org/. Im Apache wird dieser Pfad durch die Konfigurationsanweisung DocumentRoot /var/www/learning.lpi.org in einem Abschnitt definiert, der einen virtuellen Host beschreibt. Bei NGINX wird die Direktive root /var/www/learning.lpi.org in einem server-Abschnitt der Konfigurationsdatei verwendet.
+
+Welchen Server Sie auch wählen, die Dateien unter /var/www/learning.lpi.org/ werden über HTTP auf fast dieselbe Weise bereitgestellt. Einige Felder in der Kopfzeile der Antwort und ihr Inhalt können zwischen den beiden Servern variieren, aber Felder wie Content-Type müssen in der Kopfzeile der Antwort vorhanden und auf jedem Server konsistent sein.
+
+Caching
+HTTP wurde so konzipiert, dass es mit jeder Art von Internetverbindung funktioniert, ob schnell oder langsam. Außerdem muss der HTTP-Austausch aufgrund der verteilten Architektur des Internets viele Netzknoten durchlaufen. Daher ist es wichtig, eine Strategie zur Zwischenspeicherung von Inhalten anzuwenden, um die redundante Übertragung bereits heruntergeladener Inhalte zu vermeiden. HTTP-Übertragungen können mit zwei grundlegenden Arten von Caches arbeiten: shared und private.
+
+Ein shared, also gemeinsam genutzter Cache wird von mehr als einem Client verwendet. Ein großer Content Provider könnte beispielsweise Caches auf geografisch verteilten Servern nutzen, so dass Kunden die Daten von ihrem nächstgelegenen Server erhalten. Sobald ein Client eine Anfrage gestellt hat und die Antwort in einem gemeinsamen Cache gespeichert wurde, erhalten andere Clients, die dieselbe Anfrage in demselben Gebiet stellen, die Antwort aus dem Cache.
+
+Einen privaten Cache legt der Client für seine ausschließliche Verwendung selbst an. Dabei handelt es sich um die Art der Zwischenspeicherung, die der Webbrowser für Bilder, CSS-Dateien, JavaScript oder das HTML-Dokument selbst vornimmt, so dass sie nicht erneut heruntergeladen werden müssen, wenn sie in kurzem zeitlichen Abstand angefordert werden.
+
+Note
+Nicht alle HTTP-Anfragen müssen zwischengespeichert werden. Eine Anfrage mit der POST-Methode beispielsweise impliziert eine Antwort, die ausschließlich mit dieser speziellen Anfrage verknüpft ist, so dass ihr Antwortinhalt nicht wiederverwendet werden sollte. Standardmäßig werden nur Antworten auf Anfragen, die mit der GET-Methode gestellt werden, zwischengespeichert. Außerdem eignen sich nur Antworten mit schlüssigen Statuscodes wie 200 (OK), 206 (Partial Content), 301 (Moved Permanently) und 404 (Not Found) für das Caching.
+
+Sowohl die shared als auch die private Cache-Strategie verwenden HTTP-Header, um zu steuern, wie der heruntergeladene Inhalt zwischengespeichert wird. Beim privaten Cache konsultiert der Client den Response-Header und prüft, ob der Inhalt im lokalen Cache noch mit dem aktuellen Remote-Inhalt übereinstimmt. Ist dies der Fall, verzichtet der Client auf die Übertragung der Nutzdaten der Antwort und verwendet die lokale Version.
+
+Die Gültigkeit der zwischengespeicherten Ressource kann auf verschiedene Weise beurteilt werden. Der Server kann in der Kopfzeile der Antwort auf die erste Anfrage ein Verfallsdatum angeben, so dass der Client die zwischengespeicherte Ressource nach Ablauf der Frist verwirft und sie erneut anfordert, um die aktualisierte Version zu erhalten. Der Server ist jedoch nicht immer in der Lage, das Verfallsdatum einer Ressource zu bestimmen, so dass es üblich ist, das Antwort-Header-Feld ETag zu verwenden, um die Version der Ressource zu identifizieren, z.B. Etag: "606adcd4-46fa".
+
+Um zu überprüfen, ob eine zwischengespeicherte Ressource aktualisiert werden muss, fordert der Client vom Server nur deren Antwortkopfzeile an. Wenn das Feld ETag mit dem der lokal gespeicherten Version übereinstimmt, verwendet der Client den zwischengespeicherten Inhalt erneut. Andernfalls lädt er den aktualisierten Inhalt der Ressource vom Server herunter.
+
+HTTP-Sitzungen
+Bei einer herkömmlichen Website oder Webanwendung basieren die Funktionen zur Sitzungssteuerung auf den HTTP-Headern. Der Server kann zum Beispiel nicht davon ausgehen, dass alle Anfragen, die von derselben IP-Adresse kommen, von demselben Client stammen. Die verbreitetste Methode, über die der Server verschiedene Anfragen einem einzigen Client zuordnet, ist die Verwendung von Cookies, einem Identifikations-Tag, das der Server dem Client im HTTP-Header übergibt.
+
+Cookies ermöglichen es dem Server, Informationen über einen bestimmten Client aufzubewahren, auch wenn die Person, die den Client bedient, sich nicht ausdrücklich identifiziert. Mit Cookies ist es möglich, Sitzungen einzurichten, in denen Anmeldungen, Warenkörbe, Präferenzen usw. zwischen verschiedenen Anfragen an denselben Server, der sie bereitgestellt hat, erhalten bleiben. Cookies werden auch verwendet, um das Surfverhalten der Benutzer zu verfolgen — daher ist es wichtig, vor der Übermittlung von Cookies die Zustimmung einzuholen.
+
+Der Server setzt den Cookie in der Kopfzeile der Antwort über das Feld Set-Cookie. Der Wert des Feldes ist ein Name-Wert-Paar, das ein mit einem bestimmten Client verbundenes Attribut darstellt. Der Server kann zum Beispiel eine Identifikationsnummer für einen Client erstellen, der eine Ressource zum ersten Mal anfordert, und diese im Antwort-Header an den Client übergeben:
+
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Set-Cookie: client_id=62b5b719-fcbf
+Wenn der Client die Verwendung von Cookies zulässt, enthalten neue Anfragen an denselben Server das Cookie-Feld in der Kopfzeile:
+
+GET /en/ HTTP/1.1
+Host: learning.lpi.org
+Cookie: client_id=62b5b719-fcbf
+Mit dieser Identifikationsnummer ruft der Server spezifische Definitionen für den Client ab und erzeugt eine individuelle Antwort. Es sind auch mehrere Set-Cookie-Felder möglich, um verschiedene Cookies an denselben Client zu liefern. Auf diese Weise kann mehr als eine Definition auf der Client-Seite bewahrt werden.
+
+Cookies werfen sowohl Fragen des Datenschutzes als auch potenzieller Sicherheitslücken auf, da sie grundsätzlich an einen anderen Client weitergegeben werden können, den der Server als den ursprünglichen Client identifiziert hat. Cookies, die der Aufrechterhaltung von Sitzungen dienen, bieten möglicherweise Zugang zu sensiblen Informationen des ursprünglichen Clients. Daher ist es sehr wichtig, dass Clients lokale Schutzmechanismen einsetzen, um zu verhindern, dass ihre Cookies unbefugt extrahiert und wiederverwendet werden.
+
+Geführte Übungen
+Welche HTTP-Methode verwendet die folgende Request-Nachricht?
+
+POST /cgi-bin/receive.cgi HTTP/1.1
+Host: learning.lpi.org
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0
+Accept: */*
+Content-Length: 27
+Content-Type: application/x-www-form-urlencoded
+Wie erkennt ein HTTP-Server, der viele Websites hostet, für welche Website eine Anfrage bestimmt ist?
+
+Welcher Parameter wird durch die Abfragezeichenfolge der URL https://www.google.com/search?q=LPI bereitgestellt?
+
+Warum ist die folgende HTTP-Anfrage nicht für das Caching geeignet?
+
+POST /cgi-bin/receive.cgi HTTP/1.1
+Host: learning.lpi.org
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0
+Accept: */*
+Content-Length: 27
+Content-Type: application/x-www-form-urlencoded
+Offene Übungen
+Wie können Sie den Webbrowser verwenden, um Anfragen und Antworten einer HTML-Seite zu überwachen?
+
+HTTP-Server, die statische Inhalte bereitstellen, ordnen den angeforderten Pfad normalerweise einer Datei im Dateisystem des Servers zu. Was geschieht, wenn der Pfad in der Anfrage auf ein Verzeichnis verweist?
+
+Der Inhalt von Dateien, die über HTTPS gesendet werden, ist durch Verschlüsselung geschützt, so dass er von Computern zwischen dem Client und dem Server nicht gelesen werden kann. Können diese Computer dazwischen trotzdem erkennen, welche Ressource der Client vom Server angefordert hat?
+
+Zusammenfassung
+Diese Lektion behandelt die Grundlagen von HTTP, dem Hauptprotokoll, das von Client-Anwendungen verwendet wird, um Ressourcen von Webservern anzufordern. In der Lektion werden die folgenden Konzepte behandelt:
+
+Request-Nachrichten, Header-Felder und Methoden.
+
+Antwort-Statuscodes.
+
+Wie HTTP-Server Antworten erzeugen.
+
+HTTP-Funktionen, die für Zwischenspeicherung und Sitzungsverwaltung nützlich sind.
+
+Lösungen zu den geführten Übungen
+Welche HTTP-Methode verwendet die folgende Request-Nachricht?
+
+POST /cgi-bin/receive.cgi HTTP/1.1
+Host: learning.lpi.org
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0
+Accept: */*
+Content-Length: 27
+Content-Type: application/x-www-form-urlencoded
+Die POST-Methode.
+
+Wie erkennt ein HTTP-Server, der viele Websites hostet, für welche Website eine Anfrage bestimmt ist?
+
+Das Feld Host in der Kopfzeile der Anfrage gibt die Ziel-Website an.
+
+Welcher Parameter wird durch die Abfragezeichenfolge der URL https://www.google.com/search?q=LPI bereitgestellt?
+
+Der Parameter q mit dem Wert LPI.
+
+Warum ist die folgende HTTP-Anfrage nicht für das Caching geeignet?
+
+POST /cgi-bin/receive.cgi HTTP/1.1
+Host: learning.lpi.org
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0
+Accept: */*
+Content-Length: 27
+Content-Type: application/x-www-form-urlencoded
+Da Anfragen, die mit der POST-Methode gestellt werden, einen Schreibvorgang auf dem Server implizieren, sollten sie nicht zwischengespeichert werden.
+
+Lösungen zu den offenen Übungen
+Wie können Sie den Webbrowser verwenden, um Anfragen und Antworten einer HTML-Seite zu überwachen?
+
+Alle gängigen Browser bieten Entwicklungswerkzeuge an, die u.a. alle Netzwerktransaktionen anzeigen können, die von der aktuellen Seite ausgeführt wurden.
+
+HTTP-Server, die statische Inhalte bereitstellen, ordnen den angeforderten Pfad normalerweise einer Datei im Dateisystem des Servers zu. Was geschieht, wenn der Pfad in der Anfrage auf ein Verzeichnis verweist?
+
+Es hängt davon ab, wie der Server konfiguriert ist. Standardmäßig suchen die meisten HTTP-Server nach einer Datei namens index.html (oder einem anderen vordefinierten Namen) in demselben Verzeichnis und senden sie als Antwort. Wenn die Datei nicht vorhanden ist, gibt der Server eine Antwort 404 Not Found aus.
+
+Der Inhalt von Dateien, die über HTTPS gesendet werden, ist durch Verschlüsselung geschützt, so dass er von Computern zwischen dem Client und dem Server nicht gelesen werden kann. Können diese Computer dazwischen trotzdem erkennen, welche Ressource der Client vom Server angefordert hat?
+
+Nein, denn die HTTP-Header der Anfrage und der Antwort selbst werden ebenfalls mit TLS verschlüsselt.

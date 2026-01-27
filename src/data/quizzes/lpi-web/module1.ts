@@ -4,6 +4,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
   en: [
     // 031.1 - Software Development Basics (Questions 1-13)
     {
+      id: 'm1-en-1',
       question: "What is the primary purpose of source code?",
       answers: [
         "A human-readable description of tasks that will be translated into machine language",
@@ -15,6 +16,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-2',
       question: "Which statement about source code organization in professional applications is correct?",
       answers: [
         "Code is typically organized in multiple directories, each assigned to specific tasks within the application",
@@ -26,6 +28,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-3',
       question: "What distinguishes an Integrated Development Environment (IDE) from a simple text editor?",
       answers: [
         "IDEs provide tools for syntax checking, autocompletion, and real-time debugging",
@@ -37,6 +40,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-4',
       question: "Which version control systems allow decentralized management where multiple independent copies of a repository can be maintained by different people? (Select two)",
       answers: [
         "Git",
@@ -48,6 +52,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-en-5',
       question: "In procedural programming, how is the program state typically managed?",
       answers: [
         "Instructions are executed sequentially, with a main routine calling functions in order",
@@ -59,6 +64,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-6',
       question: "What is the main characteristic of the Object-Oriented Programming (OOP) paradigm?",
       answers: [
         "Division of program state into independent sub-states called objects with associated operations",
@@ -70,6 +76,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-7',
       question: "In OOP terminology, what are 'attributes' and 'methods'?",
       answers: [
         "Variables and subroutines that belong to a class",
@@ -81,6 +88,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-8',
       question: "What characterizes the functional programming paradigm?",
       answers: [
         "Functions receive copies of all necessary information and always return the same result for the same parameters",
@@ -92,6 +100,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-9',
       question: "Which programming language is commonly used for web browser client-side development and supports multiple paradigms?",
       answers: [
         "JavaScript",
@@ -103,6 +112,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-10',
       question: "What is the difference between compiled and interpreted languages regarding program distribution?",
       answers: [
         "Compiled programs are converted to machine code beforehand; interpreted programs use source code as the program itself",
@@ -114,6 +124,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-11',
       question: "What is bytecode in the context of programming languages like Java?",
       answers: [
         "An intermediate format that is closer to machine language than source code but requires a runtime for execution",
@@ -125,6 +136,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-12',
       question: "Which statements about the JavaScript interpreter are correct? (Select two)",
       answers: [
         "Web browsers contain a JavaScript interpreter",
@@ -136,6 +148,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-en-13',
       question: "How can components written in different programming languages communicate within an application?",
       answers: [
         "Through a mutually understood Application Programming Interface (API) or by exchanging files in compatible formats",
@@ -149,6 +162,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
 
     // 031.2 - Web Application Architecture (Questions 14-27)
     {
+      id: 'm1-en-14',
       question: "In the Client/Server model for web applications, what is the primary responsibility of the client?",
       answers: [
         "Providing the user interface and presenting content in an appealing way",
@@ -160,6 +174,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-15',
       question: "What does an HTTP server's API define in the context of web applications?",
       answers: [
         "The available requests and the manner in which those requests should be made",
@@ -171,6 +186,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-16',
       question: "Which browser rendering engines are correctly matched with their browsers? (Select two)",
       answers: [
         "Blink - Chrome and Edge",
@@ -182,6 +198,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-en-17',
       question: "What is a Progressive Web App (PWA)?",
       answers: [
         "A mechanism for packaging web application clients for offline use, limited to features not requiring immediate server communication",
@@ -193,6 +210,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-18',
       question: "How do web applications running in a browser access sensitive resources like camera or microphone?",
       answers: [
         "Through explicit user authorization before the application can use these resources",
@@ -204,6 +222,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-19',
       question: "What is the primary purpose of CSS in a web application client?",
       answers: [
         "Customizing the appearance and layout of HTML interface elements",
@@ -215,6 +234,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-20',
       question: "In JavaScript, what does the 'document' object represent?",
       answers: [
         "A global object providing access to the HTML document's elements, properties, and methods",
@@ -226,6 +246,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-21',
       question: "What is WebAssembly and what problem does it solve?",
       answers: [
         "A compiled format of JavaScript that improves performance for CPU-intensive activities",
@@ -237,6 +258,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-22',
       question: "How does a web application client differ from a traditional web page in terms of navigation?",
       answers: [
         "Web applications can respond to user events without loading new pages in the browser window",
@@ -248,6 +270,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-23',
       question: "Which methods can a web application server use to determine which procedure a client request refers to? (Select two)",
       answers: [
         "URL addresses (Uniform Resource Locator)",
@@ -259,6 +282,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-en-24',
       question: "What is the REST (Representational State Transfer) paradigm based on?",
       answers: [
         "Basic HTTP methods like GET, POST, PUT, DELETE combined with corresponding URLs",
@@ -270,6 +294,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-25',
       question: "When might GraphQL be a better choice than REST for a web application?",
       answers: [
         "When the application requires more specific operations with detailed descriptions of requested actions",
@@ -281,6 +306,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-26',
       question: "What distinguishes a relational database (SQL) from a non-relational database (NoSQL)?",
       answers: [
         "Relational databases require predefined table structures; NoSQL databases allow flexible data formats",
@@ -292,6 +318,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-27',
       question: "Which are examples of open-source relational database systems? (Select two)",
       answers: [
         "MySQL",
@@ -305,6 +332,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
 
     // 031.3 - HTTP Basics (Questions 28-40)
     {
+      id: 'm1-en-28',
       question: "What are the two main parts of an HTTP message structure?",
       answers: [
         "Header (containing resource details and context information) and Payload (containing the resource content)",
@@ -316,6 +344,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-29',
       question: "Before establishing an HTTP connection, what must the client do with a hostname like 'learning.lpi.org'?",
       answers: [
         "Convert it to an IP address using the Domain Name System (DNS)",
@@ -327,6 +356,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-30',
       question: "What is the default TCP port for HTTPS connections?",
       answers: [
         "443",
@@ -338,6 +368,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-31',
       question: "How does HTTPS differ from HTTP in terms of message format?",
       answers: [
         "The message format is identical; HTTPS encrypts the entire communication using TLS",
@@ -349,6 +380,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-32',
       question: "What is the purpose of the 'Host' header field in an HTTP request?",
       answers: [
         "To identify which website the request is for when multiple virtual hosts share the same server",
@@ -360,6 +392,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-33',
       question: "In an HTTP GET request, how are parameters typically transmitted to the server?",
       answers: [
         "Embedded in the URL path after a question mark, with parameters separated by ampersands",
@@ -371,6 +404,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-34',
       question: "When should the HTTP POST method be used instead of GET?",
       answers: [
         "When sending data that consists of more than short text fields or when performing write operations",
@@ -382,6 +416,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-35',
       question: "What does the HTTP status code range 4xx indicate?",
       answers: [
         "Client errors - the request contains bad syntax or cannot be fulfilled",
@@ -393,6 +428,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-36',
       question: "What is the meaning of HTTP status code 301?",
       answers: [
         "Moved Permanently - the resource has a new permanent URL provided in the Location header",
@@ -404,6 +440,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-37',
       question: "Which HTTP status codes indicate problems that require action by the application developer on the server side? (Select two)",
       answers: [
         "500 Internal Server Error",
@@ -415,6 +452,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-en-38',
       question: "What is the difference between a shared cache and a private cache in HTTP?",
       answers: [
         "Shared caches serve multiple clients (e.g., CDN); private caches are used by a single client (e.g., browser cache)",
@@ -426,6 +464,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-39',
       question: "Which types of HTTP requests are typically NOT suitable for caching?",
       answers: [
         "POST requests, as they imply write operations with responses specific to that request",
@@ -437,6 +476,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-40',
       question: "What is the purpose of the ETag header field in HTTP responses?",
       answers: [
         "To identify the version of a resource so clients can determine if their cached copy is still valid",
@@ -448,6 +488,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-en-41',
       question: "How do HTTP cookies enable session management?",
       answers: [
         "The server sets identification tags via Set-Cookie headers that the client includes in subsequent requests",
@@ -462,6 +503,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
   de: [
     // 031.1 - Grundlagen der Softwareentwicklung (Fragen 1-13)
     {
+      id: 'm1-de-1',
       question: "Was ist der Hauptzweck von Quellcode?",
       answers: [
         "Eine menschenlesbare Beschreibung von Aufgaben, die in Maschinensprache übersetzt wird",
@@ -473,6 +515,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-2',
       question: "Welche Aussage über die Organisation von Quellcode in professionellen Anwendungen ist korrekt?",
       answers: [
         "Code wird typischerweise in mehreren Verzeichnissen organisiert, die jeweils bestimmten Aufgaben innerhalb der Anwendung zugeordnet sind",
@@ -484,6 +527,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-3',
       question: "Was unterscheidet eine integrierte Entwicklungsumgebung (IDE) von einem einfachen Texteditor?",
       answers: [
         "IDEs bieten Werkzeuge für Syntaxprüfung, Autovervollständigung und Echtzeit-Debugging",
@@ -495,6 +539,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-4',
       question: "Welche Versionskontrollsysteme ermöglichen dezentrales Management, bei dem mehrere unabhängige Kopien eines Repositories von verschiedenen Personen verwaltet werden können? (Wähle zwei)",
       answers: [
         "Git",
@@ -506,6 +551,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-de-5',
       question: "Wie wird der Programmzustand in der prozeduralen Programmierung typischerweise verwaltet?",
       answers: [
         "Anweisungen werden sequenziell ausgeführt, wobei eine Hauptroutine Funktionen der Reihe nach aufruft",
@@ -517,6 +563,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-6',
       question: "Was ist das Hauptmerkmal des objektorientierten Programmierparadigmas (OOP)?",
       answers: [
         "Aufteilung des Programmzustands in unabhängige Unterzustände, genannt Objekte, mit zugehörigen Operationen",
@@ -528,6 +575,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-7',
       question: "Was sind 'Attribute' und 'Methoden' in der OOP-Terminologie?",
       answers: [
         "Variablen und Unterprogramme, die zu einer Klasse gehören",
@@ -539,6 +587,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-8',
       question: "Was charakterisiert das funktionale Programmierparadigma?",
       answers: [
         "Funktionen erhalten Kopien aller notwendigen Informationen und liefern für dieselben Parameter immer dasselbe Ergebnis",
@@ -550,6 +599,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-9',
       question: "Welche Programmiersprache wird häufig für die clientseitige Webentwicklung im Browser verwendet und unterstützt mehrere Paradigmen?",
       answers: [
         "JavaScript",
@@ -561,6 +611,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-10',
       question: "Was ist der Unterschied zwischen kompilierten und interpretierten Sprachen bezüglich der Programmverteilung?",
       answers: [
         "Kompilierte Programme werden vorab in Maschinencode umgewandelt; bei interpretierten Sprachen wird der Quellcode selbst als Programm behandelt",
@@ -572,6 +623,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-11',
       question: "Was ist Bytecode im Kontext von Programmiersprachen wie Java?",
       answers: [
         "Ein Zwischenformat, das näher an der Maschinensprache ist als Quellcode, aber eine Laufzeitumgebung zur Ausführung benötigt",
@@ -583,6 +635,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-12',
       question: "Welche Aussagen über den JavaScript-Interpreter sind korrekt? (Wähle zwei)",
       answers: [
         "Webbrowser enthalten einen JavaScript-Interpreter",
@@ -594,6 +647,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-de-13',
       question: "Wie können Komponenten, die in verschiedenen Programmiersprachen geschrieben sind, innerhalb einer Anwendung kommunizieren?",
       answers: [
         "Durch eine gemeinsam verstandene Programmierschnittstelle (API) oder durch Austausch von Dateien in kompatiblen Formaten",
@@ -607,6 +661,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
 
     // 031.2 - Architektur von Webanwendungen (Fragen 14-27)
     {
+      id: 'm1-de-14',
       question: "Was ist im Client/Server-Modell für Webanwendungen die Hauptaufgabe des Clients?",
       answers: [
         "Bereitstellung der Benutzeroberfläche und ansprechende Präsentation der Inhalte",
@@ -618,6 +673,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-15',
       question: "Was definiert die API eines HTTP-Servers im Kontext von Webanwendungen?",
       answers: [
         "Die verfügbaren Anfragen und die Art und Weise, wie diese Anfragen gestellt werden sollen",
@@ -629,6 +685,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-16',
       question: "Welche Browser-Rendering-Engines sind korrekt ihren Browsern zugeordnet? (Wähle zwei)",
       answers: [
         "Blink - Chrome und Edge",
@@ -640,6 +697,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-de-17',
       question: "Was ist eine Progressive Web App (PWA)?",
       answers: [
         "Ein Mechanismus zur Paketierung von Webanwendungs-Clients für die Offline-Nutzung, beschränkt auf Funktionen ohne unmittelbare Server-Kommunikation",
@@ -651,6 +709,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-18',
       question: "Wie greifen Webanwendungen im Browser auf sensible Ressourcen wie Kamera oder Mikrofon zu?",
       answers: [
         "Durch ausdrückliche Benutzerautorisierung, bevor die Anwendung diese Ressourcen nutzen kann",
@@ -662,6 +721,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-19',
       question: "Was ist der Hauptzweck von CSS in einem Webanwendungs-Client?",
       answers: [
         "Anpassung des Aussehens und Layouts von HTML-Oberflächenelementen",
@@ -673,6 +733,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-20',
       question: "Was repräsentiert das 'document'-Objekt in JavaScript?",
       answers: [
         "Ein globales Objekt, das Zugriff auf die Elemente, Eigenschaften und Methoden des HTML-Dokuments bietet",
@@ -684,6 +745,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-21',
       question: "Was ist WebAssembly und welches Problem löst es?",
       answers: [
         "Ein kompiliertes Format von JavaScript, das die Leistung bei CPU-intensiven Aktivitäten verbessert",
@@ -695,6 +757,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-22',
       question: "Wie unterscheidet sich ein Webanwendungs-Client von einer traditionellen Webseite bezüglich der Navigation?",
       answers: [
         "Webanwendungen können auf Benutzerereignisse reagieren, ohne neue Seiten im Browserfenster zu laden",
@@ -706,6 +769,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-23',
       question: "Welche Methoden kann ein Webanwendungsserver verwenden, um festzustellen, auf welche Prozedur sich eine Client-Anfrage bezieht? (Wähle zwei)",
       answers: [
         "URL-Adressen (Uniform Resource Locator)",
@@ -717,6 +781,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-de-24',
       question: "Worauf basiert das REST (Representational State Transfer) Paradigma?",
       answers: [
         "Grundlegenden HTTP-Methoden wie GET, POST, PUT, DELETE kombiniert mit entsprechenden URLs",
@@ -728,6 +793,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-25',
       question: "Wann könnte GraphQL für eine Webanwendung eine bessere Wahl als REST sein?",
       answers: [
         "Wenn die Anwendung spezifischere Operationen mit detaillierten Beschreibungen der angeforderten Aktionen erfordert",
@@ -739,6 +805,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-26',
       question: "Was unterscheidet eine relationale Datenbank (SQL) von einer nicht-relationalen Datenbank (NoSQL)?",
       answers: [
         "Relationale Datenbanken erfordern vordefinierte Tabellenstrukturen; NoSQL-Datenbanken erlauben flexible Datenformate",
@@ -750,6 +817,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-27',
       question: "Welche sind Beispiele für Open-Source relationale Datenbanksysteme? (Wähle zwei)",
       answers: [
         "MySQL",
@@ -763,6 +831,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
 
     // 031.3 - HTTP Grundlagen (Fragen 28-40)
     {
+      id: 'm1-de-28',
       question: "Was sind die zwei Hauptteile der HTTP-Nachrichtenstruktur?",
       answers: [
         "Header (enthält Ressourcendetails und Kontextinformationen) und Payload (enthält den Ressourceninhalt)",
@@ -774,6 +843,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-29',
       question: "Was muss der Client vor dem Aufbau einer HTTP-Verbindung mit einem Hostnamen wie 'learning.lpi.org' tun?",
       answers: [
         "Ihn mithilfe des Domain Name System (DNS) in eine IP-Adresse umwandeln",
@@ -785,6 +855,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-30',
       question: "Was ist der Standard-TCP-Port für HTTPS-Verbindungen?",
       answers: [
         "443",
@@ -796,6 +867,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-31',
       question: "Wie unterscheidet sich HTTPS von HTTP bezüglich des Nachrichtenformats?",
       answers: [
         "Das Nachrichtenformat ist identisch; HTTPS verschlüsselt die gesamte Kommunikation mit TLS",
@@ -807,6 +879,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-32',
       question: "Was ist der Zweck des 'Host'-Header-Felds in einer HTTP-Anfrage?",
       answers: [
         "Zu identifizieren, für welche Website die Anfrage bestimmt ist, wenn mehrere virtuelle Hosts denselben Server teilen",
@@ -818,6 +891,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-33',
       question: "Wie werden Parameter in einer HTTP-GET-Anfrage typischerweise an den Server übertragen?",
       answers: [
         "Eingebettet im URL-Pfad nach einem Fragezeichen, mit Parametern getrennt durch kaufmännische Und-Zeichen",
@@ -829,6 +903,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-34',
       question: "Wann sollte die HTTP-POST-Methode anstelle von GET verwendet werden?",
       answers: [
         "Beim Senden von Daten, die aus mehr als kurzen Textfeldern bestehen, oder bei Schreiboperationen",
@@ -840,6 +915,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-35',
       question: "Was zeigt der HTTP-Statuscode-Bereich 4xx an?",
       answers: [
         "Client-Fehler - die Anfrage enthält fehlerhafte Syntax oder kann nicht erfüllt werden",
@@ -851,6 +927,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-36',
       question: "Was bedeutet der HTTP-Statuscode 301?",
       answers: [
         "Moved Permanently - die Ressource hat eine neue permanente URL, die im Location-Header angegeben ist",
@@ -862,6 +939,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-37',
       question: "Welche HTTP-Statuscodes weisen auf Probleme hin, die Maßnahmen des Anwendungsentwicklers auf der Serverseite erfordern? (Wähle zwei)",
       answers: [
         "500 Internal Server Error",
@@ -873,6 +951,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: true
     },
     {
+      id: 'm1-de-38',
       question: "Was ist der Unterschied zwischen einem Shared Cache und einem Private Cache in HTTP?",
       answers: [
         "Shared Caches bedienen mehrere Clients (z.B. CDN); Private Caches werden von einem einzelnen Client verwendet (z.B. Browser-Cache)",
@@ -884,6 +963,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-39',
       question: "Welche Arten von HTTP-Anfragen sind typischerweise NICHT für das Caching geeignet?",
       answers: [
         "POST-Anfragen, da sie Schreiboperationen implizieren und Antworten spezifisch für diese Anfrage sind",
@@ -895,6 +975,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-40',
       question: "Was ist der Zweck des ETag-Header-Felds in HTTP-Antworten?",
       answers: [
         "Die Version einer Ressource zu identifizieren, damit Clients feststellen können, ob ihre zwischengespeicherte Kopie noch gültig ist",
@@ -906,6 +987,7 @@ export const module1Questions: { de: Question[]; en: Question[] } = {
       multiSelect: false
     },
     {
+      id: 'm1-de-41',
       question: "Wie ermöglichen HTTP-Cookies die Sitzungsverwaltung?",
       answers: [
         "Der Server setzt Identifikations-Tags über Set-Cookie-Header, die der Client in nachfolgenden Anfragen einschließt",

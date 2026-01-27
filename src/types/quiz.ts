@@ -1,8 +1,10 @@
 export interface Question {
+  id: string;
   question: string;
   answers: string[];
   correct: number[];
   multiSelect: boolean;
+  explanation?: string;
   code?: string;
   expectedOutput?: string;
   showCodeLabel?: boolean;
@@ -74,7 +76,7 @@ export interface QuizState {
   questions: (Question & { module: number; originalIndex: number })[];
 
   // State for each question
-  questionStates: QuestionState[];
+  questionStates: Record<string, QuestionState>;
   answerMappings: number[][];
 
   // Current question state

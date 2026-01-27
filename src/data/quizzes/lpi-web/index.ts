@@ -1,6 +1,9 @@
 import type { Quiz } from '@/types/quiz';
 import { module1Questions } from './module1';
 import { module2Questions } from './module2';
+import { module3Questions } from './module3';
+import { module4Questions } from './module4';
+import { module5Questions } from './module5';
 
 export const lpiWebQuiz: Quiz = {
   id: 'lpi-web',
@@ -62,6 +65,54 @@ export const lpiWebQuiz: Quiz = {
       questionCount: 45,
       estimatedTime: '45 Min',
       questions: module2Questions,
+    },
+    {
+      id: 3,
+      title: {
+        de: 'Gestaltung von Inhalten mit CSS',
+        en: 'Styling Content with CSS',
+      },
+      description: {
+        de: 'CSS-Grundlagen, Selektoren, Eigenschaften, Box-Modell und Layout',
+        en: 'CSS Basics, Selectors, Properties, Box Model and Layout',
+      },
+      icon: 'CssIcon',
+      color: 'supernova',
+      questionCount: 45,
+      estimatedTime: '45 Min',
+      questions: module3Questions,
+    },
+    {
+      id: 4,
+      title: {
+        de: 'JavaScript-Programmierung',
+        en: 'JavaScript Programming',
+      },
+      description: {
+        de: 'JavaScript-Syntax, Datenstrukturen, Kontrollstrukturen, Funktionen und DOM-Manipulation',
+        en: 'JavaScript Syntax, Data Structures, Control Structures, Functions and DOM Manipulation',
+      },
+      icon: 'JavaScriptIcon',
+      color: 'supernova',
+      questionCount: 48,
+      estimatedTime: '50 Min',
+      questions: module4Questions,
+    },
+    {
+      id: 5,
+      title: {
+        de: 'Node.js Server-Programmierung',
+        en: 'Node.js Server Programming',
+      },
+      description: {
+        de: 'Node.js Grundlagen, Express, Templates und SQL/SQLite-Integration',
+        en: 'Node.js basics, Express, templating, and SQL/SQLite integration',
+      },
+      icon: 'NodejsIcon',
+      color: 'supernova',
+      questionCount: 45,
+      estimatedTime: '45 Min',
+      questions: module5Questions,
     },
   ],
 };

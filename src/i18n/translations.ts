@@ -50,6 +50,7 @@ export const translations = {
     checkAnswer: 'Antwort prüfen',
     nextQuestion: 'Nächste Frage',
     showResults: 'Ergebnis anzeigen',
+    explanationLabel: 'Erklärung',
     quit: 'Beenden',
 
     // Results
@@ -137,6 +138,7 @@ export const translations = {
     checkAnswer: 'Check Answer',
     nextQuestion: 'Next Question',
     showResults: 'Show Result',
+    explanationLabel: 'Explanation',
     quit: 'Quit',
 
     // Results

@@ -15,7 +15,7 @@ interface QuizStore {
   questions: BilingualQuestion[];
 
   // State for each question
-  questionStates: QuestionState[];
+  questionStates: Record<string, QuestionState>;
 
   // Current question state
   selectedAnswers: number[];
@@ -58,6 +58,13 @@ function shuffleArray<T>(array: T[]): T[] {
   return newArray;
 }
 
+const normalizeQuestionId = (id: string) => id.replace(/-(de|en)-/g, '-');
+
+const getQuestionKey = (question: BilingualQuestion) => {
+  const baseId = question.de.id || question.en.id;
+  return baseId ? normalizeQuestionId(baseId) : `m${question.module}-${question.originalIndex + 1}`;
+};
+
 export const useQuizStore = create<QuizStore>()(
   persist(
     (set, get) => ({
@@ -67,7 +74,7 @@ export const useQuizStore = create<QuizStore>()(
       currentQuestionIndex: 0,
       isExamMode: false,
       questions: [],
-      questionStates: [],
+      questionStates: {},
       selectedAnswers: [],
       answered: false,
       answerMapping: [],
@@ -117,7 +124,7 @@ export const useQuizStore = create<QuizStore>()(
           currentQuestionIndex: 0,
           isExamMode: false,
           questions: shuffledQuestions,
-          questionStates: [],
+          questionStates: {},
           selectedAnswers: [],
           answered: false,
           answerMapping: [],
@@ -153,7 +160,7 @@ export const useQuizStore = create<QuizStore>()(
           currentQuestionIndex: 0,
           isExamMode: true,
           questions: examQuestions,
-          questionStates: [],
+          questionStates: {},
           selectedAnswers: [],
           answered: false,
           answerMapping: [],
@@ -172,8 +179,9 @@ export const useQuizStore = create<QuizStore>()(
         }
 
         const bilingualQuestion = questions[currentQuestionIndex];
+        const questionKey = getQuestionKey(bilingualQuestion);
         const question = bilingualQuestion[language];
-        const savedState = questionStates[currentQuestionIndex];
+        const savedState = questionStates[questionKey];
 
         if (savedState) {
           // Restore saved state
@@ -282,11 +290,18 @@ export const useQuizStore = create<QuizStore>()(
       },
 
       saveCurrentQuestionState: () => {
-        const { currentQuestionIndex, selectedAnswers, answered, answerMapping, questionStates } =
-          get();
+        const {
+          currentQuestionIndex,
+          selectedAnswers,
+          answered,
+          answerMapping,
+          questionStates,
+          questions,
+        } = get();
+        const questionKey = getQuestionKey(questions[currentQuestionIndex]);
 
-        const newStates = [...questionStates];
-        newStates[currentQuestionIndex] = {
+        const newStates = { ...questionStates };
+        newStates[questionKey] = {
           selectedAnswers: [...selectedAnswers],
           answered,
           answerMapping: [...answerMapping],
@@ -308,7 +323,7 @@ export const useQuizStore = create<QuizStore>()(
           currentQuestionIndex: 0,
           isExamMode: false,
           questions: [],
-          questionStates: [],
+          questionStates: {},
           selectedAnswers: [],
           answered: false,
           answerMapping: [],
@@ -319,7 +334,7 @@ export const useQuizStore = create<QuizStore>()(
 
       getAnsweredCount: () => {
         const { questionStates } = get();
-        return questionStates.filter((state) => state && state.answered).length;
+        return Object.values(questionStates).filter((state) => state && state.answered).length;
       },
     }),
     {

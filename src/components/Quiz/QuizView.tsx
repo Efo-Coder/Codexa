@@ -311,6 +311,18 @@ export function QuizView({ onQuit, onFinish }: QuizViewProps) {
             })}
           </div>
 
+          {answered && question.explanation && (
+            <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-4">
+              <div className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-2">
+                {t.explanationLabel}
+              </div>
+              <div
+                className="text-slate-700 dark:text-slate-200 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: question.explanation }}
+              />
+            </div>
+          )}
+
           {/* Action Buttons */}
           <div className="mt-8 flex justify-center gap-4">
             {!answered ? (

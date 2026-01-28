@@ -15,6 +15,21 @@ const moduleColors: Record<number, { gradient: string; text: string }> = {
   4: { gradient: 'gradient-bg-blue', text: 'gradient-text-blue' },
 };
 
+const sanitizeHtml = (value: string) => {
+  const escaped = value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  const pairedTags = ['code', 'strong', 'em'];
+  const withPairs = pairedTags.reduce((acc, tag) => {
+    const pair = new RegExp(`&lt;${tag}&gt;([\\s\\S]*?)&lt;\\/${tag}&gt;`, 'gi');
+    return acc.replace(pair, `<${tag}>$1</${tag}>`);
+  }, escaped);
+
+  return withPairs.replace(/&lt;br\s*\/?>/gi, '<br>');
+};
+
 export function QuizView({ onQuit, onFinish }: QuizViewProps) {
   const {
     language,
@@ -237,7 +252,7 @@ export function QuizView({ onQuit, onFinish }: QuizViewProps) {
           {/* Question Text */}
           <h2
             className="question-text text-2xl font-semibold text-slate-800 dark:text-white mb-6"
-            dangerouslySetInnerHTML={{ __html: question.question }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(question.question) }}
           />
 
           {/* Expected Output */}
@@ -304,7 +319,7 @@ export function QuizView({ onQuit, onFinish }: QuizViewProps) {
                   </div>
                   <div
                     className="flex-1 font-medium text-slate-700 dark:text-slate-200"
-                    dangerouslySetInnerHTML={{ __html: answer }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(answer) }}
                   />
                 </button>
               );
@@ -318,7 +333,7 @@ export function QuizView({ onQuit, onFinish }: QuizViewProps) {
               </div>
               <div
                 className="text-slate-700 dark:text-slate-200 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: question.explanation }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(question.explanation) }}
               />
             </div>
           )}

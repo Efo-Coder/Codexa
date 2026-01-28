@@ -80,7 +80,7 @@ const moduleIcons: Record<string, JSX.Element> = {
     <img
       src="https://img.icons8.com/windows/96/nodejs.png"
       alt="Node.js"
-      className="w-8 h-8 invert"
+      className="w-8 h-8 invert scale-150"
     />
   ),
   GlobeIcon: (
